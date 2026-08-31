@@ -7,7 +7,6 @@ import MovieCard from './components/MovieCard';
 import VideoModal from './components/VideoModal';
 
 export default function App() {
-  // डिफ़ॉल्ट भाषा इंग्लिश (en)
   const [lang, setLang] = useState('en');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('All');
@@ -72,10 +71,31 @@ export default function App() {
 
   const isFiltering = searchTerm || selectedGenre !== 'All' || selectedLanguage !== 'All' || selectedCountry !== 'All';
 
-  const awardWinningFilms = useMemo(() => filteredFilms.filter(f => f.genre?.includes('Award Winning') || f.popularityScore >= 95), [filteredFilms]);
-  const dramaFilms = useMemo(() => filteredFilms.filter(f => f.genre?.includes('Drama')), [filteredFilms]);
-  const thrillerFilms = useMemo(() => filteredFilms.filter(f => f.genre?.includes('Thriller') || f.genre?.includes('Mystery')), [filteredFilms]);
-  const globalFilms = useMemo(() => filteredFilms.filter(f => f.country !== 'India'), [filteredFilms]);
+  // शून्य दोहराव (Zero-Repetition Bucket Logic)
+  const categorizedRows = useMemo(() => {
+    const seenIds = new Set();
+    if (featuredFilm?.id) seenIds.add(featuredFilm.id);
+
+    const pickUnique = (predicate, limit = 15) => {
+      const row = [];
+      for (const f of filteredFilms) {
+        if (!seenIds.has(f.id) && predicate(f)) {
+          row.push(f);
+          seenIds.add(f.id);
+          if (row.length === limit) break;
+        }
+      }
+      return row;
+    };
+
+    const awardWinning = pickUnique(f => f.genre?.includes('Award Winning') || f.popularityScore >= 92, 16);
+    const drama = pickUnique(f => f.genre?.includes('Drama') || !f.genre?.includes('Thriller'), 16);
+    const thriller = pickUnique(f => f.genre?.includes('Thriller') || f.genre?.includes('Mystery') || f.genre?.includes('Crime'), 16);
+    const globalShorts = pickUnique(f => f.country !== 'India' || f.language !== 'Hindi', 16);
+    const moreFilms = pickUnique(() => true, 16);
+
+    return { awardWinning, drama, thriller, globalShorts, moreFilms };
+  }, [filteredFilms, featuredFilm]);
 
   return (
     <div className="min-h-screen bg-[#0d0d0f] text-zinc-100 font-sans antialiased selection:bg-red-600 selection:text-white">
@@ -123,28 +143,42 @@ export default function App() {
           </div>
         ) : (
           <div className="space-y-6 md:space-y-8 mt-2">
-            <MovieRow 
-              title={lang === 'hi' ? "अवार्ड-विनिंग और लोकप्रिय शॉर्ट फ़िल्में" : "Award Winning & Popular"} 
-              films={awardWinningFilms.length ? awardWinningFilms : filteredFilms.slice(0, 15)} 
-              onSelectFilm={(f) => setPlayingFilm(f)} 
-              lang={lang} 
-            />
-            <MovieRow 
-              title={lang === 'hi' ? "ड्रामा और भावनाएँ" : "Drama & Emotions"} 
-              films={dramaFilms.length ? dramaFilms : filteredFilms.slice(5, 20)} 
-              onSelectFilm={(f) => setPlayingFilm(f)} 
-              lang={lang} 
-            />
-            <MovieRow 
-              title={lang === 'hi' ? "थ्रिलर और सस्पेंस" : "Thriller & Suspense"} 
-              films={thrillerFilms.length ? thrillerFilms : filteredFilms.slice(10, 25)} 
-              onSelectFilm={(f) => setPlayingFilm(f)} 
-              lang={lang} 
-            />
-            {globalFilms.length > 0 && (
+            {categorizedRows.awardWinning.length > 0 && (
               <MovieRow 
-                title={lang === 'hi' ? "ग्लोबल और ऑस्कर शॉर्ट्स" : "Global & Oscar Shorts"} 
-                films={globalFilms} 
+                title={lang === 'hi' ? "अवार्ड-विनिंग और लोकप्रिय शॉर्ट फ़िल्में" : "Award Winning & Popular"} 
+                films={categorizedRows.awardWinning} 
+                onSelectFilm={(f) => setPlayingFilm(f)} 
+                lang={lang} 
+              />
+            )}
+            {categorizedRows.drama.length > 0 && (
+              <MovieRow 
+                title={lang === 'hi' ? "ड्रामा और भावनाएँ" : "Drama & Human Stories"} 
+                films={categorizedRows.drama} 
+                onSelectFilm={(f) => setPlayingFilm(f)} 
+                lang={lang} 
+              />
+            )}
+            {categorizedRows.thriller.length > 0 && (
+              <MovieRow 
+                title={lang === 'hi' ? "थ्रिलर और सस्पेंस" : "Thriller & Suspense"} 
+                films={categorizedRows.thriller} 
+                onSelectFilm={(f) => setPlayingFilm(f)} 
+                lang={lang} 
+              />
+            )}
+            {categorizedRows.globalShorts.length > 0 && (
+              <MovieRow 
+                title={lang === 'hi' ? "ग्लोबल और ऑस्कर शॉर्ट्स" : "Global & International Cinema"} 
+                films={categorizedRows.globalShorts} 
+                onSelectFilm={(f) => setPlayingFilm(f)} 
+                lang={lang} 
+              />
+            )}
+            {categorizedRows.moreFilms.length > 0 && (
+              <MovieRow 
+                title={lang === 'hi' ? "अन्य चुनिंदा फ़िल्में" : "Explore More Shorts"} 
+                films={categorizedRows.moreFilms} 
                 onSelectFilm={(f) => setPlayingFilm(f)} 
                 lang={lang} 
               />
