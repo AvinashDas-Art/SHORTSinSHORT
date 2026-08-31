@@ -31,4 +31,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Auto: Added daily film from backlog"
-          file_pattern: "data/films.json scripts/film-backlog.json"
+          file_pattern: "src/data/films.json scripts/film-backlog.json"
