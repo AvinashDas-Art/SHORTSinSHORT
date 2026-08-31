@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+/* --- Scroll fix -------------------------------------------------------
+   The site must scroll normally past the hero. Never pin html/body/#root
+   to a fixed 100vh with overflow:hidden — that's what traps the page. */
+html,
+body {
+  height: auto;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#root {
+  min-height: 100vh;
+  height: auto;
+  overflow: visible;
+}
+/* ------------------------------------------------------------------- */
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
