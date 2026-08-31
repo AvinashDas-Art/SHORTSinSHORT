@@ -71,7 +71,7 @@ export default function App() {
 
   const isFiltering = searchTerm || selectedGenre !== 'All' || selectedLanguage !== 'All' || selectedCountry !== 'All';
 
-  // शून्य दोहराव (Zero-Repetition Bucket Logic)
+  // शून्य दोहराव और थ्रिलर पंक्ति को प्राथमिकता
   const categorizedRows = useMemo(() => {
     const seenIds = new Set();
     if (featuredFilm?.id) seenIds.add(featuredFilm.id);
@@ -88,13 +88,13 @@ export default function App() {
       return row;
     };
 
-    const awardWinning = pickUnique(f => f.genre?.includes('Award Winning') || f.popularityScore >= 92, 16);
-    const drama = pickUnique(f => f.genre?.includes('Drama') || !f.genre?.includes('Thriller'), 16);
-    const thriller = pickUnique(f => f.genre?.includes('Thriller') || f.genre?.includes('Mystery') || f.genre?.includes('Crime'), 16);
+    const thriller = pickUnique(f => f.genre?.includes('Thriller') || f.genre?.includes('Mystery') || f.genre?.includes('Suspense') || f.genre?.includes('Crime'), 16);
+    const awardWinning = pickUnique(f => f.genre?.includes('Award Winning') || f.popularityScore >= 90, 16);
+    const drama = pickUnique(f => f.genre?.includes('Drama') || f.genre?.includes('Family'), 16);
     const globalShorts = pickUnique(f => f.country !== 'India' || f.language !== 'Hindi', 16);
     const moreFilms = pickUnique(() => true, 16);
 
-    return { awardWinning, drama, thriller, globalShorts, moreFilms };
+    return { thriller, awardWinning, drama, globalShorts, moreFilms };
   }, [filteredFilms, featuredFilm]);
 
   return (
@@ -151,18 +151,18 @@ export default function App() {
                 lang={lang} 
               />
             )}
-            {categorizedRows.drama.length > 0 && (
-              <MovieRow 
-                title={lang === 'hi' ? "ड्रामा और भावनाएँ" : "Drama & Human Stories"} 
-                films={categorizedRows.drama} 
-                onSelectFilm={(f) => setPlayingFilm(f)} 
-                lang={lang} 
-              />
-            )}
             {categorizedRows.thriller.length > 0 && (
               <MovieRow 
                 title={lang === 'hi' ? "थ्रिलर और सस्पेंस" : "Thriller & Suspense"} 
                 films={categorizedRows.thriller} 
+                onSelectFilm={(f) => setPlayingFilm(f)} 
+                lang={lang} 
+              />
+            )}
+            {categorizedRows.drama.length > 0 && (
+              <MovieRow 
+                title={lang === 'hi' ? "ड्रामा और भावनाएँ" : "Drama & Human Stories"} 
+                films={categorizedRows.drama} 
                 onSelectFilm={(f) => setPlayingFilm(f)} 
                 lang={lang} 
               />
