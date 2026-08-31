@@ -3,172 +3,264 @@
     "id": "sf001",
     "title": {
       "en": "Hair Love",
-      "hi": "Hair Love"
+      "hi": "हेयर लव"
     },
     "description": {
-      "en": "A clumsy but loving single father tries to style his daughter's curly hair for her first day of school. A small morning becomes a story of deep, unspoken love.",
-      "hi": "एक अनाड़ी मगर प्यार से भरा पिता अपनी बेटी के घुंघराले बालों को उसके पहले दिन के लिए संवारने की कोशिश करता है। एक छोटी सी सुबह, बड़े प्यार की कहानी बन जाती है."
+      "en": "An Oscar-winning animated short about an African American father learning to do his daughter's hair for the first time.",
+      "hi": "ऑस्कर विजेता एनिमेटेड शॉर्ट फिल्म, जिसमें एक पिता अपनी बेटी के बालों को संवारना सीखता है।"
     },
     "youtubeVideoId": "kNw8V_Fkw28",
     "thumbnailUrl": "https://img.youtube.com/vi/kNw8V_Fkw28/hqdefault.jpg",
     "genre": [
       "Animation",
-      "Drama"
+      "Drama",
+      "Family"
     ],
     "language": "English",
     "country": "USA",
-    "popularityScore": 96,
+    "popularityScore": 99,
     "duration": "7 min",
     "isFeatured": true
   },
   {
     "id": "sf002",
     "title": {
-      "en": "Chutney",
-      "hi": "Chutney"
+      "en": "Ahalya",
+      "hi": "अहल्या"
     },
     "description": {
-      "en": "A woman sits her neighbor down in the kitchen and tells a story that keeps swinging between dark humor and horror. Every line reveals a new shade of the truth.",
-      "hi": "एक औरत अपनी पड़ोसन को रसोई में बैठाकर एक ऐसा किस्सा सुनाती है जो हंसी और खौफ़ के बीच झूलता रहता है। हर लाइन के साथ सच का एक नया रंग खुलता है."
+      "en": "Sujoy Ghosh's thrilling spin on the mythological tale starring Radhika Apte and Soumitra Chatterjee.",
+      "hi": "राधिका आप्टे और सौमित्र चटर्जी अभिनीत सुजॉय घोष की रहस्य और रोमांच से भरी शानदार थ्रिलर।"
     },
-    "youtubeVideoId": "0krwKbsQscw",
-    "thumbnailUrl": "https://img.youtube.com/vi/0krwKbsQscw/hqdefault.jpg",
+    "youtubeVideoId": "4wnTRPzHg6s",
+    "thumbnailUrl": "https://img.youtube.com/vi/4wnTRPzHg6s/hqdefault.jpg",
     "genre": [
-      "Drama",
-      "Comedy"
+      "Thriller",
+      "Mystery"
     ],
-    "language": "Hindi",
+    "language": "Bengali",
     "country": "India",
-    "popularityScore": 88,
-    "duration": "19 min",
-    "isFeatured": false
+    "popularityScore": 98,
+    "duration": "14 min",
+    "isFeatured": true
   },
   {
     "id": "sf003",
     "title": {
-      "en": "Lights Out",
-      "hi": "Lights Out"
+      "en": "Chutney",
+      "hi": "चटनी"
     },
     "description": {
-      "en": "Alone at home, a woman sees something in the dark the moment she switches off the light, gone again the instant she switches it on. A simple light switch becomes the source of pure dread.",
-      "hi": "एक औरत अकेले घर में लाइट बंद करते ही अंधेरे में कुछ देखती है जो हर बार लाइट जलाने पर गायब हो जाता है। एक साधारण स्विच डर की सबसे गहरी जगह बन जाता है."
+      "en": "A simple housewife from Ghaziabad tells an unsettling story over snacks. Starring Tisca Chopra and Adil Hussain.",
+      "hi": "टिस्का चोपड़ा और आदिल हुसैन अभिनीत - गाज़ियाबाद की एक सीधी-सादी गृहिणी की डरावनी और चौंकाने वाली दास्तान।"
     },
-    "youtubeVideoId": "FUQhNGEu2KA",
-    "thumbnailUrl": "https://img.youtube.com/vi/FUQhNGEu2KA/hqdefault.jpg",
+    "youtubeVideoId": "9U3h00U_LqI",
+    "thumbnailUrl": "https://img.youtube.com/vi/9U3h00U_LqI/hqdefault.jpg",
     "genre": [
-      "Horror"
+      "Drama",
+      "Thriller"
     ],
-    "language": "English",
-    "country": "Sweden",
-    "popularityScore": 91,
-    "duration": "3 min",
-    "isFeatured": false
+    "language": "Hindi",
+    "country": "India",
+    "popularityScore": 97,
+    "duration": "16 min",
+    "isFeatured": true
   },
   {
     "id": "sf004",
     "title": {
-      "en": "Validation",
-      "hi": "Validation"
+      "en": "Juice",
+      "hi": "जूस"
     },
     "description": {
-      "en": "A parking attendant hands out free compliments to everyone he meets and quietly changes the whole town. But even compliments come with a price.",
-      "hi": "एक पार्किंग अटेंडेंट हर आने वाले को मुफ़्त तारीफ़ बांटता है और देखते ही देखते पूरे शहर की ज़िंदगी बदल देता है। मगर तारीफ़ की भी अपनी कीमत होती है."
+      "en": "Neeraj Ghaywan's sharp commentary on patriarchal mindsets during a warm family gathering. Starring Shefali Shah.",
+      "hi": "शेफाली शाह अभिनीत नीरज घेवान की समाज में पुरुषों के वर्चस्व और महिलाओं की स्थिति पर तीखी चोट।"
     },
-    "youtubeVideoId": "Cbk980jV7Ao",
-    "thumbnailUrl": "https://img.youtube.com/vi/Cbk980jV7Ao/hqdefault.jpg",
+    "youtubeVideoId": "N1A7p4b0t3k",
+    "thumbnailUrl": "https://img.youtube.com/vi/N1A7p4b0t3k/hqdefault.jpg",
     "genre": [
-      "Comedy",
       "Drama"
     ],
-    "language": "English",
-    "country": "USA",
-    "popularityScore": 85,
-    "duration": "16 min",
-    "isFeatured": false
+    "language": "Hindi",
+    "country": "India",
+    "popularityScore": 96,
+    "duration": "15 min",
+    "isFeatured": true
   },
   {
     "id": "sf005",
     "title": {
-      "en": "Umbrella",
-      "hi": "Umbrella"
+      "en": "Interior Cafe Night",
+      "hi": "इंटीरियर कैफे नाइट"
     },
     "description": {
-      "en": "A single umbrella passes through different hands in the rain, quietly revealing the many shades of human nature. Without a single word of dialogue, the story still lands.",
-      "hi": "बारिश में भीगती एक अकेली छतरी अलग-अलग हाथों से गुज़रते हुए इंसानी फ़ितरत की परतें खोलती चली जाती है। बिना एक भी संवाद के यह कहानी दिल तक पहुंच जाती है."
+      "en": "A touching tale of love, loss, and second chances inside a Kolkata cafe. Starring Naseeruddin Shah and Shernaz Patel.",
+      "hi": "नसीरुद्दीन शाह और शेरनाज़ पटेल अभिनीत - प्यार, जुदाई और ज़िंदगी के दूसरे मौके की दिल छू लेने वाली कहानी।"
     },
-    "youtubeVideoId": "Bl1FOKpFY2Q",
-    "thumbnailUrl": "https://img.youtube.com/vi/Bl1FOKpFY2Q/hqdefault.jpg",
+    "youtubeVideoId": "cbT3vTbgvAQ",
+    "thumbnailUrl": "https://img.youtube.com/vi/cbT3vTbgvAQ/hqdefault.jpg",
     "genre": [
-      "Animation",
+      "Romance",
       "Drama"
     ],
-    "language": "English",
-    "country": "International",
-    "popularityScore": 79,
-    "duration": "5 min",
+    "language": "Hindi",
+    "country": "India",
+    "popularityScore": 95,
+    "duration": "13 min",
     "isFeatured": false
   },
   {
     "id": "sf006",
     "title": {
-      "en": "1, 2, 3, All Eyes On Me",
-      "hi": "1, 2, 3, All Eyes On Me"
+      "en": "Anukul",
+      "hi": "अनुकूल"
     },
     "description": {
-      "en": "Amid the sounds of a children's game, the layers of a crime unfold, pitting innocence directly against fear. The tension rises with every count.",
-      "hi": "एक बच्चों के खेल की आवाज़ के बीच एक अपराध की परतें खुलती हैं जो मासूमियत और डर को आमने-सामने ला खड़ा करती हैं। हर गिनती के साथ तनाव बढ़ता चला जाता है."
+      "en": "Based on Satyajit Ray's story, exploring human emotions and AI robots in a futuristic Kolkata. Starring Saurabh Shukla.",
+      "hi": "सत्यजीत रे की कहानी पर आधारित - भविष्य के भारत में एक इंसान और रोबोट के बीच का गहरा रिश्ता।"
     },
-    "youtubeVideoId": "71VIeIgjEPQ",
-    "thumbnailUrl": "https://img.youtube.com/vi/71VIeIgjEPQ/hqdefault.jpg",
+    "youtubeVideoId": "R1w2H2O9y10",
+    "thumbnailUrl": "https://img.youtube.com/vi/R1w2H2O9y10/hqdefault.jpg",
     "genre": [
-      "Thriller"
+      "Sci-Fi",
+      "Drama"
     ],
     "language": "Hindi",
     "country": "India",
-    "popularityScore": 82,
-    "duration": "12 min",
+    "popularityScore": 94,
+    "duration": "21 min",
     "isFeatured": false
   },
   {
     "id": "sf007",
     "title": {
-      "en": "Tomorrow",
-      "hi": "Tomorrow"
+      "en": "The School Bag",
+      "hi": "द स्कूल बैग"
     },
     "description": {
-      "en": "A father-son relationship is tested on a night when tomorrow's promise collides with today's truth. What stays unsaid speaks the loudest.",
-      "hi": "एक पिता और बेटे के बीच का रिश्ता एक ऐसी रात में परखा जाता है जब कल का वादा आज की सच्चाई से टकराता है। खामोशी में छुपी बातें सबसे ज़्यादा कहती हैं."
+      "en": "A mother in Peshawar tries to fulfill her young son's simple birthday wish before tragedy strikes. Starring Rasika Dugal.",
+      "hi": "रसिका दुग्गल अभिनीत - पेशावर में एक माँ और उसके मासूम बेटे के जन्मदिन के उपहार की मार्मिक कहानी।"
     },
-    "youtubeVideoId": "bVZl51CqUXk",
-    "thumbnailUrl": "https://img.youtube.com/vi/bVZl51CqUXk/hqdefault.jpg",
+    "youtubeVideoId": "125tJ8F2_qA",
+    "thumbnailUrl": "https://img.youtube.com/vi/125tJ8F2_qA/hqdefault.jpg",
     "genre": [
-      "Drama"
+      "Drama",
+      "Emotional"
     ],
     "language": "Hindi",
     "country": "India",
-    "popularityScore": 76,
-    "duration": "14 min",
+    "popularityScore": 95,
+    "duration": "15 min",
     "isFeatured": false
   },
   {
     "id": "sf008",
     "title": {
-      "en": "After The Rain",
-      "hi": "After The Rain"
+      "en": "Ouch",
+      "hi": "आउच"
     },
     "description": {
-      "en": "After the rain stops, scattered lives in a village try to piece themselves back together. At its heart, this is a story of how hope returns after loss.",
-      "hi": "बारिश थमने के बाद एक गांव में बिखरी ज़िंदगियां फिर से जुड़ने की कोशिश करती हैं। नुक़सान के बाद उम्मीद कैसे लौटती है, यही इस कहानी का दिल है."
+      "en": "Neeraj Pandey's dark comedy about a couple planning to leave their spouses. Starring Manoj Bajpayee and Pooja Chopra.",
+      "hi": "मनोज बाजपेयी और पूजा चोपड़ा अभिनीत नीरज पांडे की गुदगुदाने और चौंकाने वाली डार्क कॉमेडी।"
     },
-    "youtubeVideoId": "qEaoaRpRRzo",
-    "thumbnailUrl": "https://img.youtube.com/vi/qEaoaRpRRzo/hqdefault.jpg",
+    "youtubeVideoId": "vB4pUu2Xz7M",
+    "thumbnailUrl": "https://img.youtube.com/vi/vB4pUu2Xz7M/hqdefault.jpg",
     "genre": [
+      "Comedy",
       "Drama"
     ],
     "language": "Hindi",
     "country": "India",
-    "popularityScore": 74,
-    "duration": "17 min",
+    "popularityScore": 93,
+    "duration": "14 min",
+    "isFeatured": false
+  },
+  {
+    "id": "sf009",
+    "title": {
+      "en": "Piper",
+      "hi": "पाइपर"
+    },
+    "description": {
+      "en": "Oscar-winning Pixar short about a hungry sandpiper hatchling conquering her fear of the ocean waves.",
+      "hi": "ऑस्कर विजेता पिक्सर की दिलकश शॉर्ट फिल्म - समुद्र की लहरों से डर को मात देती एक नन्हीं चिड़िया।"
+    },
+    "youtubeVideoId": "vPuRBiBCxSU",
+    "thumbnailUrl": "https://img.youtube.com/vi/vPuRBiBCxSU/hqdefault.jpg",
+    "genre": [
+      "Animation",
+      "Family"
+    ],
+    "language": "Silent",
+    "country": "USA",
+    "popularityScore": 99,
+    "duration": "6 min",
+    "isFeatured": true
+  },
+  {
+    "id": "sf010",
+    "title": {
+      "en": "Paperman",
+      "hi": "पेपरमैन"
+    },
+    "description": {
+      "en": "An Oscar-winning romantic black-and-white animation using paper airplanes across a busy city.",
+      "hi": "कागज़ के जहाजों के सहारे अजनबी प्यार की तलाश करती ऑस्कर विजेता जादुई एनिमेटेड कहानी।"
+    },
+    "youtubeVideoId": "eRLJscAlk1M",
+    "thumbnailUrl": "https://img.youtube.com/vi/eRLJscAlk1M/hqdefault.jpg",
+    "genre": [
+      "Animation",
+      "Romance"
+    ],
+    "language": "Silent",
+    "country": "USA",
+    "popularityScore": 98,
+    "duration": "7 min",
+    "isFeatured": false
+  },
+  {
+    "id": "sf011",
+    "title": {
+      "en": "Two Distant Strangers",
+      "hi": "टू डिस्टेंट स्ट्रेंजर्स"
+    },
+    "description": {
+      "en": "An Oscar-winning film following a man trapped in a time loop trying to get home to his dog.",
+      "hi": "ऑस्कर विजेता टाइम-लूप थ्रिलर - घर पहुँचने की जद्दोजहद में फंसा एक युवक।"
+    },
+    "youtubeVideoId": "tN3TjA6w6o8",
+    "thumbnailUrl": "https://img.youtube.com/vi/tN3TjA6w6o8/hqdefault.jpg",
+    "genre": [
+      "Sci-Fi",
+      "Drama"
+    ],
+    "language": "English",
+    "country": "USA",
+    "popularityScore": 97,
+    "duration": "32 min",
+    "isFeatured": false
+  },
+  {
+    "id": "sf012",
+    "title": {
+      "en": "Taandav",
+      "hi": "तांडव"
+    },
+    "description": {
+      "en": "Manoj Bajpayee as a stressed Mumbai policeman facing moral conflicts during Ganpati Visarjan night.",
+      "hi": "मनोज बाजपेयी अभिनीत - तनाव और दबाव से जूझते एक पुलिसकर्मी के भीतर का तांडव।"
+    },
+    "youtubeVideoId": "5b5p0e-z1gU",
+    "thumbnailUrl": "https://img.youtube.com/vi/5b5p0e-z1gU/hqdefault.jpg",
+    "genre": [
+      "Drama",
+      "Crime"
+    ],
+    "language": "Hindi",
+    "country": "India",
+    "popularityScore": 92,
+    "duration": "11 min",
     "isFeatured": false
   }
 ]
