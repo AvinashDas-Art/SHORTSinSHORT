@@ -36,8 +36,7 @@
     "thumbnailUrl": "https://i.ytimg.com/vi/35kqxX6AEGA/hqdefault.jpg",
     "genre": [
       "Drama",
-      "Mystery",
-      "Thriller"
+      "Mystery"
     ],
     "language": "Hindi",
     "country": "India",
@@ -49,8 +48,8 @@
   {
     "id": "yt_xLLtp5rxXi0",
     "title": {
-      "en": "Cinema Short",
-      "hi": "Cinema Short"
+      "en": "Chimes",
+      "hi": "Chimes"
     },
     "description": {
       "en": "A house hunting experience turns bizarre for Sanyals as they step into a house that has a mind of its own. Mr Dubey, the over-enthusiastic and seemingly dubious",
@@ -60,14 +59,15 @@
     "thumbnailUrl": "https://i.ytimg.com/vi/xLLtp5rxXi0/hqdefault.jpg",
     "genre": [
       "Drama",
-      "Award Winning"
+      "Thriller",
+      "Suspense"
     ],
     "language": "Hindi",
     "country": "India",
     "popularityScore": 99,
     "duration": "15 min",
     "isFeatured": true,
-    "director": "Acclaimed Filmmaker"
+    "director": "Aadish Keluskar"
   },
   {
     "id": "yt_Wd2B4LV5h2Y",
@@ -2016,8 +2016,8 @@
   {
     "id": "yt_DOn2D9wRYCw",
     "title": {
-      "en": "Cinema Short",
-      "hi": "Cinema Short"
+      "en": "Chimes",
+      "hi": "Chimes"
     },
     "description": {
       "en": "#bhagwan #viralvideo #shortfilm #miniplex   \"भगवान\" एक दिल को छू लेने वा���ी शॉर्ट फिल्म है, जो मासूमियत, जिज्ञासा और सच्ची आस्था की गहराईयों को दर्शाती है।  कह",
@@ -2027,20 +2027,21 @@
     "thumbnailUrl": "https://i.ytimg.com/vi/DOn2D9wRYCw/hqdefault.jpg",
     "genre": [
       "Drama",
-      "Award Winning"
+      "Thriller",
+      "Suspense"
     ],
     "language": "Hindi",
     "country": "India",
     "popularityScore": 92,
     "duration": "19 min",
     "isFeatured": false,
-    "director": "Acclaimed Filmmaker"
+    "director": "Aadish Keluskar"
   },
   {
     "id": "yt_7xXxlVt21-M",
     "title": {
-      "en": "Cinema Short",
-      "hi": "Cinema Short"
+      "en": "Chimes",
+      "hi": "Chimes"
     },
     "description": {
       "en": "Elderly Mr. Raj finds himself lost on his morning stroll, but fate introduces him to the kind-hearted Rashmi, who guides him through the familiar yet forgotten ",
@@ -2050,14 +2051,15 @@
     "thumbnailUrl": "https://i.ytimg.com/vi/7xXxlVt21-M/hqdefault.jpg",
     "genre": [
       "Drama",
-      "Award Winning"
+      "Thriller",
+      "Suspense"
     ],
     "language": "Hindi",
     "country": "India",
     "popularityScore": 85,
     "duration": "9 min",
     "isFeatured": false,
-    "director": "Acclaimed Filmmaker"
+    "director": "Aadish Keluskar"
   },
   {
     "id": "yt_0blrkunHYXk",
