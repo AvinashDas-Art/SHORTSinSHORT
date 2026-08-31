@@ -1,69 +1,47 @@
-import { useLanguage } from '../context/LanguageContext'
-import { fallbackPosterFor } from '../utils/posterFallback'
+import React, { useState } from 'react';
 
-export default function MovieCard({ film, onPlay }) {
-  const { lang, t } = useLanguage()
+export default function MovieCard({ film, onSelect, lang = 'hi' }) {
+  const [imgSrc, setImgSrc] = useState(
+    film.thumbnailUrl || `https://i.ytimg.com/vi/${film.youtubeVideoId}/hqdefault.jpg`
+  );
 
-  const title = film.title[lang] || film.title.en
-  const description = film.description[lang] || film.description.en
-  const isPending = film.youtubeVideoId === 'REPLACE_ME'
+  const title = film.title?.[lang] || film.title?.en || film.title || 'Untitled';
+  const desc = film.description?.[lang] || film.description?.en || film.description || '';
 
   return (
-    <button
-      onClick={() => onPlay(film)}
-      className="group w-56 shrink-0 text-left focus:outline-none sm:w-64"
+    <div 
+      onClick={() => onSelect(film)}
+      className="group relative flex-none w-56 md:w-64 aspect-video bg-zinc-900 rounded-lg overflow-hidden cursor-pointer shadow-lg transition-all duration-300 ease-out hover:scale-105 hover:z-30 hover:shadow-2xl hover:shadow-black"
     >
-      {/* Thumbnail */}
-      <div className="relative aspect-video overflow-hidden rounded-lg bg-neutral-800">
-        <img
-          src={isPending ? fallbackPosterFor(title) : film.thumbnailUrl}
-          alt={title}
-          loading="lazy"
-          onError={(e) => {
-            e.currentTarget.onerror = null
-            e.currentTarget.src = fallbackPosterFor(title)
-          }}
-          className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-110"
-        />
-        <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition group-hover:bg-black/30 group-hover:opacity-100">
-          <svg
-            className="h-10 w-10 text-white drop-shadow-lg"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path d="M8 5v14l11-7z" />
-          </svg>
-        </div>
+      {/* थंबनेल */}
+      <img 
+        src={imgSrc} 
+        alt={title}
+        onError={() => setImgSrc(`https://i.ytimg.com/vi/${film.youtubeVideoId}/mqdefault.jpg`)}
+        className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+        loading="lazy"
+      />
 
-        {isPending && (
-          <span className="absolute right-1.5 top-1.5 rounded bg-black/70 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-white/70">
-            {t.comingSoon}
+      {/* सिनेमाई होवर ओवरले - केवल माउस ले जाने पर दिखेगा */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-3 backdrop-blur-[1px]">
+        <div className="flex items-center gap-2 mb-1.5">
+          <div className="w-7 h-7 rounded-full bg-red-600 flex items-center justify-center text-white text-xs font-bold shadow">
+            ▶
+          </div>
+          <span className="text-[11px] font-semibold text-zinc-300">{film.duration || '15 min'}</span>
+          <span className="text-[10px] uppercase font-bold px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
+            {film.language || 'Hindi'}
           </span>
-        )}
-      </div>
-
-      {/* Metadata */}
-      <div className="mt-2 space-y-1">
-        <h3 className="truncate text-sm font-bold text-white sm:text-base">
+        </div>
+        <h3 className="text-xs md:text-sm font-bold text-white leading-tight line-clamp-1">
           {title}
         </h3>
-
-        <div className="flex flex-wrap gap-1.5">
-          <span className="rounded bg-neutral-800 px-1.5 py-0.5 text-[10px] font-medium text-gray-300">
-            {film.country}
-          </span>
-          <span className="rounded bg-neutral-800 px-1.5 py-0.5 text-[10px] font-medium text-gray-300">
-            {film.language}
-          </span>
-          <span className="rounded bg-neutral-800 px-1.5 py-0.5 text-[10px] font-medium text-gray-300">
-            {film.duration}
-          </span>
-        </div>
-
-        <p className="line-clamp-2 text-xs text-gray-400">
-          {description}
-        </p>
+        {desc && (
+          <p className="text-[10px] md:text-[11px] text-zinc-300 line-clamp-2 mt-1 leading-tight font-normal">
+            {desc}
+          </p>
+        )}
       </div>
-    </button>
-  )
+    </div>
+  );
 }
