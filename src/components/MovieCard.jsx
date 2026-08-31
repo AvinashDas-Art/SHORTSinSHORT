@@ -6,41 +6,40 @@ export default function MovieCard({ film, onSelect, lang = 'hi' }) {
   );
 
   const title = film.title?.[lang] || film.title?.en || film.title || 'Untitled';
-  const desc = film.description?.[lang] || film.description?.en || film.description || '';
+  const director = film.director || 'Filmmaker';
+  const language = film.language || 'Hindi';
 
   return (
     <div 
       onClick={() => onSelect(film)}
-      className="group relative flex-none w-56 md:w-64 aspect-video bg-zinc-900 rounded-lg overflow-hidden cursor-pointer shadow-lg transition-all duration-300 ease-out hover:scale-105 hover:z-30 hover:shadow-2xl hover:shadow-black"
+      className="group flex-none w-56 md:w-64 cursor-pointer select-none"
     >
-      {/* थंबनेल */}
-      <img 
-        src={imgSrc} 
-        alt={title}
-        onError={() => setImgSrc(`https://i.ytimg.com/vi/${film.youtubeVideoId}/mqdefault.jpg`)}
-        className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-        loading="lazy"
-      />
+      {/* थंबनेल बॉक्स */}
+      <div className="relative aspect-video w-full bg-zinc-900 rounded-lg overflow-hidden shadow-lg transition-all duration-300 ease-out group-hover:scale-105 group-hover:shadow-2xl group-hover:shadow-black">
+        <img 
+          src={imgSrc} 
+          alt={title}
+          onError={() => setImgSrc(`https://i.ytimg.com/vi/${film.youtubeVideoId}/mqdefault.jpg`)}
+          className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+          loading="lazy"
+        />
 
-      {/* सिनेमाई होवर ओवरले - केवल माउस ले जाने पर दिखेगा */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/75 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-3 backdrop-blur-[1px]">
-        <div className="flex items-center gap-2 mb-1.5">
-          <div className="w-7 h-7 rounded-full bg-red-600 flex items-center justify-center text-white text-xs font-bold shadow">
+        {/* होवर प्ले आइकॉन ओवरले */}
+        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+          <div className="w-10 h-10 rounded-full bg-red-600/90 text-white flex items-center justify-center text-sm font-bold shadow-lg transform scale-75 group-hover:scale-100 transition-transform">
             ▶
           </div>
-          <span className="text-[11px] font-semibold text-zinc-300">{film.duration || '15 min'}</span>
-          <span className="text-[10px] uppercase font-bold px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
-            {film.language || 'Hindi'}
-          </span>
         </div>
-        <h3 className="text-xs md:text-sm font-bold text-white leading-tight line-clamp-1">
+      </div>
+
+      {/* थंबनेल के ठीक नीचे निर्देशक और भाषा का विवरण */}
+      <div className="mt-2 px-0.5">
+        <h3 className="text-xs md:text-sm font-semibold text-zinc-100 truncate group-hover:text-red-400 transition-colors">
           {title}
         </h3>
-        {desc && (
-          <p className="text-[10px] md:text-[11px] text-zinc-300 line-clamp-2 mt-1 leading-tight font-normal">
-            {desc}
-          </p>
-        )}
+        <p className="text-[11px] md:text-xs text-zinc-400 mt-0.5 truncate tracking-normal">
+          <span className="text-zinc-500 font-light">Directed by</span> <span className="text-zinc-300 font-medium">{director}</span> <span className="text-red-500/90 font-medium">[{language}]</span>
+        </p>
       </div>
     </div>
   );

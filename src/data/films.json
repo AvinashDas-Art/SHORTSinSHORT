@@ -19,7 +19,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "12 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Chandan Anand"
   },
   {
     "id": "yt_35kqxX6AEGA",
@@ -41,7 +42,8 @@
     "country": "India",
     "popularityScore": 89,
     "duration": "13 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_xLLtp5rxXi0",
@@ -63,7 +65,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "15 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_Wd2B4LV5h2Y",
@@ -85,7 +88,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "10 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Tigmanshu Dhulia"
   },
   {
     "id": "yt_qhZZkLvQOWA",
@@ -107,7 +111,8 @@
     "country": "India",
     "popularityScore": 94,
     "duration": "14 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_vof9VTNEAmM",
@@ -129,7 +134,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "19 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_O0yqF87e7tM",
@@ -151,7 +157,8 @@
     "country": "India",
     "popularityScore": 98,
     "duration": "10 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_0krwKbsQscw",
@@ -173,7 +180,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "16 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Jyoti Kapur Das"
   },
   {
     "id": "yt_StaBqNuT_YY",
@@ -195,7 +203,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "18 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_Z8mIF80_osM",
@@ -217,7 +226,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "19 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_2wyATv3ztck",
@@ -239,7 +249,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "10 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_9WegMUnQLSE",
@@ -261,7 +272,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "14 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_om11fl40Dts",
@@ -283,7 +295,8 @@
     "country": "India",
     "popularityScore": 97,
     "duration": "9 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_1vgoAHEqJ8A",
@@ -305,7 +318,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "17 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_x3RPgdZYt34",
@@ -327,7 +341,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "13 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_deMCcGkJsjc",
@@ -349,7 +364,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "14 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Neeraj Pandey"
   },
   {
     "id": "yt_MrATV6PhLug",
@@ -371,7 +387,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "14 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_R-Sk7fQGIjE",
@@ -393,7 +410,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "14 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Neeraj Ghaywan"
   },
   {
     "id": "yt_fJeKTc9sbDs",
@@ -415,7 +433,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "13 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Sachin Gupta"
   },
   {
     "id": "yt_K02Q3oOmHGQ",
@@ -437,7 +456,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "17 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_b5GGKuK3iEI",
@@ -459,7 +479,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "18 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_r06uBlw0zj4",
@@ -481,7 +502,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "17 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Sanjeev Vig"
   },
   {
     "id": "yt_I_xAHFvHKls",
@@ -503,7 +525,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "16 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_8dcAN3QS7kY",
@@ -525,7 +548,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "14 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_6ZxYZ8lrAJw",
@@ -547,7 +571,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "12 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_XDiwdQ8KvNU",
@@ -569,7 +594,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "12 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_r-RKh6zRBYk",
@@ -591,7 +617,8 @@
     "country": "India",
     "popularityScore": 90,
     "duration": "15 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_2KP0aDTVtFI",
@@ -613,7 +640,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "13 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_VJXm6nO_u1o",
@@ -635,7 +663,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "16 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_E8wgO3uHh1E",
@@ -657,7 +686,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "9 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_23KufSqo6cQ",
@@ -679,7 +709,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "13 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Adhiraj Bose"
   },
   {
     "id": "yt_Sgi8Vy2Y_Dw",
@@ -701,7 +732,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "14 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_dh1HEaAWGTc",
@@ -723,7 +755,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "10 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_vP8JTHjEQlA",
@@ -745,7 +778,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "16 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_7fKrHoZfYwM",
@@ -767,7 +801,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "17 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Shiladitya Bora"
   },
   {
     "id": "yt_LSqzdCNzB-E",
@@ -789,7 +824,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "17 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "the talented"
   },
   {
     "id": "yt_mOW2sc4p260",
@@ -811,7 +847,8 @@
     "country": "India",
     "popularityScore": 91,
     "duration": "16 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_Me5GeEfb0nI",
@@ -833,7 +870,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "10 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_X6nRtAbZjSY",
@@ -855,7 +893,8 @@
     "country": "India",
     "popularityScore": 93,
     "duration": "12 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_pOOJ20dk3co",
@@ -877,7 +916,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "7 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_wrU7K53gwQQ",
@@ -899,7 +939,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "12 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_41MAgswIUeo",
@@ -921,7 +962,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "17 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_VlcGL30JZJc",
@@ -943,7 +985,8 @@
     "country": "India",
     "popularityScore": 85,
     "duration": "8 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_nfi_XB7EmCs",
@@ -965,7 +1008,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "14 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_EBSpgPeXm2g",
@@ -987,7 +1031,8 @@
     "country": "India",
     "popularityScore": 85,
     "duration": "17 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_5NErG3iCZ4w",
@@ -1009,7 +1054,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "9 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_OFCwhUnfgAQ",
@@ -1031,7 +1077,8 @@
     "country": "India",
     "popularityScore": 85,
     "duration": "19 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_MkH6z8MTbVI",
@@ -1053,7 +1100,8 @@
     "country": "India",
     "popularityScore": 91,
     "duration": "5 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_5YhFPooZ-zA",
@@ -1075,7 +1123,8 @@
     "country": "India",
     "popularityScore": 85,
     "duration": "10 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_cMvNk8x6eNQ",
@@ -1097,7 +1146,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "15 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_x3XOhnorxko",
@@ -1119,7 +1169,8 @@
     "country": "India",
     "popularityScore": 92,
     "duration": "14 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_mkyIT37Dyxo",
@@ -1141,7 +1192,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "12 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_XVwIB3qquLY",
@@ -1163,7 +1215,8 @@
     "country": "India",
     "popularityScore": 86,
     "duration": "7 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_tqrWt4eUCJQ",
@@ -1185,7 +1238,8 @@
     "country": "India",
     "popularityScore": 85,
     "duration": "15 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_OruwjNnW7tk",
@@ -1207,7 +1261,8 @@
     "country": "India",
     "popularityScore": 85,
     "duration": "16 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_Wl-NWd1XFpw",
@@ -1229,7 +1284,8 @@
     "country": "India",
     "popularityScore": 88,
     "duration": "18 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Nabil Solanki   Cinematograp"
   },
   {
     "id": "yt_d6dA69vsulc",
@@ -1251,7 +1307,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "7 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_c2iFiaPr5dY",
@@ -1273,7 +1330,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "9 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_qeJjOY0_XHY",
@@ -1295,7 +1353,8 @@
     "country": "India",
     "popularityScore": 94,
     "duration": "16 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_-u3s6SDvdsg",
@@ -1317,7 +1376,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "10 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_vHFh7pgZ9es",
@@ -1339,7 +1399,8 @@
     "country": "India",
     "popularityScore": 97,
     "duration": "5 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt__Govd4E9YbQ",
@@ -1361,7 +1422,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "6 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt__ounzSWlBuM",
@@ -1383,7 +1445,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "10 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_nNekk07Qt2g",
@@ -1405,7 +1468,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "11 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_HZ-4K2IN7DY",
@@ -1427,7 +1491,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "10 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_XxlujFhJUAo",
@@ -1449,7 +1514,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "5 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_6RC_mao3bs4",
@@ -1471,7 +1537,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "6 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_Xv58mIvRoys",
@@ -1493,7 +1560,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "7 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_TRLkxFT2FvA",
@@ -1515,7 +1583,8 @@
     "country": "India",
     "popularityScore": 86,
     "duration": "5 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_FZfNfYsBuW4",
@@ -1537,7 +1606,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "16 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_uHzbtPKCM3A",
@@ -1559,7 +1629,8 @@
     "country": "India",
     "popularityScore": 95,
     "duration": "4 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_gZm7ZWDf0Vc",
@@ -1581,7 +1652,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "15 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_wdjJUYqiKWI",
@@ -1603,7 +1675,8 @@
     "country": "India",
     "popularityScore": 94,
     "duration": "6 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_2F56BlgTi9w",
@@ -1625,7 +1698,8 @@
     "country": "India",
     "popularityScore": 90,
     "duration": "7 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_F1hHSZFsPBI",
@@ -1647,7 +1721,8 @@
     "country": "India",
     "popularityScore": 86,
     "duration": "10 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_ovOF2AmkwtY",
@@ -1669,7 +1744,8 @@
     "country": "India",
     "popularityScore": 89,
     "duration": "10 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_0U6hhrF7Ft8",
@@ -1691,7 +1767,8 @@
     "country": "India",
     "popularityScore": 88,
     "duration": "5 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_aDaj7bTrbnk",
@@ -1713,7 +1790,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "9 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_P2Gb9TqTsoM",
@@ -1735,7 +1813,8 @@
     "country": "India",
     "popularityScore": 91,
     "duration": "7 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_PU-gQ465Enc",
@@ -1757,7 +1836,8 @@
     "country": "India",
     "popularityScore": 85,
     "duration": "4 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_v0p_0JTlw6c",
@@ -1779,7 +1859,8 @@
     "country": "India",
     "popularityScore": 88,
     "duration": "7 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_piN50SJpUK4",
@@ -1801,7 +1882,8 @@
     "country": "India",
     "popularityScore": 85,
     "duration": "13 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_iD7KyqomahY",
@@ -1823,7 +1905,8 @@
     "country": "India",
     "popularityScore": 87,
     "duration": "8 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_MbYo_dKUlwg",
@@ -1845,7 +1928,8 @@
     "country": "India",
     "popularityScore": 90,
     "duration": "19 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_wwEkk4WKwFc",
@@ -1867,7 +1951,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "8 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_2B5gBR-f31g",
@@ -1889,7 +1974,8 @@
     "country": "India",
     "popularityScore": 88,
     "duration": "8 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_KhIGSqneM0M",
@@ -1911,7 +1997,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "11 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_DOn2D9wRYCw",
@@ -1933,7 +2020,8 @@
     "country": "India",
     "popularityScore": 92,
     "duration": "19 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_7xXxlVt21-M",
@@ -1955,7 +2043,8 @@
     "country": "India",
     "popularityScore": 85,
     "duration": "9 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_0blrkunHYXk",
@@ -1977,7 +2066,8 @@
     "country": "India",
     "popularityScore": 89,
     "duration": "13 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_U5DrOkk1Bvs",
@@ -1999,7 +2089,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "14 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_cg7nr830Kn4",
@@ -2021,7 +2112,8 @@
     "country": "India",
     "popularityScore": 90,
     "duration": "14 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_DxQRptLH1wU",
@@ -2043,7 +2135,8 @@
     "country": "India",
     "popularityScore": 98,
     "duration": "15 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_62qLt6X1AK0",
@@ -2065,7 +2158,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "19 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_ZCHFQF-YQKM",
@@ -2087,7 +2181,8 @@
     "country": "India",
     "popularityScore": 85,
     "duration": "10 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_Rdw6ZgaO5GI",
@@ -2109,7 +2204,8 @@
     "country": "India",
     "popularityScore": 86,
     "duration": "11 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_4pvZvEOG3cY",
@@ -2131,7 +2227,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "13 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_dtqxANR_tiE",
@@ -2153,7 +2250,8 @@
     "country": "India",
     "popularityScore": 89,
     "duration": "8 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_pKtxKzQ_RUE",
@@ -2175,7 +2273,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "10 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_wIZ4AYRhf70",
@@ -2197,7 +2296,8 @@
     "country": "India",
     "popularityScore": 97,
     "duration": "13 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_iR-JFks6uI0",
@@ -2219,7 +2319,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "4 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_B4EPW7JUMTM",
@@ -2241,7 +2342,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "13 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_-p1P4fdhaF8",
@@ -2263,7 +2365,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "16 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_Bl1FOKpFY2Q",
@@ -2285,7 +2388,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "7 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_bZFjXrMOENc",
@@ -2307,7 +2411,8 @@
     "country": "USA",
     "popularityScore": 94,
     "duration": "9 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_efGqe1j3RNk",
@@ -2329,7 +2434,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "9 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_kNw8V_Fkw28",
@@ -2351,7 +2457,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "6 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Matthew A. Cherry"
   },
   {
     "id": "yt_2JyGBG9dUmw",
@@ -2373,7 +2480,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "7 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_07d2dXHYb94",
@@ -2395,7 +2503,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "4 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_Va4sUF65ks4",
@@ -2417,7 +2526,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "14 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_JQgy1f-78As",
@@ -2439,7 +2549,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "7 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_DjG1E4n0PcA",
@@ -2461,7 +2572,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "17 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Pixar Animator Shad Lee Bradbury"
   },
   {
     "id": "yt_jXHOHOYkbYc",
@@ -2483,7 +2595,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "7 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_Oo4KXZVApsQ",
@@ -2505,7 +2618,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "8 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_1P3ZgLOy-w8",
@@ -2527,7 +2641,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "8 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_domCDwp5u3I",
@@ -2549,7 +2664,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "4 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_bo2KQer1KNM",
@@ -2571,7 +2687,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "10 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_0MX_fJAhmEE",
@@ -2593,7 +2710,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "8 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_w7brpxPmvhU",
@@ -2615,7 +2733,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "10 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_vKSaF8NvMiQ",
@@ -2637,7 +2756,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "7 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_3MnvyBi1KDU",
@@ -2659,7 +2779,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "6 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_KI2lsdXJQ40",
@@ -2681,7 +2802,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "5 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_35i4zTky9pI",
@@ -2703,7 +2825,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "7 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_Cxt2szmCAcg",
@@ -2725,7 +2848,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "8 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_DEfDLV2NN-k",
@@ -2747,7 +2871,8 @@
     "country": "USA",
     "popularityScore": 99,
     "duration": "5 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_oFITYEq1gyI",
@@ -2769,7 +2894,8 @@
     "country": "India",
     "popularityScore": 93,
     "duration": "12 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_Rv7j9s1iODI",
@@ -2791,7 +2917,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "17 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_srBQcPV4zbU",
@@ -2813,7 +2940,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "10 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_zdZFb6X3wqU",
@@ -2835,7 +2963,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "11 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_0B5gDOv0TVI",
@@ -2857,7 +2986,8 @@
     "country": "India",
     "popularityScore": 92,
     "duration": "15 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_TSW99xHqL6w",
@@ -2879,7 +3009,8 @@
     "country": "India",
     "popularityScore": 86,
     "duration": "14 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_tQJODgPVjIk",
@@ -2901,7 +3032,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "15 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_bLuXoHGZq_I",
@@ -2923,7 +3055,8 @@
     "country": "India",
     "popularityScore": 88,
     "duration": "16 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_3RgsdADWAt8",
@@ -2945,7 +3078,8 @@
     "country": "India",
     "popularityScore": 95,
     "duration": "8 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_93zLZgpnk-c",
@@ -2967,7 +3101,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "13 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_JnXOE6FFoWA",
@@ -2989,7 +3124,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "6 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Anthony Sutcliffe"
   },
   {
     "id": "yt_XYLgwxbwEb8",
@@ -3011,7 +3147,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "7 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_zB42uGsdJt0",
@@ -3033,7 +3170,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "18 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_hif5eI5pBxo",
@@ -3055,7 +3193,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "12 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_SAfdRMeZkWQ",
@@ -3077,7 +3216,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "12 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_DVakMNAyrlg",
@@ -3099,7 +3239,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "15 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_OFYDiMe8wSo",
@@ -3121,7 +3262,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "5 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_WeYTWhl84cs",
@@ -3143,7 +3285,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "5 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Isaac Carlton Produced by Christopher Behnen"
   },
   {
     "id": "yt_xbcL8hhm4L8",
@@ -3165,7 +3308,8 @@
     "country": "India",
     "popularityScore": 92,
     "duration": "12 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_QibQLlM-C_I",
@@ -3187,7 +3331,8 @@
     "country": "India",
     "popularityScore": 94,
     "duration": "5 min",
-    "isFeatured": false
+    "isFeatured": false,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_0HM6wMj2lDw",
@@ -3209,7 +3354,8 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "9 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Acclaimed Filmmaker"
   },
   {
     "id": "yt_e_ofen9SDeM",
@@ -3231,6 +3377,7 @@
     "country": "India",
     "popularityScore": 99,
     "duration": "9 min",
-    "isFeatured": true
+    "isFeatured": true,
+    "director": "Rob Carter Produced by Sara Shulman"
   }
 ]

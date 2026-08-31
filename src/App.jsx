@@ -3,6 +3,7 @@ import filmsData from './data/films.json';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import MovieRow from './components/MovieRow';
+import MovieCard from './components/MovieCard';
 import VideoModal from './components/VideoModal';
 
 export default function App() {
@@ -46,13 +47,15 @@ export default function App() {
       const titleHi = film.title?.hi || film.title || '';
       const descEn = film.description?.en || film.description || '';
       const descHi = film.description?.hi || film.description || '';
+      const director = film.director || '';
       
       const q = searchTerm.toLowerCase();
       const matchesSearch = !q || 
         titleEn.toLowerCase().includes(q) || 
         titleHi.toLowerCase().includes(q) || 
         descEn.toLowerCase().includes(q) || 
-        descHi.toLowerCase().includes(q);
+        descHi.toLowerCase().includes(q) ||
+        director.toLowerCase().includes(q);
 
       const matchesGenre = selectedGenre === 'All' || (film.genre && film.genre.includes(selectedGenre));
       const matchesLang = selectedLanguage === 'All' || film.language === selectedLanguage;
@@ -68,7 +71,6 @@ export default function App() {
 
   const isFiltering = searchTerm || selectedGenre !== 'All' || selectedLanguage !== 'All' || selectedCountry !== 'All';
 
-  // कैटेगराइज़्ड पंक्तियाँ
   const awardWinningFilms = useMemo(() => filteredFilms.filter(f => f.genre?.includes('Award Winning') || f.popularityScore >= 95), [filteredFilms]);
   const dramaFilms = useMemo(() => filteredFilms.filter(f => f.genre?.includes('Drama')), [filteredFilms]);
   const thrillerFilms = useMemo(() => filteredFilms.filter(f => f.genre?.includes('Thriller') || f.genre?.includes('Mystery')), [filteredFilms]);
@@ -107,30 +109,19 @@ export default function App() {
             <h2 className="text-xl font-bold mb-6 text-zinc-200">
               {lang === 'hi' ? `परिणाम (${filteredFilms.length})` : `Results (${filteredFilms.length})`}
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
               {filteredFilms.map(film => (
-                <div key={film.id || film.youtubeVideoId} className="w-full">
-                  <div 
-                    onClick={() => setPlayingFilm(film)}
-                    className="group relative aspect-video bg-zinc-900 rounded-lg overflow-hidden cursor-pointer shadow-md hover:scale-105 transition-all duration-300"
-                  >
-                    <img
-                      src={film.thumbnailUrl || `https://i.ytimg.com/vi/${film.youtubeVideoId}/hqdefault.jpg`}
-                      alt={film.title?.[lang] || film.title?.en}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-2.5 flex flex-col justify-end">
-                      <p className="text-xs font-bold text-white line-clamp-1">{film.title?.[lang] || film.title?.en}</p>
-                      <span className="text-[10px] text-zinc-300 mt-0.5">{film.duration || '15 min'}</span>
-                    </div>
-                  </div>
-                </div>
+                <MovieCard
+                  key={film.id || film.youtubeVideoId}
+                  film={film}
+                  onSelect={(f) => setPlayingFilm(f)}
+                  lang={lang}
+                />
               ))}
             </div>
           </div>
         ) : (
-          <div className="space-y-4 md:space-y-6 mt-2">
+          <div className="space-y-6 md:space-y-8 mt-2">
             <MovieRow 
               title={lang === 'hi' ? "अवार्ड-विनिंग और लोकप्रिय शॉर्ट फ़िल्में" : "Award Winning & Popular"} 
               films={awardWinningFilms.length ? awardWinningFilms : filteredFilms.slice(0, 15)} 
@@ -161,12 +152,10 @@ export default function App() {
         )}
       </main>
 
-      {/* फ़ूटर */}
       <footer className="border-t border-zinc-900 py-8 text-center text-xs text-zinc-500">
         <p>© 2026 SHORTSinSHORT - Curated World Cinema in Short Formats.</p>
       </footer>
 
-      {/* वीडियो प्लेयर मोडल */}
       {playingFilm && (
         <VideoModal 
           film={playingFilm} 
