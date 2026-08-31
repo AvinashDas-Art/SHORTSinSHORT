@@ -1,100 +1,103 @@
-import { useLanguage } from '../context/LanguageContext'
-import { GENRES, LANGUAGES, COUNTRIES } from '../i18n/translations'
+import React from 'react';
 
 export default function Navbar({
-  search,
-  onSearchChange,
-  genre,
-  onGenreChange,
-  language,
-  onLanguageChange,
-  country,
-  onCountryChange,
-  onReset,
+  searchTerm,
+  setSearchTerm,
+  selectedGenre,
+  setSelectedGenre,
+  selectedLanguage,
+  setSelectedLanguage,
+  selectedCountry,
+  setSelectedCountry,
+  onResetFilters,
+  genres = [],
+  languages = [],
+  countries = [],
+  lang,
+  setLang
 }) {
-  const { lang, toggleLang, t } = useLanguage()
-
-  const selectClass =
-    'rounded-md border border-white/10 bg-neutral-900 px-2.5 py-1.5 text-xs font-medium text-gray-200 focus:border-red-600 focus:outline-none sm:text-sm'
-
   return (
-    <header className="fixed inset-x-0 top-0 z-40 bg-gradient-to-b from-black via-black/80 to-transparent px-4 py-3 sm:px-10 lg:px-16">
-      <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
-        {/* Logo + Search */}
-        <div className="flex items-center gap-4">
-          <h1 className="shrink-0 text-xl sm:text-2xl">
-            <span className="font-black tracking-wider text-[#E50914]">{t.siteName}</span>
-            <span className="font-bold tracking-tight text-white">{t.siteNameSuffix}</span>
-          </h1>
+    <header className="fixed top-0 left-0 right-0 z-40 bg-black/60 backdrop-blur-md border-b border-white/5 transition-all duration-300">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between gap-4">
+        
+        {/* लोगो - क्लिक करने पर होम और रीसेट */}
+        <div 
+          onClick={onResetFilters}
+          className="flex items-center gap-1 cursor-pointer select-none group flex-shrink-0"
+        >
+          <span className="text-xl md:text-2xl font-black tracking-tighter text-red-600 transition-transform group-hover:scale-105">
+            SHORTS<span className="text-white font-medium italic text-base md:text-lg">in</span>SHORT
+          </span>
+        </div>
 
-          <div className="relative w-40 sm:w-64">
+        {/* सर्च बार */}
+        <div className="flex-1 max-w-xs md:max-w-md">
+          <div className="relative">
+            <span className="absolute inset-y-0 left-3 flex items-center pointer-events-none text-zinc-500 text-xs">
+              🔍
+            </span>
             <input
               type="text"
-              value={search}
-              onChange={(e) => onSearchChange(e.target.value)}
-              placeholder={t.searchPlaceholder}
-              className="w-full rounded-md border border-white/10 bg-neutral-900/90 px-3 py-1.5 text-xs text-white placeholder-gray-500 focus:border-red-600 focus:outline-none sm:text-sm"
+              placeholder={lang === 'hi' ? "फ़िल्में खोजें..." : "Search films..."}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full bg-zinc-900/90 text-zinc-200 text-xs md:text-sm pl-8 pr-3 py-1.5 rounded-full border border-zinc-700/60 focus:border-red-600 focus:outline-none focus:ring-1 focus:ring-red-600 transition-all placeholder:text-zinc-500"
             />
+            {searchTerm && (
+              <button 
+                onClick={() => setSearchTerm('')}
+                className="absolute inset-y-0 right-3 flex items-center text-xs text-zinc-400 hover:text-white"
+              >
+                ✕
+              </button>
+            )}
           </div>
         </div>
 
-        {/* Filters */}
-        <div className="flex flex-wrap items-center gap-2">
+        {/* फ़िल्टर्स और लैंग्वेज */}
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
           <select
-            value={genre}
-            onChange={(e) => onGenreChange(e.target.value)}
-            className={selectClass}
+            value={selectedGenre}
+            onChange={(e) => setSelectedGenre(e.target.value)}
+            className="hidden sm:block bg-zinc-900 text-zinc-300 text-xs px-2.5 py-1.5 rounded-lg border border-zinc-800 focus:outline-none cursor-pointer"
           >
-            {GENRES.map((g) => (
-              <option key={g.key} value={g.key}>
-                {g.key === 'All' ? `${t.genreLabel}: ${g[lang]}` : g[lang]}
-              </option>
-            ))}
+            <option value="All">Genre: All</option>
+            {genres.map(g => <option key={g} value={g}>{g}</option>)}
           </select>
 
           <select
-            value={language}
-            onChange={(e) => onLanguageChange(e.target.value)}
-            className={selectClass}
+            value={selectedLanguage}
+            onChange={(e) => setSelectedLanguage(e.target.value)}
+            className="hidden sm:block bg-zinc-900 text-zinc-300 text-xs px-2.5 py-1.5 rounded-lg border border-zinc-800 focus:outline-none cursor-pointer"
           >
-            {LANGUAGES.map((l) => (
-              <option key={l} value={l}>
-                {l === 'All' ? `${t.languageLabel}: All` : l}
-              </option>
-            ))}
-          </select>
-
-          <select
-            value={country}
-            onChange={(e) => onCountryChange(e.target.value)}
-            className={selectClass}
-          >
-            {COUNTRIES.map((c) => (
-              <option key={c} value={c}>
-                {c === 'All' ? `${t.countryLabel}: All` : c}
-              </option>
-            ))}
+            <option value="All">Language: All</option>
+            {languages.map(l => <option key={l} value={l}>{l}</option>)}
           </select>
 
           <button
-            onClick={onReset}
-            className="rounded-md bg-white/10 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-white/20 sm:text-sm"
+            onClick={onResetFilters}
+            className="text-[11px] text-zinc-400 hover:text-white bg-zinc-800/80 hover:bg-zinc-800 px-2.5 py-1.5 rounded-lg transition-colors whitespace-nowrap"
           >
-            {t.resetFilters}
+            Reset
           </button>
 
-          {/* En | Hi language switcher */}
-          <button
-            onClick={toggleLang}
-            aria-label="Toggle language"
-            className="flex items-center gap-1 rounded-md border border-white/10 bg-neutral-900 px-2.5 py-1.5 text-xs font-bold text-white sm:text-sm"
-          >
-            <span className={lang === 'en' ? 'text-red-500' : 'text-gray-500'}>En</span>
-            <span className="text-gray-600">|</span>
-            <span className={lang === 'hi' ? 'text-red-500' : 'text-gray-500'}>Hi</span>
-          </button>
+          <div className="flex items-center bg-zinc-900 border border-zinc-800 rounded-lg p-0.5 text-xs">
+            <button
+              onClick={() => setLang('en')}
+              className={`px-2 py-0.5 rounded ${lang === 'en' ? 'bg-red-600 text-white font-bold' : 'text-zinc-400 hover:text-white'}`}
+            >
+              En
+            </button>
+            <button
+              onClick={() => setLang('hi')}
+              className={`px-2 py-0.5 rounded ${lang === 'hi' ? 'bg-red-600 text-white font-bold' : 'text-zinc-400 hover:text-white'}`}
+            >
+              Hi
+            </button>
+          </div>
         </div>
+
       </div>
     </header>
-  )
+  );
 }
