@@ -12,10 +12,10 @@ jobs:
   update-feed:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
+      - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          persist-credentials: true
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -26,10 +26,21 @@ jobs:
         run: |
           node scripts/add-daily-film.mjs
 
-      - name: Commit & Push Changes
+      - name: Commit and Push Changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # फ़ाइलों को स्टेज करें
           git add data/films.json scripts/film-backlog.json
-          git commit -m "Auto: Added daily film from backlog" || exit 0
-          git push
+          
+          # केवल तभी कमिट और पुश करें जब सचमुच बदलाव हुए हों
+          if ! git diff --staged --quiet; then
+            git commit -m "Auto: Added daily film from backlog"
+            git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+            git push origin main
+          else
+            echo "No new updates found in backlog to commit."
+          fi
