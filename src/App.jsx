@@ -7,7 +7,8 @@ import MovieCard from './components/MovieCard';
 import VideoModal from './components/VideoModal';
 
 export default function App() {
-  const [lang, setLang] = useState('hi');
+  // डिफ़ॉल्ट भाषा इंग्लिश (en)
+  const [lang, setLang] = useState('en');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('All');
   const [selectedLanguage, setSelectedLanguage] = useState('All');
