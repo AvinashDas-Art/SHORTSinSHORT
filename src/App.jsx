@@ -76,29 +76,29 @@ export default function App() {
   // शून्य दोहराव और थ्रिलर पंक्ति को प्राथमिकता
   const categorizedRows = useMemo(() => {
     const seenIds = new Set();
-    if (featuredFilm?.id) seenIds.add(featuredFilm.id);
+    if (featuredFilm) seenIds.add(featuredFilm.id || featuredFilm.youtubeVideoId);
 
-    const pickUnique = (predicate, limit = 15) => {
+    const pickUnique = (predicate, limit = 16) => {
       const row = [];
       for (const f of filteredFilms) {
-        if (!seenIds.has(f.id) && predicate(f)) {
+        const id = f.id || f.youtubeVideoId;
+        if (!seenIds.has(id) && predicate(f)) {
           row.push(f);
-          seenIds.add(f.id);
+          seenIds.add(id);
           if (row.length === limit) break;
         }
       }
       return row;
     };
 
-     || f.id?.startsWith("ai-"), 16);
-    const thriller = pickUnique(f => f.genre?.includes('Thriller') || f.genre?.includes('Mystery') || f.genre?.includes('Suspense') || f.genre?.includes('Crime'), 16);
-    const awardWinning = pickUnique(f => f.genre?.includes('Award Winning') || f.popularityScore >= 90, 16);
-    const drama = pickUnique(f => f.genre?.includes('Drama') || f.genre?.includes('Family'), 16);
-    const globalShorts = pickUnique(f => f.country !== 'India' || f.language !== 'Hindi', 16);
-    const moreFilms = pickUnique(() => true, 16);
+    const thriller = pickUnique(f => !f.genre?.includes("AI Magic") && !f.id?.startsWith("ai-") && (f.genre?.includes("Thriller") || f.genre?.includes("Mystery") || f.genre?.includes("Suspense") || f.genre?.includes("Crime")), 16);
+    const awardWinning = pickUnique(f => !f.genre?.includes("AI Magic") && !f.id?.startsWith("ai-") && (f.genre?.includes("Award Winning") || f.popularityScore >= 90), 16);
+    const drama = pickUnique(f => !f.genre?.includes("AI Magic") && !f.id?.startsWith("ai-") && (f.genre?.includes("Drama") || f.genre?.includes("Family")), 16);
+    const globalShorts = pickUnique(f => !f.genre?.includes("AI Magic") && !f.id?.startsWith("ai-") && (f.country !== "India" || f.language !== "Hindi"), 16);
+    const moreFilms = pickUnique(f => !f.genre?.includes("AI Magic") && !f.id?.startsWith("ai-"), 16);
+    const aiMagic = filteredFilms.filter(f => f.genre?.includes("AI Magic") || f.id?.startsWith("ai-"));
 
-    const aiMagic = filteredFilms.filter(f => f.genre?.includes('AI Magic') || f.id?.startsWith('ai-'));
-    return { thriller, awardWinning, drama, globalShorts, moreFilms, aiMagic };
+    return { awardWinning, thriller, drama, globalShorts, moreFilms, aiMagic };
   }, [filteredFilms, featuredFilm]);
 
   if (isClubView) {
@@ -143,7 +143,7 @@ export default function App() {
             <h2 className="text-xl font-bold mb-6 text-zinc-200">
               {lang === 'hi' ? `परिणाम (${filteredFilms.length})` : `Results (${filteredFilms.length})`}
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
               {filteredFilms.map(film => (
                 <MovieCard
                   key={film.id || film.youtubeVideoId}
@@ -156,15 +156,6 @@ export default function App() {
           </div>
         ) : (
           <div className="space-y-6 md:space-y-8 mt-2">
-            {categorizedRows.aiCinema && categorizedRows.aiCinema.length > 0 && (
-              <MovieRow 
-                title={lang === "hi" ? "एआई सिनेमा और जेनेरेटिव मास्टरपीस" : "AI Cinema & Generative Masterpieces"} 
-                films={categorizedRows.aiCinema} 
-                onSelectFilm={(f) => setPlayingFilm(f)} 
-                lang={lang} 
-              />
-            )}
-            
             {categorizedRows.awardWinning.length > 0 && (
               <MovieRow 
                 title={lang === 'hi' ? "अवार्ड-विनिंग और लोकप्रिय शॉर्ट फ़िल्में" : "Award Winning & Popular"} 
