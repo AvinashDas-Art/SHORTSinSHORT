@@ -26,10 +26,10 @@ export default function Navbar({
       <div className="flex items-center space-x-6">
         <button 
           onClick={onResetFilters} 
-          className="flex items-center space-x-2 text-white font-black text-xl tracking-tighter hover:opacity-90 transition"
+          className="flex items-center space-x-2 text-white font-black text-xl tracking-tighter hover:opacity-90 cursor-pointer transition focus:outline-none"
         >
-          <span className="text-red-600 font-black">SHORTS</span>
-          <span className="text-white font-light text-sm tracking-widest pl-0.5">inSHORT</span>
+          <span className="text-red-600 font-black cursor-pointer">SHORTS</span>
+          <span className="text-white font-light text-sm tracking-widest pl-0.5 cursor-pointer">inSHORT</span>
         </button>
       </div>
 
@@ -46,7 +46,7 @@ export default function Navbar({
           <select
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
-            className="bg-zinc-900 border border-zinc-800 text-xs text-zinc-300 px-2.5 py-1.5 rounded-lg focus:outline-none focus:border-red-600"
+            className="bg-zinc-900 border border-zinc-800 text-xs text-zinc-300 px-2.5 py-1.5 rounded-lg focus:outline-none focus:border-red-600 cursor-pointer"
           >
             <option value="All">{lang === 'hi' ? 'कैटगरी: सब' : 'Genre: All'}</option>
             {genres.map((g, idx) => {
@@ -60,7 +60,7 @@ export default function Navbar({
       <div className="flex items-center space-x-3">
         <button
           onClick={onOpenArchive}
-          className={`flex items-center space-x-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl border transition ${
+          className={`flex items-center space-x-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl border cursor-pointer transition ${
             isArchiveView ? 'bg-red-600 border-red-600 text-white' : 'bg-zinc-900 border-zinc-800 text-zinc-300 hover:text-white'
           }`}
         >
@@ -70,7 +70,7 @@ export default function Navbar({
 
         <button
           onClick={onOpenClub}
-          className="flex items-center space-x-1 bg-gradient-to-r from-amber-500 to-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow transition hover:opacity-95"
+          className="flex items-center space-x-1 bg-gradient-to-r from-amber-500 to-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow cursor-pointer transition hover:opacity-95"
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           <span>Club ₹5</span>
@@ -78,7 +78,7 @@ export default function Navbar({
 
         <button
           onClick={() => setLang(lang === 'hi' ? 'en' : 'hi')}
-          className="text-xs bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white px-2.5 py-1.5 rounded-lg transition"
+          className="text-xs bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white px-2.5 py-1.5 rounded-lg cursor-pointer transition"
         >
           {lang === 'hi' ? 'EN' : 'HI'}
         </button>

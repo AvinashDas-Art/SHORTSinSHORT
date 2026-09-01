@@ -58,10 +58,10 @@ export default function Hero({ film, onPlay, lang, onMouseEnter, onMouseLeave })
           <div className="flex items-center space-x-4 pt-2">
             <button
               onClick={() => onPlay(film)}
-              className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2.5 rounded-xl shadow-lg transition duration-200"
+              className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2.5 rounded-xl shadow-lg cursor-pointer transition duration-200 focus:outline-none"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              <span>{lang === 'hi' ? 'अभी देखें' : 'Play Now'}</span>
+              <span className="cursor-pointer">{lang === 'hi' ? 'अभी देखें' : 'Play Now'}</span>
             </button>
           </div>
         </div>

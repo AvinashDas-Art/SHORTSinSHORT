@@ -21,3 +21,8 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* Ensure cursor pointer on all clickable elements */
+button, select, [role="button"], a {
+  cursor: pointer !important;
+}
