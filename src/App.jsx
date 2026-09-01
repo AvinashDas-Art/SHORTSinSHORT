@@ -57,7 +57,7 @@ export default function App() {
 
   const allFilms = useMemo(() => filmsData || [], []);
 
-  // Distinct Languages & Genres
+  // Distinct Languages & Genres from Real Catalog
   const { genres, languages } = useMemo(() => {
     const gSet = new Set();
     const lSet = new Set();
@@ -81,7 +81,7 @@ export default function App() {
     handlePlayFilm(allFilms[randomIndex]);
   };
 
-  // Hero Carousel
+  // 7-second Hero Banner
   const heroFilms = useMemo(() => allFilms.slice(0, 8), [allFilms]);
   useEffect(() => {
     if (isHeroHovered || heroFilms.length <= 1) return;
@@ -91,7 +91,7 @@ export default function App() {
     return () => clearInterval(timer);
   }, [isHeroHovered, heroFilms]);
 
-  // Recommended
+  // Recommendations
   const recommendedFilms = useMemo(() => {
     if (watchHistory.length === 0) return [];
     const genreScore = {};
@@ -116,37 +116,22 @@ export default function App() {
       .slice(0, 10);
   }, [watchHistory, allFilms]);
 
-  // Curated Row Hubs
+  // Solid & Verified Categorized Sections
   const categorizedSections = useMemo(() => {
     const list = [
       {
-        title: lang === 'hi' ? 'पुरस्कृत फ़िल्में (Award Winning & Acclaimed)' : 'Award Winning & Acclaimed',
+        title: lang === 'hi' ? 'पुरस्कृत और बहुप्रशंसित (Award Winning & Acclaimed)' : 'Award Winning & Acclaimed',
         films: allFilms.filter(f => {
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
           return gList.some(g => g.toLowerCase().includes('award'));
         })
       },
       {
-        title: lang === 'hi' ? 'माटी की कहानियाँ (Roots of India: Maithili • Bhojpuri • Bengali)' : 'Roots of India (Maithili • Bhojpuri • Bengali)',
-        films: allFilms.filter(f => {
-          const l = safeText(f.language, 'en').toLowerCase();
-          return ['maithili', 'bhojpuri', 'bengali', 'marathi', 'punjabi'].some(target => l === target);
-        })
-      },
-      {
-        title: lang === 'hi' ? 'साउथ सिनेमा हब (Malayalam • Tamil • Telugu • Kannada)' : 'South Indian Spotlight (Malayalam • Tamil • Telugu • Kannada)',
-        films: allFilms.filter(f => {
-          const l = safeText(f.language, 'en').toLowerCase();
-          return ['malayalam', 'tamil', 'telugu', 'kannada'].some(target => l === target);
-        })
-      },
-      {
-        title: lang === 'hi' ? 'वर्ल्ड सिनेमा (World Cinema Showcase: French • Iranian)' : 'World Cinema Showcase (French • Iranian • International)',
+        title: lang === 'hi' ? 'वर्ल्ड व बहुभाषी सिनेमा (World & Multilingual Showcase)' : 'World & Multilingual Showcase',
         films: allFilms.filter(f => {
           const l = safeText(f.language, 'en').toLowerCase();
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
-          return ['french', 'spanish', 'korean', 'japanese', 'iranian', 'german', 'silent'].some(target => l === target) ||
-                 gList.some(g => g.toLowerCase().includes('world'));
+          return (l !== 'hindi' && l !== 'english') || gList.some(g => g.toLowerCase().includes('world'));
         })
       },
       {
@@ -169,10 +154,24 @@ export default function App() {
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
           return gList.some(g => g.toLowerCase().includes('thriller') || g.toLowerCase().includes('suspense'));
         })
+      },
+      {
+        title: lang === 'hi' ? 'रोमांस और रिश्ते' : 'Romance & Relationships',
+        films: allFilms.filter(f => {
+          const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
+          return gList.some(g => g.toLowerCase().includes('romance'));
+        })
+      },
+      {
+        title: lang === 'hi' ? 'क्राइम और डार्क स्टोरीज़' : 'Crime & Mystery',
+        films: allFilms.filter(f => {
+          const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
+          return gList.some(g => g.toLowerCase().includes('crime') || g.toLowerCase().includes('mystery'));
+        })
       }
     ];
 
-    return list.filter(sec => sec.films.length > 0);
+    return list.filter(sec => sec.films.length >= 3);
   }, [allFilms, lang]);
 
   // Combined Search & Filter View
