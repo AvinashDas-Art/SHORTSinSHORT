@@ -116,7 +116,7 @@ export default function App() {
       .slice(0, 10);
   }, [watchHistory, allFilms]);
 
-  // Dedicated Rows with 100% Genuine Languages
+  // Dedicated Categorized Sections
   const categorizedSections = useMemo(() => {
     const list = [
       {
@@ -129,6 +129,10 @@ export default function App() {
       {
         title: lang === 'hi' ? '🌾 माटी की कहानियाँ: मैथिली सिनेमा' : 'Roots of Mithila (Maithili Short Films)',
         films: allFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'maithili')
+      },
+      {
+        title: lang === 'hi' ? '🚩 मराठी शॉर्ट सिनेमा (Marathi Cinema Showcase)' : 'Marathi Cinema Showcase (Marathi Shorts)',
+        films: allFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'marathi')
       },
       {
         title: lang === 'hi' ? '🌿 भोजपुरी माटी (Bhojpuri Cinema Showcase)' : 'Bhojpuri Soil & Cinema (Bhojpuri Shorts)',
@@ -173,7 +177,7 @@ export default function App() {
     return list.filter(sec => sec.films.length > 0);
   }, [allFilms, lang]);
 
-  // Combined Search & Filter View
+  // Filter View
   const filteredFilms = useMemo(() => {
     return allFilms.filter(film => {
       const matchesSearch = searchTerm === '' || 
