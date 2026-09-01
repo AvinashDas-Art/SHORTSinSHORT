@@ -96,7 +96,7 @@ export default function App() {
     const drama = pickUnique(f => !f.genre?.includes("AI Magic") && !f.id?.startsWith("ai-") && (f.genre?.includes("Drama") || f.genre?.includes("Family")), 16);
     const globalShorts = pickUnique(f => !f.genre?.includes("AI Magic") && !f.id?.startsWith("ai-") && (f.country !== "India" || f.language !== "Hindi"), 16);
     const moreFilms = pickUnique(f => !f.genre?.includes("AI Magic") && !f.id?.startsWith("ai-"), 16);
-    const aiMagic = filteredFilms.filter(f => f.genre?.includes("AI Magic") || f.id?.startsWith("ai-"));
+    
 
     return { awardWinning, thriller, drama, globalShorts, moreFilms, aiMagic };
   }, [filteredFilms, featuredFilm]);
