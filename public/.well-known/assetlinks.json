@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "com.shortsinshort.www.twa",
+        "sha256_cert_fingerprints": ["19:51:84:28:35:CA:D2:EC:C5:72:C6:20:6F:B2:10:22:ED:80:17:C3:F8:3A:94:4A:58:23:55:23:C0:45:09:C0"]
+      }
+    }]
