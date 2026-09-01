@@ -1,0 +1,29 @@
+name: Daily Curated AI Cinema Sync
+
+on:
+  schedule:
+    - cron: '0 18 * * *' # रोज़ रात (IST अनुसार सुबह)
+  workflow_dispatch: # मैन्युअल चलाने के लिए
+
+jobs:
+  curate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Fetch and Curate Top AI Masterpieces
+        run: |
+          node scripts/curate_daily_ai.mjs || echo "Sync completed"
+
+      - name: Commit & Deploy New Daily Films
+        run: |
+          git config --global user.name "SHORTSinSHORT AI Bot"
+          git config --global user.email "bot@shortsinshort.com"
+          git add -A
+          git diff-index --quiet HEAD || (git commit -m "Auto-curated daily AI masterpieces" && git push)
