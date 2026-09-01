@@ -154,7 +154,16 @@ export default function App() {
           </div>
         ) : (
           <div className="space-y-6 md:space-y-8 mt-2">
-            {categorizedRows.awardWinning.length > 0 && (
+            {/* AI Cinema Row */}
+      {categorizedRows.aiCinema && categorizedRows.aiCinema.length > 0 && (
+        <MovieRow
+          title={lang === "hi" ? "एआई सिनेमा और मास्टरपीस" : "AI Cinema & Generative Masterpieces"}
+          films={categorizedRows.aiCinema}
+          onSelectFilm={(f) => setPlayingFilm(f)}
+          lang={lang}
+        />
+      )}
+      {categorizedRows.awardWinning.length > 0 && (
               <MovieRow 
                 title={lang === 'hi' ? "अवार्ड-विनिंग और लोकप्रिय शॉर्ट फ़िल्में" : "Award Winning & Popular"} 
                 films={categorizedRows.awardWinning} 
