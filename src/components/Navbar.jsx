@@ -19,12 +19,15 @@ export default function Navbar({
   setSearchTerm, 
   selectedGenre, 
   setSelectedGenre, 
-  genres, 
+  genres,
+  selectedLangFilter,
+  setSelectedLangFilter,
+  languages,
   onResetFilters 
 }) {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-40 bg-[#0d0d0f]/95 backdrop-blur-md border-b border-zinc-800/80 px-4 md:px-8 py-3.5 flex items-center justify-between transition-all duration-300">
-      <div className="flex items-center space-x-6">
+    <nav className="fixed top-0 left-0 right-0 z-40 bg-[#0d0d0f]/95 backdrop-blur-md border-b border-zinc-800/80 px-3 md:px-8 py-3 flex items-center justify-between transition-all duration-300">
+      <div className="flex items-center space-x-4">
         <button 
           onClick={onResetFilters} 
           className="group flex items-baseline select-none cursor-pointer focus:outline-none transition transform hover:scale-[1.02]"
@@ -39,21 +42,32 @@ export default function Navbar({
       </div>
 
       {!isClubView && !isArchiveView && (
-        <div className="hidden md:flex items-center space-x-3 max-w-md w-full mx-4">
+        <div className="hidden lg:flex items-center space-x-2.5 max-w-xl w-full mx-4">
           <input 
             type="text"
             placeholder={lang === 'hi' ? "फ़िल्में, निर्देशक खोजें..." : "Search films, directors..."}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-zinc-900 border border-zinc-800 text-xs text-white px-3.5 py-2 rounded-lg focus:outline-none focus:border-red-600 transition"
+            className="w-full bg-zinc-900 border border-zinc-800 text-xs text-white px-3.5 py-1.5 rounded-lg focus:outline-none focus:border-red-600 transition"
           />
+
+          <select
+            value={selectedLangFilter}
+            onChange={(e) => setSelectedLangFilter(e.target.value)}
+            className="bg-zinc-900 border border-zinc-800 text-xs text-zinc-300 px-2.5 py-1.5 rounded-lg focus:outline-none focus:border-red-600 cursor-pointer"
+          >
+            <option value="All">{lang === 'hi' ? 'भाषा: सब' : 'Language: All'}</option>
+            {languages.map((l, idx) => (
+              <option key={idx} value={l}>{l}</option>
+            ))}
+          </select>
 
           <select
             value={selectedGenre}
             onChange={(e) => setSelectedGenre(e.target.value)}
-            className="bg-zinc-900 border border-zinc-800 text-xs text-zinc-300 px-2.5 py-2 rounded-lg focus:outline-none focus:border-red-600 cursor-pointer"
+            className="bg-zinc-900 border border-zinc-800 text-xs text-zinc-300 px-2.5 py-1.5 rounded-lg focus:outline-none focus:border-red-600 cursor-pointer"
           >
-            <option value="All">{lang === 'hi' ? 'कैटगरी: सब' : 'Genre: All'}</option>
+            <option value="All">{lang === 'hi' ? 'शैली: सब' : 'Genre: All'}</option>
             {genres.map((g, idx) => {
               const label = safeText(g, lang);
               return <option key={idx} value={typeof g === 'string' ? g : label}>{label}</option>;
@@ -62,12 +76,11 @@ export default function Navbar({
         </div>
       )}
 
-      <div className="flex items-center space-x-2.5 sm:space-x-3">
-        {/* Surprise Me / Random Picker */}
+      <div className="flex items-center space-x-2 sm:space-x-3">
         <button
           onClick={onSurpriseMe}
           title={lang === 'hi' ? 'रैंडम फ़िल्म देखें' : 'Surprise Me'}
-          className="flex items-center space-x-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 hover:text-white hover:border-amber-500/50 cursor-pointer transition group"
+          className="flex items-center space-x-1.5 text-xs font-semibold px-2.5 sm:px-3 py-1.5 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 hover:text-white hover:border-amber-500/50 cursor-pointer transition group"
         >
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className="group-hover:rotate-45 transition transform duration-300">
             <rect x="3" y="3" width="18" height="18" rx="4" ry="4"/>
@@ -77,13 +90,12 @@ export default function Navbar({
             <circle cx="8.5" cy="15.5" r="1.5" fill="currentColor"/>
             <circle cx="15.5" cy="15.5" r="1.5" fill="currentColor"/>
           </svg>
-          <span className="hidden lg:inline">{lang === 'hi' ? 'सरप्राइज़' : 'Surprise'}</span>
+          <span className="hidden xl:inline">{lang === 'hi' ? 'सरप्राइज़' : 'Surprise'}</span>
         </button>
 
-        {/* My Reel (Creative Archive / Personal History) */}
         <button
           onClick={onOpenArchive}
-          className={`flex items-center space-x-1.5 text-xs font-semibold px-3 py-2 rounded-xl border cursor-pointer transition ${
+          className={`flex items-center space-x-1.5 text-xs font-semibold px-2.5 sm:px-3 py-1.5 rounded-xl border cursor-pointer transition ${
             isArchiveView ? 'bg-red-600 border-red-600 text-white shadow-lg shadow-red-600/30' : 'bg-zinc-900 border-zinc-800 text-zinc-300 hover:text-white'
           }`}
         >
@@ -100,19 +112,17 @@ export default function Navbar({
           <span className="hidden sm:inline">{lang === 'hi' ? 'मेरी रील' : 'My Reel'}</span>
         </button>
 
-        {/* Club Access */}
         <button
           onClick={onOpenClub}
-          className="flex items-center space-x-1.5 bg-gradient-to-r from-amber-500 to-red-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow cursor-pointer transition hover:opacity-95"
+          className="flex items-center space-x-1 bg-gradient-to-r from-amber-500 to-red-600 text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow cursor-pointer transition hover:opacity-95"
         >
           <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           <span>Club ₹5</span>
         </button>
 
-        {/* Language Switch */}
         <button
           onClick={() => setLang(lang === 'hi' ? 'en' : 'hi')}
-          className="text-xs bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white px-3 py-2 rounded-lg cursor-pointer transition font-semibold"
+          className="text-xs bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white px-2.5 py-1.5 rounded-lg cursor-pointer transition font-semibold"
         >
           {lang === 'hi' ? 'EN' : 'HI'}
         </button>
