@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 
-const SUBSCRIPTION_LINK = "https://rzp.io/rzp/pzRnBR1B";
+const SUBSCRIPTION_LINK = "https://rzp.io/rzp/B9Z7fmQU";
 
 const EXCLUSIVE_CONTENT = [
   {
@@ -85,7 +85,7 @@ export default function ClubPage({ onBack, lang }) {
               मात्र <strong className="text-red-400 font-bold">₹5 प्रति सप्ताह</strong> में भारत और विश्व सिनेमा की चुनिंदा शॉर्ट फ़िल्मों के ओरिजिनल शूटिंग स्क्रिप्ट्स, डायरेक्टर नोट्स और अनकट वॉल्ट का पूरा एक्सेस पाएँ।
             </p>
 
-            {!isPremium ? (
+            {!isPremium && (
               <button
                 onClick={handleSubscribe}
                 className="mt-6 inline-flex items-center space-x-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold text-sm md:text-base px-6 py-3 rounded-xl shadow-lg shadow-red-600/30 transition transform hover:scale-105 cursor-pointer"
@@ -93,7 +93,9 @@ export default function ClubPage({ onBack, lang }) {
                 <span>Join Club for ₹5 / Week</span>
                 <span>→</span>
               </button>
-            ) : (
+            )}
+
+            {isPremium && (
               <div className="mt-6 inline-flex items-center space-x-2 bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 px-4 py-2 rounded-xl text-xs font-bold">
                 <span>✓ Premium Pass Active - All Vaults Unlocked</span>
               </div>
