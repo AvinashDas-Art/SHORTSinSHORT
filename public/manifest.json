@@ -3,12 +3,12 @@
   "name": "SHORTSinSHORT Cinema Club",
   "icons": [
     {
-      "src": "https://ui-avatars.com/api/?name=SHORTS&background=ef4444&color=fff&size=192",
+      "src": "https://ui-avatars.com/api/?name=S&background=dc2626&color=fff&size=192&font-size=0.65&bold=true",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "https://ui-avatars.com/api/?name=SHORTS&background=ef4444&color=fff&size=512",
+      "src": "https://ui-avatars.com/api/?name=S&background=dc2626&color=fff&size=512&font-size=0.65&bold=true",
       "type": "image/png",
       "sizes": "512x512"
     }
