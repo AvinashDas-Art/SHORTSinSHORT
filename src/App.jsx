@@ -1,5 +1,5 @@
 import ClubPage from './components/ClubPage';
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import filmsData from './data/films.json';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -15,6 +15,7 @@ export default function App() {
   const [selectedLanguage, setSelectedLanguage] = useState('All');
   const [selectedCountry, setSelectedCountry] = useState('All');
   const [playingFilm, setPlayingFilm] = useState(null);
+  const [heroIndex, setHeroIndex] = useState(0);
 
   const resetAllFilters = () => {
     setSearchTerm('');
@@ -49,9 +50,46 @@ export default function App() {
     return Array.from(set);
   }, []);
 
-  const featuredFilm = useMemo(() => {
-    return filmsData.find(f => f.featured) || filmsData[0];
+  // हर कैटगरी से बेहतरीन फ़िल्मों का चयन जो टॉप बैनर में 5-5 सेकंड पर रोटेट होंगी
+  const heroPool = useMemo(() => {
+    const pool = [];
+    const isAi = (f) => f.id?.startsWith('ai-') || (Array.isArray(f.genre) ? f.genre.includes('AI Magic') : f.genre === 'AI Magic');
+
+    // 1. Award Winning
+    const award = filmsData.find(f => !isAi(f) && (f.popularityScore >= 90 || (Array.isArray(f.genre) && f.genre.includes('Award Winning'))));
+    if (award) pool.push(award);
+
+    // 2. Thriller & Suspense
+    const thrill = filmsData.find(f => !isAi(f) && Array.isArray(f.genre) && (f.genre.includes('Thriller') || f.genre.includes('Suspense') || f.genre.includes('Mystery')));
+    if (thrill && !pool.some(p => p.id === thrill.id)) pool.push(thrill);
+
+    // 3. Drama & Human Stories
+    const drm = filmsData.find(f => !isAi(f) && Array.isArray(f.genre) && f.genre.includes('Drama'));
+    if (drm && !pool.some(p => p.id === drm.id)) pool.push(drm);
+
+    // 4. Global & International Cinema
+    const globalFilm = filmsData.find(f => !isAi(f) && (f.country !== 'India' || f.language !== 'Hindi'));
+    if (globalFilm && !pool.some(p => p.id === globalFilm.id)) pool.push(globalFilm);
+
+    // 5. AI Magic
+    const aiFilm = filmsData.find(f => isAi(f));
+    if (aiFilm && !pool.some(p => p.id === aiFilm.id)) pool.push(aiFilm);
+
+    // फ़ॉलबैक
+    return pool.length > 0 ? pool : filmsData.slice(0, 5);
   }, []);
+
+  // हर 5 सेकंड में बैनर फ़िल्म बदलना
+  useEffect(() => {
+    if (heroPool.length <= 1) return;
+    const timer = setInterval(() => {
+      setHeroIndex(prev => (prev + 1) % heroPool.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [heroPool]);
+
+  const featuredFilm = heroPool[heroIndex] || heroPool[0];
 
   const isFiltering = searchTerm !== '' || selectedGenre !== 'All' || selectedLanguage !== 'All' || selectedCountry !== 'All';
 
@@ -73,18 +111,13 @@ export default function App() {
   }, [searchTerm, selectedGenre, selectedLanguage, selectedCountry]);
 
   const categorizedRows = useMemo(() => {
-    const seenIds = new Set();
-    if (featuredFilm) seenIds.add(featuredFilm.id || featuredFilm.youtubeVideoId);
-
     const isAi = (f) => f.id?.startsWith('ai-') || (Array.isArray(f.genre) ? f.genre.includes('AI Magic') : f.genre === 'AI Magic');
 
     const pickUnique = (predicate, limit = 16) => {
       const row = [];
       for (const f of filteredFilms) {
-        const id = f.id || f.youtubeVideoId;
-        if (!seenIds.has(id) && predicate(f)) {
+        if (predicate(f)) {
           row.push(f);
-          seenIds.add(id);
           if (row.length === limit) break;
         }
       }
@@ -99,7 +132,7 @@ export default function App() {
     const aiMagic = filteredFilms.filter(f => isAi(f));
 
     return { awardWinning, thriller, drama, globalShorts, moreFilms, aiMagic };
-  }, [filteredFilms, featuredFilm]);
+  }, [filteredFilms]);
 
   if (isClubView) {
     return (
@@ -134,6 +167,7 @@ export default function App() {
       <main className="pt-16 pb-20">
         {!isFiltering && featuredFilm && (
           <Hero 
+            key={featuredFilm.id || featuredFilm.youtubeVideoId}
             film={featuredFilm} 
             onPlay={(f) => setPlayingFilm(f)} 
             lang={lang} 
