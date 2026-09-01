@@ -141,7 +141,7 @@ export default function App() {
             <h2 className="text-xl font-bold mb-6 text-zinc-200">
               {lang === 'hi' ? `परिणाम (${filteredFilms.length})` : `Results (${filteredFilms.length})`}
             </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8">
               {filteredFilms.map(film => (
                 <MovieCard
                   key={film.id || film.youtubeVideoId}
