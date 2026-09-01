@@ -18,23 +18,26 @@ export default function App() {
   const [heroIndex, setHeroIndex] = useState(0);
   const [isHeroPaused, setIsHeroPaused] = useState(false);
 
+  // URL Query Sync
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const genreParam = params.get('genre');
-    if (genreParam) {
-      setSelectedGenre(genreParam);
-    }
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const genreParam = params.get('genre');
+      if (genreParam) setSelectedGenre(genreParam);
+    } catch (e) {}
   }, []);
 
   const updateGenre = (genre) => {
     setSelectedGenre(genre);
-    const url = new URL(window.location);
-    if (genre === 'All') {
-      url.searchParams.delete('genre');
-    } else {
-      url.searchParams.set('genre', genre);
-    }
-    window.history.pushState({}, '', url);
+    try {
+      const url = new URL(window.location.href);
+      if (genre === 'All') {
+        url.searchParams.delete('genre');
+      } else {
+        url.searchParams.set('genre', genre);
+      }
+      window.history.pushState({}, '', url.toString());
+    } catch (e) {}
   };
 
   const resetAllFilters = () => {
@@ -48,33 +51,35 @@ export default function App() {
 
   const genres = useMemo(() => {
     const set = new Set();
-    filmsData.forEach(f => {
-      if (Array.isArray(f.genre)) f.genre.forEach(g => set.add(g));
+    (filmsData || []).forEach(f => {
+      if (Array.isArray(f.genre)) f.genre.forEach(g => g && set.add(g));
       else if (f.genre) set.add(f.genre);
     });
     return Array.from(set);
   }, []);
 
+  // 7-सेकंड क्रॉस-कैटगरी Hero Pool
   const heroPool = useMemo(() => {
     const pool = [];
+    const safeData = filmsData || [];
     const isAi = (f) => f.id?.startsWith('ai-') || (Array.isArray(f.genre) ? f.genre.includes('AI Magic') : f.genre === 'AI Magic');
 
-    const award = filmsData.find(f => !isAi(f) && (f.popularityScore >= 90 || (Array.isArray(f.genre) && f.genre.includes('Award Winning'))));
+    const award = safeData.find(f => !isAi(f) && (f.popularityScore >= 90 || (Array.isArray(f.genre) && f.genre.includes('Award Winning'))));
     if (award) pool.push(award);
 
-    const thrill = filmsData.find(f => !isAi(f) && Array.isArray(f.genre) && (f.genre.includes('Thriller') || f.genre.includes('Mystery')));
-    if (thrill && !pool.some(p => p.id === thrill.id)) pool.push(thrill);
+    const thrill = safeData.find(f => !isAi(f) && Array.isArray(f.genre) && (f.genre.includes('Thriller') || f.genre.includes('Mystery')));
+    if (thrill && !pool.some(p => (p.id || p.youtubeVideoId) === (thrill.id || thrill.youtubeVideoId))) pool.push(thrill);
 
-    const drm = filmsData.find(f => !isAi(f) && Array.isArray(f.genre) && f.genre.includes('Drama'));
-    if (drm && !pool.some(p => p.id === drm.id)) pool.push(drm);
+    const drm = safeData.find(f => !isAi(f) && Array.isArray(f.genre) && f.genre.includes('Drama'));
+    if (drm && !pool.some(p => (p.id || p.youtubeVideoId) === (drm.id || drm.youtubeVideoId))) pool.push(drm);
 
-    const globalFilm = filmsData.find(f => !isAi(f) && (f.country !== 'India' || f.language !== 'Hindi'));
-    if (globalFilm && !pool.some(p => p.id === globalFilm.id)) pool.push(globalFilm);
+    const globalFilm = safeData.find(f => !isAi(f) && (f.country !== 'India' || f.language !== 'Hindi'));
+    if (globalFilm && !pool.some(p => (p.id || p.youtubeVideoId) === (globalFilm.id || globalFilm.youtubeVideoId))) pool.push(globalFilm);
 
-    const aiFilm = filmsData.find(f => isAi(f));
-    if (aiFilm && !pool.some(p => p.id === aiFilm.id)) pool.push(aiFilm);
+    const aiFilm = safeData.find(f => isAi(f));
+    if (aiFilm && !pool.some(p => (p.id || p.youtubeVideoId) === (aiFilm.id || aiFilm.youtubeVideoId))) pool.push(aiFilm);
 
-    return pool.length > 0 ? pool : filmsData.slice(0, 5);
+    return pool.length > 0 ? pool : safeData.slice(0, 5);
   }, []);
 
   useEffect(() => {
@@ -90,7 +95,7 @@ export default function App() {
   const isFiltering = searchTerm !== '' || selectedGenre !== 'All';
 
   const filteredFilms = useMemo(() => {
-    return filmsData.filter(film => {
+    return (filmsData || []).filter(film => {
       const matchesSearch = searchTerm === '' || 
         film.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         film.director?.toLowerCase().includes(searchTerm.toLowerCase());
@@ -121,7 +126,7 @@ export default function App() {
     const drama = pickUnique(f => !isAi(f) && (Array.isArray(f.genre) ? (f.genre.includes('Drama') || f.genre.includes('Family')) : false), 16);
     const globalShorts = pickUnique(f => !isAi(f) && (f.country !== 'India' || f.language !== 'Hindi'), 16);
     const moreFilms = pickUnique(f => !isAi(f), 16);
-    const aiMagic = filteredFilms.filter(f => isAi(f));
+    const aiMagic = (filteredFilms || []).filter(f => isAi(f));
 
     return { awardWinning, thriller, drama, globalShorts, moreFilms, aiMagic };
   }, [filteredFilms]);
@@ -186,7 +191,7 @@ export default function App() {
             </div>
           ) : (
             <div className="space-y-6 md:space-y-8 mt-2">
-              {categorizedRows.awardWinning.length > 0 && (
+              {categorizedRows.awardWinning?.length > 0 && (
                 <MovieRow 
                   title={lang === 'hi' ? "अवार्ड-विनिंग और लोकप्रिय शॉर्ट फ़िल्में" : "Award Winning & Popular"} 
                   films={categorizedRows.awardWinning} 
@@ -194,7 +199,7 @@ export default function App() {
                   lang={lang} 
                 />
               )}
-              {categorizedRows.thriller.length > 0 && (
+              {categorizedRows.thriller?.length > 0 && (
                 <MovieRow 
                   title={lang === 'hi' ? "थ्रिलर और सस्पेंस" : "Thriller & Suspense"} 
                   films={categorizedRows.thriller} 
@@ -202,7 +207,7 @@ export default function App() {
                   lang={lang} 
                 />
               )}
-              {categorizedRows.drama.length > 0 && (
+              {categorizedRows.drama?.length > 0 && (
                 <MovieRow 
                   title={lang === 'hi' ? "ड्रामा और भावनाएँ" : "Drama & Human Stories"} 
                   films={categorizedRows.drama} 
@@ -210,7 +215,7 @@ export default function App() {
                   lang={lang} 
                 />
               )}
-              {categorizedRows.globalShorts.length > 0 && (
+              {categorizedRows.globalShorts?.length > 0 && (
                 <MovieRow 
                   title={lang === 'hi' ? "ग्लोबल और ऑस्कर शॉर्ट्स" : "Global & International Cinema"} 
                   films={categorizedRows.globalShorts} 
@@ -218,7 +223,7 @@ export default function App() {
                   lang={lang} 
                 />
               )}
-              {categorizedRows.moreFilms.length > 0 && (
+              {categorizedRows.moreFilms?.length > 0 && (
                 <MovieRow 
                   title={lang === 'hi' ? "अन्य चुनिंदा फ़िल्में" : "Explore More Shorts"} 
                   films={categorizedRows.moreFilms} 
@@ -226,7 +231,7 @@ export default function App() {
                   lang={lang} 
                 />
               )}
-              {categorizedRows.aiMagic.length > 0 && (
+              {categorizedRows.aiMagic?.length > 0 && (
                 <MovieRow 
                   title={lang === 'hi' ? "एआई मैजिक" : "AI Magic"} 
                   films={categorizedRows.aiMagic} 
