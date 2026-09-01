@@ -3,7 +3,7 @@
 
 export const GENRES = [
   { key: 'All', en: 'All', hi: 'सभी' },
-  { key: 'Drama', en: 'Drama', hi: 'ड्रामा' },
+  { key: "AI Cinema", "Drama", en: 'Drama', hi: 'ड्रामा' },
   { key: 'Sci-Fi', en: 'Sci-Fi', hi: 'साइंस-फ़िक्शन' },
   { key: 'Thriller', en: 'Thriller', hi: 'थ्रिलर' },
   { key: 'Romance', en: 'Romance', hi: 'रोमांस' },
