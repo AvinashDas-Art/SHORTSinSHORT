@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <rect width="1200" height="630" fill="#0d0d0f"/>
+  
+  <!-- Back Red Glow -->
+  <circle cx="600" cy="315" r="280" fill="#dc2626" opacity="0.18" filter="blur(60px)"/>
+  
+  <!-- Border outline -->
+  <rect x="30" y="30" width="1140" height="570" rx="24" fill="none" stroke="#27272a" stroke-width="2"/>
+  
+  <!-- Content Center -->
+  <g transform="translate(600, 275)" text-anchor="middle">
+    <!-- Main Logo -->
+    <text y="0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="76" letter-spacing="-2">
+      <tspan fill="#dc2626">SHORTS</tspan><tspan fill="#ffffff" font-weight="200" letter-spacing="4">inSHORT</tspan>
+    </text>
+    
+    <!-- Tagline -->
+    <text y="65" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="500" font-size="24" fill="#a1a1aa" letter-spacing="2">
+      CURATED WORLD CINEMA IN SHORT FORMATS
+    </text>
+    
+    <!-- Sub-Badges -->
+    <text y="125" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="600" font-size="16" fill="#e11d48" letter-spacing="3">
+      AWARD WINNING • GLOBAL SHORTS • AI CINEMA
+    </text>
+  </g>
+</svg>
