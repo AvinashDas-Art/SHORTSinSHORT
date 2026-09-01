@@ -1,5 +1,4 @@
 import React from 'react';
-import { Play } from 'lucide-react';
 
 export default function Hero({ film, onPlay, lang, onMouseEnter, onMouseLeave }) {
   if (!film) return null;
@@ -44,7 +43,7 @@ export default function Hero({ film, onPlay, lang, onMouseEnter, onMouseLeave })
               onClick={() => onPlay(film)}
               className="flex items-center space-x-2 bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2.5 rounded-xl shadow-lg transition duration-200"
             >
-              <Play size={18} fill="currentColor" />
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
               <span>{lang === 'hi' ? 'अभी देखें' : 'Play Now'}</span>
             </button>
           </div>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Play, Trash2, ArrowLeft, Clock } from 'lucide-react';
 
 export default function ArchivePage({ onBack, onPlayFilm, lang }) {
   const [history, setHistory] = useState([]);
@@ -36,7 +35,7 @@ export default function ArchivePage({ onBack, onPlayFilm, lang }) {
             onClick={onBack}
             className="p-2 bg-zinc-900 hover:bg-zinc-800 text-zinc-300 rounded-xl transition"
           >
-            <ArrowLeft size={20} />
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
           </button>
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-white">
@@ -51,9 +50,9 @@ export default function ArchivePage({ onBack, onPlayFilm, lang }) {
         {history.length > 0 && (
           <button 
             onClick={clearHistory}
-            className="flex items-center space-x-1 text-xs text-zinc-400 hover:text-red-400 bg-zinc-900/60 px-3 py-1.5 rounded-lg border border-zinc-800 transition"
+            className="flex items-center space-x-1.5 text-xs text-zinc-400 hover:text-red-400 bg-zinc-900/60 px-3 py-1.5 rounded-lg border border-zinc-800 transition"
           >
-            <Trash2 size={14} />
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
             <span>{lang === 'hi' ? 'साफ़ करें' : 'Clear All'}</span>
           </button>
         )}
@@ -61,7 +60,7 @@ export default function ArchivePage({ onBack, onPlayFilm, lang }) {
 
       {history.length === 0 ? (
         <div className="text-center py-20 bg-zinc-900/20 rounded-2xl border border-zinc-900">
-          <Clock size={48} className="mx-auto text-zinc-600 mb-4" />
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="mx-auto text-zinc-600 mb-4"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           <p className="text-zinc-400 font-medium">
             {lang === 'hi' ? 'आपने अभी तक कोई फ़िल्म नहीं देखी है।' : 'No watch history found yet.'}
           </p>
@@ -88,7 +87,7 @@ export default function ArchivePage({ onBack, onPlayFilm, lang }) {
                 />
                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
                   <div className="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg transform scale-75 group-hover:scale-100 transition">
-                    <Play size={20} fill="currentColor" />
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                   </div>
                 </div>
 
