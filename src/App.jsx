@@ -90,14 +90,15 @@ export default function App() {
       return row;
     };
 
-    const aiMagic = pickUnique(f => f.genre?.includes("AI Magic") || f.id?.startsWith("ai-"), 16);
+     || f.id?.startsWith("ai-"), 16);
     const thriller = pickUnique(f => f.genre?.includes('Thriller') || f.genre?.includes('Mystery') || f.genre?.includes('Suspense') || f.genre?.includes('Crime'), 16);
     const awardWinning = pickUnique(f => f.genre?.includes('Award Winning') || f.popularityScore >= 90, 16);
     const drama = pickUnique(f => f.genre?.includes('Drama') || f.genre?.includes('Family'), 16);
     const globalShorts = pickUnique(f => f.country !== 'India' || f.language !== 'Hindi', 16);
     const moreFilms = pickUnique(() => true, 16);
 
-    return { aiMagic, thriller, awardWinning, drama, globalShorts, moreFilms };
+    const aiMagic = filteredFilms.filter(f => f.genre?.includes('AI Magic') || f.id?.startsWith('ai-'));
+    return { thriller, awardWinning, drama, globalShorts, moreFilms, aiMagic };
   }, [filteredFilms, featuredFilm]);
 
   if (isClubView) {
