@@ -116,7 +116,7 @@ export default function App() {
       .slice(0, 10);
   }, [watchHistory, allFilms]);
 
-  // Dedicated Categorized Sections
+  // Dedicated Rows for Each Language Hub
   const categorizedSections = useMemo(() => {
     const list = [
       {
@@ -125,6 +125,10 @@ export default function App() {
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
           return gList.some(g => g.toLowerCase().includes('award'));
         })
+      },
+      {
+        title: lang === 'hi' ? '🌴 मलयालम सिनेमा हब (Malayalam Masterpieces)' : 'Roots of Kerala (Malayalam Short Films)',
+        films: allFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'malayalam')
       },
       {
         title: lang === 'hi' ? '🌾 माटी की कहानियाँ: मैथिली सिनेमा' : 'Roots of Mithila (Maithili Short Films)',
@@ -143,11 +147,11 @@ export default function App() {
         films: allFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'bengali')
       },
       {
-        title: lang === 'hi' ? '🌴 साउथ व वर्ल्ड सिनेमा (World & South Cinema Showcase)' : 'World & South Cinema Showcase',
+        title: lang === 'hi' ? '🌍 वर्ल्ड व साउथ सिनेमा (World & South Cinema Showcase)' : 'World & South Cinema Showcase',
         films: allFilms.filter(f => {
           const l = safeText(f.language, 'en').toLowerCase();
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
-          return ['telugu', 'tamil', 'malayalam', 'kannada', 'french', 'iranian'].includes(l) ||
+          return ['telugu', 'tamil', 'kannada', 'french', 'iranian', 'silent'].includes(l) ||
                  gList.some(g => g.toLowerCase().includes('world'));
         })
       },
@@ -177,7 +181,7 @@ export default function App() {
     return list.filter(sec => sec.films.length > 0);
   }, [allFilms, lang]);
 
-  // Filter View
+  // Combined Search & Filter View
   const filteredFilms = useMemo(() => {
     return allFilms.filter(film => {
       const matchesSearch = searchTerm === '' || 
