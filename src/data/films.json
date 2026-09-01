@@ -6,8 +6,7 @@
     "director": "The Dor Brothers",
     "directorHi": "द डोर ब्रदर्स",
     "genre": [
-      "AI Magic",
-      "AI Cinema"
+      "AI Magic"
     ],
     "language": "English",
     "duration": "3 min",
@@ -15,7 +14,8 @@
     "youtubeVideoId": "V5AFQaEbHQU",
     "thumbnail": "https://img.youtube.com/vi/V5AFQaEbHQU/maxresdefault.jpg",
     "description": "A visually staggering, high-octane AI action masterpiece showcasing generative cinematography.",
-    "descriptionHi": "जेनेरेटिव सिनेमा की सीमाओं को लांघती एक शानदार और तीव्र एक्शन एआई फ़िल्म।"
+    "descriptionHi": "जेनेरेटिव सिनेमा की सीमाओं को लांघती एक शानदार और तीव्र एक्शन एआई फ़िल्म।",
+    "category": "AI Magic"
   },
   {
     "id": "ai-freepik-bone-5",
@@ -24,8 +24,7 @@
     "director": "Kavan the Kid (Freepik)",
     "directorHi": "कावन द किड (फ्रीपिक)",
     "genre": [
-      "AI Magic",
-      "AI Cinema"
+      "AI Magic"
     ],
     "language": "English",
     "duration": "15 min",
@@ -33,7 +32,8 @@
     "youtubeVideoId": "ScfibDSMXJA",
     "thumbnail": "https://img.youtube.com/vi/ScfibDSMXJA/maxresdefault.jpg",
     "description": "The critically acclaimed Freepik original series directed by Kavan the Kid.",
-    "descriptionHi": "फ्रीपिक ओरिजिनल सीरीज़। कैप्टन हुक और कैप्टन निमो के बीच महाकाव्यात्मक एआई फंतासी।"
+    "descriptionHi": "फ्रीपिक ओरिजिनल सीरीज़। कैप्टन हुक और कैप्टन निमो के बीच महाकाव्यात्मक एआई फंतासी।",
+    "category": "AI Magic"
   },
   {
     "id": "ai-lennard-bone-throne",
@@ -42,8 +42,7 @@
     "director": "Lennard Smith",
     "directorHi": "लेनार्ड स्मिथ",
     "genre": [
-      "AI Magic",
-      "AI Cinema"
+      "AI Magic"
     ],
     "language": "English",
     "duration": "5 min",
@@ -51,7 +50,8 @@
     "youtubeVideoId": "6D4_ZMnPx7I",
     "thumbnail": "https://img.youtube.com/vi/6D4_ZMnPx7I/maxresdefault.jpg",
     "description": "Crafted with Kling 3.0 and Seedance, a gripping cinematic story of betrayal and warlords.",
-    "descriptionHi": "क्लिंग 3.0 और सीडांस से निर्मित रेगिस्तानी सरदारों और धोखे की सिनेमाई कहानी।"
+    "descriptionHi": "क्लिंग 3.0 और सीडांस से निर्मित रेगिस्तानी सरदारों और धोखे की सिनेमाई कहानी।",
+    "category": "AI Magic"
   },
   {
     "id": "ai-dair-jackpot",
@@ -59,8 +59,7 @@
     "titleHi": "जैकपॉट",
     "director": "Dair",
     "genre": [
-      "AI Magic",
-      "AI Cinema"
+      "AI Magic"
     ],
     "language": "English",
     "duration": "13 min",
@@ -68,7 +67,8 @@
     "youtubeVideoId": "q98WM0Gta0A",
     "thumbnail": "https://img.youtube.com/vi/q98WM0Gta0A/maxresdefault.jpg",
     "description": "Special selection for AAIFF. A futuristic scavenger discovers the last living tree on Earth.",
-    "descriptionHi": "पृथ्वी पर बचे आखिरी जीवित पेड़ को खोजने की दार्शनिक और रोचक साइंस-फ़िक्शन यात्रा।"
+    "descriptionHi": "पृथ्वी पर बचे आखिरी जीवित पेड़ को खोजने की दार्शनिक और रोचक साइंस-फ़िक्शन यात्रा।",
+    "category": "AI Magic"
   },
   {
     "id": "ai-goblin-woodnuts",
@@ -76,8 +76,7 @@
     "titleHi": "वुडनट्स",
     "director": "Gossip Goblin",
     "genre": [
-      "AI Magic",
-      "AI Cinema"
+      "AI Magic"
     ],
     "language": "English",
     "duration": "11 min",
@@ -85,7 +84,8 @@
     "youtubeVideoId": "NLAZubEa6X4",
     "thumbnail": "https://img.youtube.com/vi/NLAZubEa6X4/maxresdefault.jpg",
     "description": "A deep-space planetary harvesting crew encounters an ancient, sentient cosmic forest.",
-    "descriptionHi": "अंतरिक्ष में एक रहस्यमयी और जीवित कॉस्मिक जंगल के साथ सामना।"
+    "descriptionHi": "अंतरिक्ष में एक रहस्यमयी और जीवित कॉस्मिक जंगल के साथ सामना।",
+    "category": "AI Magic"
   },
   {
     "id": "yt_qEvQGmjUGJM",
