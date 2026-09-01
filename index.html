@@ -28,6 +28,19 @@
 
     <link rel="canonical" href="https://www.shortsinshort.com/" />
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#dc2626">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SHORTSinSHORT">
+  <link rel="apple-touch-icon" href="https://ui-avatars.com/api/?name=SHORTS&background=ef4444&color=fff&size=192">
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js');
+      });
+    }
+  </script>
 </head>
   <body class="bg-[#0d0d0f] text-white">
     <div id="root"></div>
