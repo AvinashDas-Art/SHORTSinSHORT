@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Deep Cinematic Background Gradient -->
+    <radialGradient id="cinemaBg" cx="50%" cy="35%" r="70%">
+      <stop offset="0%" stop-color="#1f0a0d" />
+      <stop offset="60%" stop-color="#0d0406" />
+      <stop offset="100%" stop-color="#050203" />
+    </radialGradient>
+
+    <!-- Ribbon 3D Gradients -->
+    <linearGradient id="redGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff334b" />
+      <stop offset="100%" stop-color="#b91c1c" />
+    </linearGradient>
+    <linearGradient id="redGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444" />
+      <stop offset="50%" stop-color="#dc2626" />
+      <stop offset="100%" stop-color="#7f1d1d" />
+    </linearGradient>
+
+    <!-- Inner Glow / Shadow Filter -->
+    <filter id="cinematicGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#dc2626" flood-opacity="0.45" />
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.9" />
+    </filter>
+  </defs>
+
+  <!-- iOS & Android Adaptive Squircle Base -->
+  <rect width="512" height="512" rx="115" fill="url(#cinemaBg)" />
+  <rect width="512" height="512" rx="115" fill="none" stroke="#ffffff" stroke-opacity="0.1" stroke-width="2" />
+
+  <!-- Creative Ribbon 'S' with Cinematic Flow -->
+  <g filter="url(#cinematicGlow)">
+    <!-- Main Ribbon Curve -->
+    <path d="M 355 140 C 340 100, 290 85, 240 85 C 150 85, 125 145, 125 195 C 125 255, 175 285, 255 310 C 335 335, 385 365, 385 425 C 385 490, 320 525, 240 525 C 160 525, 120 480, 115 440" 
+          fill="none" 
+          stroke="url(#redGrad2)" 
+          stroke-width="70" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" />
+
+    <!-- Sharp 3D Top Highlight Fold -->
+    <path d="M 355 140 C 330 95, 280 85, 240 85 C 155 85, 125 140, 125 195 C 125 240, 155 268, 225 292" 
+          fill="none" 
+          stroke="url(#redGrad1)" 
+          stroke-width="70" 
+          stroke-linecap="round" />
+
+    <!-- Center Play/Film Marker Triangle -->
+    <polygon points="215,225 275,258 215,291" fill="#ffffff" opacity="0.95" />
+  </g>
+</svg>
