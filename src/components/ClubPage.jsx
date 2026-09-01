@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 
+const SUBSCRIPTION_LINK = "https://rzp.io/rzp/pzRnBR1B";
+
 const EXCLUSIVE_CONTENT = [
   {
     id: "sc-1",
@@ -45,40 +47,15 @@ const EXCLUSIVE_CONTENT = [
 ];
 
 export default function ClubPage({ onBack, lang }) {
-  const { isPremium, loginWithGoogle, currentUser, activatePremium } = useAuth();
+  const { isPremium, loginWithGoogle, currentUser } = useAuth();
   const [activeTab, setActiveTab] = useState('all');
 
-  const startSubscription = () => {
+  const handleSubscribe = () => {
     if (!currentUser) {
       loginWithGoogle();
       return;
     }
-
-    const options = {
-      key: "rzp_live_TFULQJysCFTO4I",
-      subscription_id: "",
-      name: "SHORTSinSHORT Cinema Club",
-      description: "Weekly Cinema Insider Pass - ₹5/Week",
-      image: "https://ui-avatars.com/api/?name=SHORTS&background=ef4444&color=fff",
-      handler: function (response) {
-        activatePremium();
-        alert("बधाई! आपका Cinema Club सब्सक्रिप्शन सक्रिय हो गया है।");
-      },
-      prefill: {
-        name: currentUser.displayName || "",
-        email: currentUser.email || ""
-      },
-      theme: {
-        color: "#dc2626"
-      }
-    };
-
-    if (window.Razorpay) {
-      const rzp = new window.Razorpay(options);
-      rzp.open();
-    } else {
-      activatePremium();
-    }
+    window.open(SUBSCRIPTION_LINK, '_blank');
   };
 
   const filtered = activeTab === 'all' 
@@ -108,17 +85,15 @@ export default function ClubPage({ onBack, lang }) {
               मात्र <strong className="text-red-400 font-bold">₹5 प्रति सप्ताह</strong> में भारत और विश्व सिनेमा की चुनिंदा शॉर्ट फ़िल्मों के ओरिजिनल शूटिंग स्क्रिप्ट्स, डायरेक्टर नोट्स और अनकट वॉल्ट का पूरा एक्सेस पाएँ।
             </p>
 
-            {!isPremium && (
+            {!isPremium ? (
               <button
-                onClick={startSubscription}
+                onClick={handleSubscribe}
                 className="mt-6 inline-flex items-center space-x-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-bold text-sm md:text-base px-6 py-3 rounded-xl shadow-lg shadow-red-600/30 transition transform hover:scale-105 cursor-pointer"
               >
                 <span>Join Club for ₹5 / Week</span>
                 <span>→</span>
               </button>
-            )}
-
-            {isPremium && (
+            ) : (
               <div className="mt-6 inline-flex items-center space-x-2 bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 px-4 py-2 rounded-xl text-xs font-bold">
                 <span>✓ Premium Pass Active - All Vaults Unlocked</span>
               </div>
@@ -176,7 +151,7 @@ export default function ClubPage({ onBack, lang }) {
                 </button>
               ) : (
                 <button
-                  onClick={startSubscription}
+                  onClick={handleSubscribe}
                   className="w-full bg-zinc-900 hover:bg-zinc-800 border border-red-800/50 text-red-400 text-xs font-semibold py-2.5 rounded-lg transition flex items-center justify-center space-x-1.5 cursor-pointer"
                 >
                   <span>🔒 Unlock with Club Pass (₹5)</span>
