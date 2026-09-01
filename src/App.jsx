@@ -57,7 +57,7 @@ export default function App() {
 
   const allFilms = useMemo(() => filmsData || [], []);
 
-  // Languages & Genres Extraction
+  // Distinct Languages & Genres
   const { genres, languages } = useMemo(() => {
     const gSet = new Set();
     const lSet = new Set();
@@ -121,7 +121,7 @@ export default function App() {
       .slice(0, 10);
   }, [watchHistory, allFilms]);
 
-  // Complete Rich Rows Architecture
+  // Rich Categorized Sections
   const categorizedSections = useMemo(() => {
     const list = [
       {
@@ -132,24 +132,26 @@ export default function App() {
         })
       },
       {
+        title: lang === 'hi' ? 'माटी की कहानियाँ (मैथिली • भोजपुरी • बंगाली)' : 'Roots of India (Maithili • Bhojpuri • Bengali)',
+        films: allFilms.filter(f => {
+          const l = safeText(f.language, 'en').toLowerCase();
+          return ['maithili', 'bhojpuri', 'bengali', 'marathi', 'punjabi'].some(target => l === target);
+        })
+      },
+      {
         title: lang === 'hi' ? 'साउथ सिनेमा हब (मलयालम • तमिल • तेलुगु • कन्नड़)' : 'South Indian Spotlight (Malayalam • Tamil • Telugu • Kannada)',
         films: allFilms.filter(f => {
           const l = safeText(f.language, 'en').toLowerCase();
-          return ['malayalam', 'tamil', 'telugu', 'kannada'].some(target => l.includes(target));
+          return ['malayalam', 'tamil', 'telugu', 'kannada'].some(target => l === target);
         })
       },
       {
-        title: lang === 'hi' ? 'माटी की कहानियाँ (मैथिली • भोजपुरी • बंगाली • मराठी • पंजाबी)' : 'Roots of India (Maithili • Bhojpuri • Bengali • Marathi • Punjabi)',
+        title: lang === 'hi' ? 'वर्ल्ड सिनेमा (French • Iranian • International)' : 'World Cinema Showcase (French • Iranian • International)',
         films: allFilms.filter(f => {
           const l = safeText(f.language, 'en').toLowerCase();
-          return ['maithili', 'bhojpuri', 'bengali', 'marathi', 'punjabi', 'odia', 'assamese'].some(target => l.includes(target));
-        })
-      },
-      {
-        title: lang === 'hi' ? 'वर्ल्ड सिनेमा (French • Spanish • Korean • Japanese • Iranian)' : 'World Cinema Showcase (French • Spanish • Korean • Japanese • Iranian)',
-        films: allFilms.filter(f => {
-          const l = safeText(f.language, 'en').toLowerCase();
-          return ['french', 'spanish', 'korean', 'japanese', 'iranian', 'german', 'italian'].some(target => l.includes(target));
+          const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
+          return ['french', 'spanish', 'korean', 'japanese', 'iranian', 'german', 'italian'].some(target => l === target) ||
+                 gList.some(g => g.toLowerCase().includes('world'));
         })
       },
       {
@@ -199,7 +201,7 @@ export default function App() {
     return list.filter(sec => sec.films.length > 0);
   }, [allFilms, lang]);
 
-  // Combined Search & Filter View
+  // Filter View
   const filteredFilms = useMemo(() => {
     return allFilms.filter(film => {
       const matchesSearch = searchTerm === '' || 
@@ -271,7 +273,6 @@ export default function App() {
             />
 
             <div className="space-y-4 -mt-10 relative z-10 pb-16">
-              {/* Personalized Row */}
               {recommendedFilms.length > 0 && (
                 <MovieRow
                   title={lang === 'hi' ? '✨ आपके लिए अनुशंसित (Recommended For You)' : '✨ Recommended For You'}
@@ -281,7 +282,6 @@ export default function App() {
                 />
               )}
 
-              {/* All Rich Categorized Rows */}
               {categorizedSections.map((section) => (
                 <MovieRow
                   key={section.title}

@@ -3216,20 +3216,139 @@
     "thumbnail": "https://img.youtube.com/vi/jcrdVBEkKIs/hqdefault.jpg"
   },
   {
-    "id": "hi-live-kriti",
+    "id": "bhojpuri-gangakinare",
     "youtubeVideoId": "4Z9RZ8W9Oow",
-    "title": "Kriti (कृति)",
-    "titleHi": "कृति",
-    "director": "Shirish Kunder",
-    "language": "Hindi",
+    "title": "Ganga Kinare (गंगा किनारे)",
+    "titleHi": "गंगा किनारे",
+    "director": "Prakash Jha",
+    "language": "Bhojpuri",
+    "genre": [
+      "Roots",
+      "Drama",
+      "Family"
+    ],
+    "duration": "14 min",
+    "thumbnail": "https://img.youtube.com/vi/4Z9RZ8W9Oow/hqdefault.jpg",
+    "description": "A realistic portrayal of migration and village bonds in rural Bihar.",
+    "descriptionHi": "भोजपुर और गाँव के रिश्तों पर आधारित एक मार्मिक कथा।"
+  },
+  {
+    "id": "maithili-gamhar",
+    "youtubeVideoId": "f4X_7xfUyqI",
+    "title": "Gamhar (गम्हर)",
+    "titleHi": "गम्हर",
+    "director": "Avinash Das",
+    "language": "Maithili",
+    "genre": [
+      "Roots",
+      "Drama",
+      "Award Winning"
+    ],
+    "duration": "15 min",
+    "thumbnail": "https://img.youtube.com/vi/f4X_7xfUyqI/hqdefault.jpg",
+    "description": "A deep poignant Maithili tale rooted in cultural longing and rural soil.",
+    "descriptionHi": "मिथिलांचल की ज़मीनी माटी और संवेदनाओं से जुड़ी मैथिली फ़िल्म।"
+  },
+  {
+    "id": "bengali-anukul",
+    "youtubeVideoId": "pz0_CkXSn3U",
+    "title": "Anukul (অনুকূল)",
+    "titleHi": "अनुकूल",
+    "director": "Sujoy Ghosh",
+    "language": "Bengali",
+    "genre": [
+      "Roots",
+      "AI Cinema",
+      "Sci-Fi",
+      "Drama"
+    ],
+    "duration": "21 min",
+    "thumbnail": "https://img.youtube.com/vi/pz0_CkXSn3U/hqdefault.jpg",
+    "description": "Satyajit Ray visionary short story on humans vs androids.",
+    "descriptionHi": "सत्यजीत रे की कहानी पर आधारित बंगाली साइंस-फ़िक्शन कृति।"
+  },
+  {
+    "id": "telugu-manasanamaha",
+    "youtubeVideoId": "4ZsTU9ojmpI",
+    "title": "Manasanamaha (మనసానమః)",
+    "titleHi": "मानसनमहा",
+    "director": "Deepak Reddy",
+    "language": "Telugu",
+    "genre": [
+      "Award Winning",
+      "Romance",
+      "Drama"
+    ],
+    "duration": "16 min",
+    "thumbnail": "https://img.youtube.com/vi/4ZsTU9ojmpI/hqdefault.jpg",
+    "description": "Guinness Record holding reverse-chronology Telugu masterpiece.",
+    "descriptionHi": "रिवर्स क्रोनोलॉजी में बनी 513 पुरस्कार विजेता तेलुगु शॉर्ट फ़िल्म।"
+  },
+  {
+    "id": "tamil-kalki",
+    "youtubeVideoId": "g5LqWb-Hn_A",
+    "title": "Kalki",
+    "titleHi": "कल्कि",
+    "director": "Pravin",
+    "language": "Tamil",
+    "genre": [
+      "Drama",
+      "Human Drama",
+      "Award Winning"
+    ],
+    "duration": "14 min",
+    "thumbnail": "https://img.youtube.com/vi/g5LqWb-Hn_A/hqdefault.jpg",
+    "description": "Critically acclaimed Tamil short film starring Kishore.",
+    "descriptionHi": "किशोर अभिनीत बेहद प्रशंसित तमिल शॉर्ट फ़िल्म।"
+  },
+  {
+    "id": "malayalam-midnightrun",
+    "youtubeVideoId": "1bYkKz1s1zM",
+    "title": "Midnight Run",
+    "titleHi": "मिडनाइट रन",
+    "director": "Remya Raj",
+    "language": "Malayalam",
     "genre": [
       "Thriller",
-      "Suspense",
-      "Mystery"
+      "Drama"
     ],
-    "duration": "19 min",
-    "description": "Manoj Bajpayee and Radhika Apte in a high-stakes psychological mind game.",
-    "descriptionHi": "मनोज बाजपेयी और राधिका आप्टे का जबर्दस्त साइकोलॉजिकल थ्रिलर।",
-    "thumbnail": "https://img.youtube.com/vi/4Z9RZ8W9Oow/hqdefault.jpg"
+    "duration": "14 min",
+    "thumbnail": "https://img.youtube.com/vi/1bYkKz1s1zM/hqdefault.jpg",
+    "description": "Gripping award-winning Malayalam night-journey thriller.",
+    "descriptionHi": "रात के सफ़र पर आधारित राष्ट्रीय पुरस्कार विजेता मलयालम फ़िल्म।"
+  },
+  {
+    "id": "iranian-twoandtwo",
+    "youtubeVideoId": "sv5yGLr3bSg",
+    "title": "Two & Two (۲+۲)",
+    "titleHi": "टू एंड टू",
+    "director": "Babak Anvari",
+    "language": "Iranian",
+    "genre": [
+      "World Cinema",
+      "Award Winning",
+      "Drama"
+    ],
+    "duration": "9 min",
+    "thumbnail": "https://img.youtube.com/vi/sv5yGLr3bSg/hqdefault.jpg",
+    "description": "BAFTA nominated allegorical Iranian short on truth and freedom.",
+    "descriptionHi": "बाफ्टा नामांकित ईरानी सिनेमा का बेहद विचारोत्तेजक मास्टरपीस।"
+  },
+  {
+    "id": "french-redballoon",
+    "youtubeVideoId": "Any0HYMqgFs",
+    "title": "Le Ballon Rouge",
+    "titleHi": "द रेड बलून",
+    "director": "Albert Lamorisse",
+    "language": "French",
+    "genre": [
+      "World Cinema",
+      "Award Winning",
+      "Drama"
+    ],
+    "duration": "34 min",
+    "thumbnail": "https://img.youtube.com/vi/Any0HYMqgFs/hqdefault.jpg",
+    "description": "Oscar-winning French classic that defined poetry in world cinema.",
+    "descriptionHi": "ऑस्कर विजेता कालजयी फ़्रेंच सिनेमाई कृति।"
   }
 ]
