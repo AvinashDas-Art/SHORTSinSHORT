@@ -162,6 +162,14 @@ export default function App() {
                 lang={lang} 
               />
             )}
+            {categorizedRows.aiMagic && categorizedRows.aiMagic.length > 0 && (
+              <MovieRow 
+                title={lang === "hi" ? "एआई मैजिक" : "AI Magic"} 
+                films={categorizedRows.aiMagic} 
+                onSelectFilm={(f) => setPlayingFilm(f)} 
+                lang={lang} 
+              />
+            )}
             {categorizedRows.awardWinning.length > 0 && (
               <MovieRow 
                 title={lang === 'hi' ? "अवार्ड-विनिंग और लोकप्रिय शॉर्ट फ़िल्में" : "Award Winning & Popular"} 
