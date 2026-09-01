@@ -1,4 +1,3 @@
-import ClubPage from './components/ClubPage';
 import React, { useState, useMemo, useEffect } from 'react';
 import filmsData from './data/films.json';
 import Navbar from './components/Navbar';
@@ -6,109 +5,102 @@ import Hero from './components/Hero';
 import MovieRow from './components/MovieRow';
 import MovieCard from './components/MovieCard';
 import VideoModal from './components/VideoModal';
+import ClubPage from './components/ClubPage';
+import ArchivePage from './components/ArchivePage';
 
 export default function App() {
-  const [isClubView, setIsClubView] = React.useState(false);
+  const [isClubView, setIsClubView] = useState(false);
+  const [isArchiveView, setIsArchiveView] = useState(false);
   const [lang, setLang] = useState('en');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('All');
-  const [selectedLanguage, setSelectedLanguage] = useState('All');
-  const [selectedCountry, setSelectedCountry] = useState('All');
   const [playingFilm, setPlayingFilm] = useState(null);
   const [heroIndex, setHeroIndex] = useState(0);
+  const [isHeroPaused, setIsHeroPaused] = useState(false);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const genreParam = params.get('genre');
+    if (genreParam) {
+      setSelectedGenre(genreParam);
+    }
+  }, []);
+
+  const updateGenre = (genre) => {
+    setSelectedGenre(genre);
+    const url = new URL(window.location);
+    if (genre === 'All') {
+      url.searchParams.delete('genre');
+    } else {
+      url.searchParams.set('genre', genre);
+    }
+    window.history.pushState({}, '', url);
+  };
 
   const resetAllFilters = () => {
     setSearchTerm('');
-    setSelectedGenre('All');
-    setSelectedLanguage('All');
-    setSelectedCountry('All');
+    updateGenre('All');
     setPlayingFilm(null);
+    setIsClubView(false);
+    setIsArchiveView(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const genres = useMemo(() => {
     const set = new Set();
     filmsData.forEach(f => {
-      if (Array.isArray(f.genre)) {
-        f.genre.forEach(g => set.add(g));
-      } else if (f.genre) {
-        set.add(f.genre);
-      }
+      if (Array.isArray(f.genre)) f.genre.forEach(g => set.add(g));
+      else if (f.genre) set.add(f.genre);
     });
     return Array.from(set);
   }, []);
 
-  const languages = useMemo(() => {
-    const set = new Set();
-    filmsData.forEach(f => f.language && set.add(f.language));
-    return Array.from(set);
-  }, []);
-
-  const countries = useMemo(() => {
-    const set = new Set();
-    filmsData.forEach(f => f.country && set.add(f.country));
-    return Array.from(set);
-  }, []);
-
-  // हर कैटगरी से बेहतरीन फ़िल्मों का चयन जो टॉप बैनर में 5-5 सेकंड पर रोटेट होंगी
   const heroPool = useMemo(() => {
     const pool = [];
     const isAi = (f) => f.id?.startsWith('ai-') || (Array.isArray(f.genre) ? f.genre.includes('AI Magic') : f.genre === 'AI Magic');
 
-    // 1. Award Winning
     const award = filmsData.find(f => !isAi(f) && (f.popularityScore >= 90 || (Array.isArray(f.genre) && f.genre.includes('Award Winning'))));
     if (award) pool.push(award);
 
-    // 2. Thriller & Suspense
-    const thrill = filmsData.find(f => !isAi(f) && Array.isArray(f.genre) && (f.genre.includes('Thriller') || f.genre.includes('Suspense') || f.genre.includes('Mystery')));
+    const thrill = filmsData.find(f => !isAi(f) && Array.isArray(f.genre) && (f.genre.includes('Thriller') || f.genre.includes('Mystery')));
     if (thrill && !pool.some(p => p.id === thrill.id)) pool.push(thrill);
 
-    // 3. Drama & Human Stories
     const drm = filmsData.find(f => !isAi(f) && Array.isArray(f.genre) && f.genre.includes('Drama'));
     if (drm && !pool.some(p => p.id === drm.id)) pool.push(drm);
 
-    // 4. Global & International Cinema
     const globalFilm = filmsData.find(f => !isAi(f) && (f.country !== 'India' || f.language !== 'Hindi'));
     if (globalFilm && !pool.some(p => p.id === globalFilm.id)) pool.push(globalFilm);
 
-    // 5. AI Magic
     const aiFilm = filmsData.find(f => isAi(f));
     if (aiFilm && !pool.some(p => p.id === aiFilm.id)) pool.push(aiFilm);
 
-    // फ़ॉलबैक
     return pool.length > 0 ? pool : filmsData.slice(0, 5);
   }, []);
 
-  // हर 5 सेकंड में बैनर फ़िल्म बदलना
   useEffect(() => {
-    if (heroPool.length <= 1) return;
+    if (heroPool.length <= 1 || isHeroPaused) return;
     const timer = setInterval(() => {
       setHeroIndex(prev => (prev + 1) % heroPool.length);
-    }, 5000);
+    }, 7000);
 
     return () => clearInterval(timer);
-  }, [heroPool]);
+  }, [heroPool, isHeroPaused]);
 
   const featuredFilm = heroPool[heroIndex] || heroPool[0];
-
-  const isFiltering = searchTerm !== '' || selectedGenre !== 'All' || selectedLanguage !== 'All' || selectedCountry !== 'All';
+  const isFiltering = searchTerm !== '' || selectedGenre !== 'All';
 
   const filteredFilms = useMemo(() => {
     return filmsData.filter(film => {
       const matchesSearch = searchTerm === '' || 
         film.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        film.director?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        film.description?.toLowerCase().includes(searchTerm.toLowerCase());
+        film.director?.toLowerCase().includes(searchTerm.toLowerCase());
 
       const matchesGenre = selectedGenre === 'All' || 
         (Array.isArray(film.genre) ? film.genre.includes(selectedGenre) : film.genre === selectedGenre);
 
-      const matchesLanguage = selectedLanguage === 'All' || film.language === selectedLanguage;
-      const matchesCountry = selectedCountry === 'All' || film.country === selectedCountry;
-
-      return matchesSearch && matchesGenre && matchesLanguage && matchesCountry;
+      return matchesSearch && matchesGenre;
     });
-  }, [searchTerm, selectedGenre, selectedLanguage, selectedCountry]);
+  }, [searchTerm, selectedGenre]);
 
   const categorizedRows = useMemo(() => {
     const isAi = (f) => f.id?.startsWith('ai-') || (Array.isArray(f.genre) ? f.genre.includes('AI Magic') : f.genre === 'AI Magic');
@@ -134,115 +126,118 @@ export default function App() {
     return { awardWinning, thriller, drama, globalShorts, moreFilms, aiMagic };
   }, [filteredFilms]);
 
-  if (isClubView) {
-    return (
-      <div className="min-h-screen bg-[#0d0d0f]">
-        <Navbar isClubView={isClubView} onOpenClub={() => setIsClubView(false)} lang={lang} setLang={setLang} onResetFilters={() => setIsClubView(false)} />
-        <ClubPage onBack={() => setIsClubView(false)} lang={lang} />
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-[#0d0d0f] text-zinc-100 font-sans antialiased selection:bg-red-600 selection:text-white">
       <Navbar 
         isClubView={isClubView}
-        onOpenClub={() => setIsClubView(true)}
+        onOpenClub={() => { setIsClubView(true); setIsArchiveView(false); }}
+        isArchiveView={isArchiveView}
+        onOpenArchive={() => { setIsArchiveView(true); setIsClubView(false); }}
         lang={lang}
         setLang={setLang}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         selectedGenre={selectedGenre}
-        setSelectedGenre={setSelectedGenre}
-        selectedLanguage={selectedLanguage}
-        setSelectedLanguage={setSelectedLanguage}
-        selectedCountry={selectedCountry}
-        setSelectedCountry={setSelectedCountry}
+        setSelectedGenre={updateGenre}
         genres={genres}
-        languages={languages}
-        countries={countries}
         onResetFilters={resetAllFilters}
       />
 
-      <main className="pt-16 pb-20">
-        {!isFiltering && featuredFilm && (
-          <Hero 
-            key={featuredFilm.id || featuredFilm.youtubeVideoId}
-            film={featuredFilm} 
-            onPlay={(f) => setPlayingFilm(f)} 
-            lang={lang} 
-          />
-        )}
+      {isClubView ? (
+        <ClubPage onBack={() => setIsClubView(false)} lang={lang} />
+      ) : isArchiveView ? (
+        <ArchivePage onBack={() => setIsArchiveView(false)} onPlayFilm={(f) => setPlayingFilm(f)} lang={lang} />
+      ) : (
+        <main className="pt-16 pb-20">
+          {!isFiltering && featuredFilm && (
+            <Hero 
+              key={featuredFilm.id || featuredFilm.youtubeVideoId}
+              film={featuredFilm} 
+              onPlay={(f) => setPlayingFilm(f)} 
+              lang={lang} 
+              onMouseEnter={() => setIsHeroPaused(true)}
+              onMouseLeave={() => setIsHeroPaused(false)}
+            />
+          )}
 
-        {isFiltering ? (
-          <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8">
-            <h2 className="text-xl font-bold mb-6 text-zinc-200">
-              {lang === 'hi' ? `परिणाम (${filteredFilms.length})` : `Results (${filteredFilms.length})`}
-            </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8">
-              {filteredFilms.map(film => (
-                <MovieCard
-                  key={film.id || film.youtubeVideoId}
-                  film={film}
-                  onSelect={(f) => setPlayingFilm(f)}
-                  lang={lang}
-                />
-              ))}
+          {isFiltering ? (
+            <div className="max-w-7xl mx-auto px-4 md:px-8 pt-8">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-xl font-bold text-zinc-200">
+                  {lang === 'hi' ? `परिणाम (${filteredFilms.length})` : `Results (${filteredFilms.length})`}
+                </h2>
+                <button
+                  onClick={resetAllFilters}
+                  className="text-xs text-red-500 hover:text-red-400 font-medium"
+                >
+                  {lang === 'hi' ? 'सभी फ़िल्में देखें (होम)' : 'Back to All Films'}
+                </button>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8">
+                {filteredFilms.map(film => (
+                  <MovieCard
+                    key={film.id || film.youtubeVideoId}
+                    film={film}
+                    onSelect={(f) => setPlayingFilm(f)}
+                    lang={lang}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        ) : (
-          <div className="space-y-6 md:space-y-8 mt-2">
-            {categorizedRows.awardWinning.length > 0 && (
-              <MovieRow 
-                title={lang === 'hi' ? "अवार्ड-विनिंग और लोकप्रिय शॉर्ट फ़िल्में" : "Award Winning & Popular"} 
-                films={categorizedRows.awardWinning} 
-                onSelectFilm={(f) => setPlayingFilm(f)} 
-                lang={lang} 
-              />
-            )}
-            {categorizedRows.thriller.length > 0 && (
-              <MovieRow 
-                title={lang === 'hi' ? "थ्रिलर और सस्पेंस" : "Thriller & Suspense"} 
-                films={categorizedRows.thriller} 
-                onSelectFilm={(f) => setPlayingFilm(f)} 
-                lang={lang} 
-              />
-            )}
-            {categorizedRows.drama.length > 0 && (
-              <MovieRow 
-                title={lang === 'hi' ? "ड्रामा और भावनाएँ" : "Drama & Human Stories"} 
-                films={categorizedRows.drama} 
-                onSelectFilm={(f) => setPlayingFilm(f)} 
-                lang={lang} 
-              />
-            )}
-            {categorizedRows.globalShorts.length > 0 && (
-              <MovieRow 
-                title={lang === 'hi' ? "ग्लोबल और ऑस्कर शॉर्ट्स" : "Global & International Cinema"} 
-                films={categorizedRows.globalShorts} 
-                onSelectFilm={(f) => setPlayingFilm(f)} 
-                lang={lang} 
-              />
-            )}
-            {categorizedRows.moreFilms.length > 0 && (
-              <MovieRow 
-                title={lang === 'hi' ? "अन्य चुनिंदा फ़िल्में" : "Explore More Shorts"} 
-                films={categorizedRows.moreFilms} 
-                onSelectFilm={(f) => setPlayingFilm(f)} 
-                lang={lang} 
-              />
-            )}
-            {categorizedRows.aiMagic.length > 0 && (
-              <MovieRow 
-                title={lang === 'hi' ? "एआई मैजिक" : "AI Magic"} 
-                films={categorizedRows.aiMagic} 
-                onSelectFilm={(f) => setPlayingFilm(f)} 
-                lang={lang} 
-              />
-            )}
-          </div>
-        )}
-      </main>
+          ) : (
+            <div className="space-y-6 md:space-y-8 mt-2">
+              {categorizedRows.awardWinning.length > 0 && (
+                <MovieRow 
+                  title={lang === 'hi' ? "अवार्ड-विनिंग और लोकप्रिय शॉर्ट फ़िल्में" : "Award Winning & Popular"} 
+                  films={categorizedRows.awardWinning} 
+                  onSelectFilm={(f) => setPlayingFilm(f)} 
+                  lang={lang} 
+                />
+              )}
+              {categorizedRows.thriller.length > 0 && (
+                <MovieRow 
+                  title={lang === 'hi' ? "थ्रिलर और सस्पेंस" : "Thriller & Suspense"} 
+                  films={categorizedRows.thriller} 
+                  onSelectFilm={(f) => setPlayingFilm(f)} 
+                  lang={lang} 
+                />
+              )}
+              {categorizedRows.drama.length > 0 && (
+                <MovieRow 
+                  title={lang === 'hi' ? "ड्रामा और भावनाएँ" : "Drama & Human Stories"} 
+                  films={categorizedRows.drama} 
+                  onSelectFilm={(f) => setPlayingFilm(f)} 
+                  lang={lang} 
+                />
+              )}
+              {categorizedRows.globalShorts.length > 0 && (
+                <MovieRow 
+                  title={lang === 'hi' ? "ग्लोबल और ऑस्कर शॉर्ट्स" : "Global & International Cinema"} 
+                  films={categorizedRows.globalShorts} 
+                  onSelectFilm={(f) => setPlayingFilm(f)} 
+                  lang={lang} 
+                />
+              )}
+              {categorizedRows.moreFilms.length > 0 && (
+                <MovieRow 
+                  title={lang === 'hi' ? "अन्य चुनिंदा फ़िल्में" : "Explore More Shorts"} 
+                  films={categorizedRows.moreFilms} 
+                  onSelectFilm={(f) => setPlayingFilm(f)} 
+                  lang={lang} 
+                />
+              )}
+              {categorizedRows.aiMagic.length > 0 && (
+                <MovieRow 
+                  title={lang === 'hi' ? "एआई मैजिक" : "AI Magic"} 
+                  films={categorizedRows.aiMagic} 
+                  onSelectFilm={(f) => setPlayingFilm(f)} 
+                  lang={lang} 
+                />
+              )}
+            </div>
+          )}
+        </main>
+      )}
 
       <footer className="border-t border-zinc-900 py-8 text-center text-xs text-zinc-500">
         <p>© 2026 SHORTSinSHORT - Curated World Cinema in Short Formats.</p>
