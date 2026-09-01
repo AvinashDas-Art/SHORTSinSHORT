@@ -1,46 +1,16 @@
 {
-  "id": "com.shortsinshort.app",
-  "name": "SHORTSinSHORT Cinema Club",
-  "short_name": "SHORTSinSHORT",
-  "description": "Watch award-winning curated short films, read original shooting scripts in Hindi and English, and explore global cinema masterclasses.",
+  "name": "SHORTSinSHORT",
+  "short_name": "SHORTS",
+  "description": "Curated World Cinema in Short Formats",
   "start_url": "/",
-  "scope": "/",
   "display": "standalone",
-  "background_color": "#070709",
-  "theme_color": "#dc2626",
-  "orientation": "portrait",
-  "lang": "en",
-  "categories": [
-    "entertainment",
-    "movies",
-    "cinema"
-  ],
+  "background_color": "#0d0d0f",
+  "theme_color": "#0d0d0f",
   "icons": [
     {
-      "src": "/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/icon.svg",
-      "sizes": "512x512",
-      "type": "image/svg+xml"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=1080&h=1920&fit=crop",
-      "sizes": "1080x1920",
-      "type": "image/jpeg",
-      "form_factor": "narrow",
-      "label": "SHORTSinSHORT Home"
+      "src": "/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png"
     }
   ]
 }

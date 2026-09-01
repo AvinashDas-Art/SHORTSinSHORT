@@ -12,6 +12,7 @@ export default function Navbar({
   onOpenClub, 
   isArchiveView,
   onOpenArchive,
+  onSurpriseMe,
   lang, 
   setLang, 
   searchTerm, 
@@ -61,17 +62,45 @@ export default function Navbar({
         </div>
       )}
 
-      <div className="flex items-center space-x-3">
+      <div className="flex items-center space-x-2.5 sm:space-x-3">
+        {/* Surprise Me / Random Picker */}
+        <button
+          onClick={onSurpriseMe}
+          title={lang === 'hi' ? 'रैंडम फ़िल्म देखें' : 'Surprise Me'}
+          className="flex items-center space-x-1.5 text-xs font-semibold px-3 py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-amber-400 hover:text-white hover:border-amber-500/50 cursor-pointer transition group"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" className="group-hover:rotate-45 transition transform duration-300">
+            <rect x="3" y="3" width="18" height="18" rx="4" ry="4"/>
+            <circle cx="8.5" cy="8.5" r="1.5" fill="currentColor"/>
+            <circle cx="15.5" cy="8.5" r="1.5" fill="currentColor"/>
+            <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+            <circle cx="8.5" cy="15.5" r="1.5" fill="currentColor"/>
+            <circle cx="15.5" cy="15.5" r="1.5" fill="currentColor"/>
+          </svg>
+          <span className="hidden lg:inline">{lang === 'hi' ? 'सरप्राइज़' : 'Surprise'}</span>
+        </button>
+
+        {/* My Reel (Creative Archive / Personal History) */}
         <button
           onClick={onOpenArchive}
           className={`flex items-center space-x-1.5 text-xs font-semibold px-3 py-2 rounded-xl border cursor-pointer transition ${
-            isArchiveView ? 'bg-red-600 border-red-600 text-white' : 'bg-zinc-900 border-zinc-800 text-zinc-300 hover:text-white'
+            isArchiveView ? 'bg-red-600 border-red-600 text-white shadow-lg shadow-red-600/30' : 'bg-zinc-900 border-zinc-800 text-zinc-300 hover:text-white'
           }`}
         >
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <span className="hidden sm:inline">{lang === 'hi' ? 'आर्काइव' : 'Archive'}</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/>
+            <line x1="7" y1="2" x2="7" y2="22"/>
+            <line x1="17" y1="2" x2="17" y2="22"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <line x1="2" y1="7" x2="7" y2="7"/>
+            <line x1="2" y1="17" x2="7" y2="17"/>
+            <line x1="17" y1="17" x2="22" y2="17"/>
+            <line x1="17" y1="7" x2="22" y2="7"/>
+          </svg>
+          <span className="hidden sm:inline">{lang === 'hi' ? 'मेरी रील' : 'My Reel'}</span>
         </button>
 
+        {/* Club Access */}
         <button
           onClick={onOpenClub}
           className="flex items-center space-x-1.5 bg-gradient-to-r from-amber-500 to-red-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl shadow cursor-pointer transition hover:opacity-95"
@@ -80,6 +109,7 @@ export default function Navbar({
           <span>Club ₹5</span>
         </button>
 
+        {/* Language Switch */}
         <button
           onClick={() => setLang(lang === 'hi' ? 'en' : 'hi')}
           className="text-xs bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white px-3 py-2 rounded-lg cursor-pointer transition font-semibold"
