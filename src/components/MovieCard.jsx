@@ -13,6 +13,8 @@ export default function MovieCard({ film, onSelect, lang }) {
   const title = lang === 'hi' && film.titleHi ? film.titleHi : safeText(film.title, lang);
   const director = lang === 'hi' && film.directorHi ? film.directorHi : safeText(film.director, lang);
   const language = safeText(film.language, lang);
+  const vid = film.youtubeVideoId || film.id;
+  const thumbSrc = film.thumbnail || (vid ? `https://img.youtube.com/vi/${vid}/hqdefault.jpg` : '');
 
   return (
     <div 
@@ -21,8 +23,11 @@ export default function MovieCard({ film, onSelect, lang }) {
     >
       <div className="relative aspect-video rounded-xl overflow-hidden bg-zinc-900 border border-zinc-800/80 group-hover:border-zinc-700 transition">
         <img 
-          src={film.thumbnail} 
+          src={thumbSrc} 
           alt={title}
+          onError={(e) => {
+            if (vid) e.target.src = `https://img.youtube.com/vi/${vid}/hqdefault.jpg`;
+          }}
           className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
           loading="lazy"
         />

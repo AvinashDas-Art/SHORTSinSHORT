@@ -14,6 +14,8 @@ export default function Hero({ film, onPlay, lang, onMouseEnter, onMouseLeave })
   const description = lang === 'hi' && film.descriptionHi ? film.descriptionHi : safeText(film.description, lang);
   const language = safeText(film.language, lang);
   const duration = safeText(film.duration, lang);
+  const vid = film.youtubeVideoId || film.id;
+  const thumbSrc = film.thumbnail || (vid ? `https://img.youtube.com/vi/${vid}/maxresdefault.jpg` : '');
 
   return (
     <div 
@@ -23,8 +25,11 @@ export default function Hero({ film, onPlay, lang, onMouseEnter, onMouseLeave })
     >
       <div className="absolute inset-0">
         <img 
-          src={film.thumbnail} 
+          src={thumbSrc} 
           alt={title}
+          onError={(e) => {
+            if (vid) e.target.src = `https://img.youtube.com/vi/${vid}/hqdefault.jpg`;
+          }}
           className="w-full h-full object-cover object-center opacity-60 transition-all duration-1000 transform scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0f] via-[#0d0d0f]/40 to-transparent" />
