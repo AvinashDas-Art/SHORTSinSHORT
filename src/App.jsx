@@ -1,3 +1,4 @@
+import ClubPage from './components/ClubPage';
 import React, { useState, useMemo } from 'react';
 import filmsData from './data/films.json';
 import Navbar from './components/Navbar';
@@ -7,6 +8,7 @@ import MovieCard from './components/MovieCard';
 import VideoModal from './components/VideoModal';
 
 export default function App() {
+  const [isClubView, setIsClubView] = React.useState(false);
   const [lang, setLang] = useState('en');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('All');
@@ -97,9 +99,18 @@ export default function App() {
     return { thriller, awardWinning, drama, globalShorts, moreFilms };
   }, [filteredFilms, featuredFilm]);
 
+  if (isClubView) {
+    return (
+      <div className="min-h-screen bg-[#0d0d0f]">
+        <Navbar isClubView={isClubView} onOpenClub={() => setIsClubView(false)} lang={lang} setLang={setLang} onResetFilters={() => setIsClubView(false)} />
+        <ClubPage onBack={() => setIsClubView(false)} lang={lang} />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#0d0d0f] text-zinc-100 font-sans antialiased selection:bg-red-600 selection:text-white">
-      <Navbar
+      <Navbar isClubView={isClubView} onOpenClub={() => setIsClubView(!isClubView)}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         selectedGenre={selectedGenre}
