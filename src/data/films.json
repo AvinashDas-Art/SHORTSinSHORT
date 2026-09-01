@@ -3199,41 +3199,9 @@
     "thumbnail": "https://img.youtube.com/vi/e_ofen9SDeM/hqdefault.jpg"
   },
   {
-    "id": "ml-1",
-    "youtubeVideoId": "b1B7293Qj54",
-    "title": "Aavasavyuham Prelude",
-    "titleHi": "आवासव्यूहम",
-    "director": "Krishand",
-    "language": "Malayalam",
-    "genre": [
-      "Award Winning",
-      "Drama",
-      "Mystery"
-    ],
-    "duration": "14 min",
-    "description": "A critically acclaimed Malayalam environmental satire in short format.",
-    "descriptionHi": "पर्यावरण और इंसानी दख़ल पर बनी बेहद चर्चित मलयालम शॉर्ट फ़िल्म।"
-  },
-  {
-    "id": "ta-1",
-    "youtubeVideoId": "V_yZ3OaBqQE",
-    "title": "Irupaththi Onnu",
-    "titleHi": "इरुपाथ्थि ओन्नु",
-    "director": "Karthik Subbaraj",
-    "language": "Tamil",
-    "genre": [
-      "Thriller",
-      "Suspense",
-      "Drama"
-    ],
-    "duration": "12 min",
-    "description": "An intense gripping Tamil short film focusing on raw human instincts.",
-    "descriptionHi": "मानवीय स्वभाव और सस्पेंस से भरपूर तमिल शॉर्ट फ़िल्म।"
-  },
-  {
-    "id": "te-1",
-    "youtubeVideoId": "9qM6bNkWjN8",
-    "title": "Manasanamaha",
+    "id": "te-live-1",
+    "youtubeVideoId": "4ZsTU9ojmpI",
+    "title": "Manasanamaha (మనసానమః)",
     "titleHi": "मानसनमहा",
     "director": "Deepak Reddy",
     "language": "Telugu",
@@ -3243,60 +3211,63 @@
       "Drama"
     ],
     "duration": "16 min",
-    "description": "Guinness World Record holding Telugu short film told in reverse storytelling.",
-    "descriptionHi": "रिवर्स कहानी कहने की कला में गिनीज़ रिकॉर्ड जीतने वाली तेलुगु शॉर्ट फ़िल्म।"
+    "description": "513 awards winning Guinness World Record holding Telugu short film told in reverse chronology.",
+    "descriptionHi": "रिवर्स क्रोनोलॉजी में बनी 513 पुरस्कार विजेता ऐतिहासिक तेलुगु शॉर्ट फ़िल्म।",
+    "thumbnail": "https://img.youtube.com/vi/4ZsTU9ojmpI/hqdefault.jpg"
   },
   {
-    "id": "kn-1",
-    "youtubeVideoId": "8V6yW4oZqN0",
-    "title": "Blink of an Eye",
-    "titleHi": "ब्लिंक ऑफ़ एन आई",
+    "id": "ta-live-2",
+    "youtubeVideoId": "V_yZ3OaBqQE",
+    "title": "Kaatchipizhai",
+    "titleHi": "काचीपिझै",
+    "director": "Karthik Subbaraj",
+    "language": "Tamil",
+    "genre": [
+      "Thriller",
+      "Suspense"
+    ],
+    "duration": "10 min",
+    "description": "A brilliant early suspense thriller short film directed by Karthik Subbaraj.",
+    "descriptionHi": "कार्तिक सुब्बाराज द्वारा निर्देशित बहुचर्चित तमिल सस्पेंस शॉर्ट फ़िल्म।",
+    "thumbnail": "https://img.youtube.com/vi/V_yZ3OaBqQE/hqdefault.jpg"
+  },
+  {
+    "id": "ml-live-3",
+    "youtubeVideoId": "8bZ2qV-4W3Y",
+    "title": "Burn My Body",
+    "titleHi": "बर्न माय बॉडी",
+    "director": "Aaryan Krishna Menon",
+    "language": "Malayalam",
+    "genre": [
+      "Thriller",
+      "Drama",
+      "Crime"
+    ],
+    "duration": "28 min",
+    "description": "Critically acclaimed psychological Malayalam short film.",
+    "descriptionHi": "गहन मनोवैज्ञानिक द्वंद्व और संवेदना पर आधारित चर्चित मलयालम फ़िल्म।",
+    "thumbnail": "https://img.youtube.com/vi/8bZ2qV-4W3Y/hqdefault.jpg"
+  },
+  {
+    "id": "kn-live-4",
+    "youtubeVideoId": "yR2s-lQyR4k",
+    "title": "The Last Kannada Story",
+    "titleHi": "द लास्ट स्टोरी",
     "director": "Pawan Kumar",
     "language": "Kannada",
     "genre": [
-      "Thriller",
+      "Drama",
       "Mystery"
     ],
-    "duration": "11 min",
-    "description": "A gripping psychological Kannada short film.",
-    "descriptionHi": "मनोवैज्ञानिक द्वंद्व पर आधारित चर्चित कन्नड़ शॉर्ट फ़िल्म।"
-  },
-  {
-    "id": "mai-1",
-    "youtubeVideoId": "g5wX3Lq8V_0",
-    "title": "Gamhar (गम्हर)",
-    "titleHi": "गम्हर",
-    "director": "Avinash Das",
-    "language": "Maithili",
-    "genre": [
-      "Drama",
-      "Roots",
-      "Award Winning"
-    ],
-    "duration": "15 min",
-    "description": "A deep poignant Maithili tale rooted in cultural longing and rural soil.",
-    "descriptionHi": "मिथिलांचल की ज़मीनी माटी और संवेदनाओं से जुड़ी मैथिली फ़िल्म।"
-  },
-  {
-    "id": "bho-1",
-    "youtubeVideoId": "K2eX9V8lX4w",
-    "title": "Ganga Kinare",
-    "titleHi": "गंगा किनारे",
-    "director": "Prakash Jha",
-    "language": "Bhojpuri",
-    "genre": [
-      "Drama",
-      "Roots",
-      "Family"
-    ],
     "duration": "14 min",
-    "description": "A realistic portrayal of migration and village bonds in rural Bihar.",
-    "descriptionHi": "भोजपुर और गाँव के रिश्तों पर आधारित एक मार्मिक कथा।"
+    "description": "A gripping Kannada short narrative highlighting culture and modern choices.",
+    "descriptionHi": "संस्कृति और आधुनिकता के द्वंद्व को उजागर करती कन्नड़ शॉर्ट फ़िल्म।",
+    "thumbnail": "https://img.youtube.com/vi/yR2s-lQyR4k/hqdefault.jpg"
   },
   {
-    "id": "bn-1",
-    "youtubeVideoId": "N1o8pQ5c2rA",
-    "title": "Ahalya",
+    "id": "bn-live-1",
+    "youtubeVideoId": "f4X_7xfUyqI",
+    "title": "Ahalya (অহল্যা)",
     "titleHi": "अहल्या",
     "director": "Sujoy Ghosh",
     "language": "Bengali",
@@ -3306,13 +3277,65 @@
       "Award Winning"
     ],
     "duration": "14 min",
-    "description": "Radhika Apte and Soumitra Chatterjee in a legendary Bengali mythological thriller.",
-    "descriptionHi": "सौमित्र चटर्जी और राधिका आप्टे अभिनीत रहस्यमयी बंगाली थ्रिलर।"
+    "description": "Radhika Apte and Soumitra Chatterjee in Sujoy Ghosh iconic Bengali thriller.",
+    "descriptionHi": "राधिका आप्टे और सौमित्र चटर्जी अभिनीत सुजॉय घोष की विख्यात बंगाली थ्रिलर।",
+    "thumbnail": "https://img.youtube.com/vi/f4X_7xfUyqI/hqdefault.jpg"
   },
   {
-    "id": "mr-1",
+    "id": "bn-live-2",
+    "youtubeVideoId": "pz0_CkXSn3U",
+    "title": "Anukul (অনুকূল)",
+    "titleHi": "अनुकूल",
+    "director": "Sujoy Ghosh",
+    "language": "Bengali",
+    "genre": [
+      "AI Cinema",
+      "Drama",
+      "Sci-Fi"
+    ],
+    "duration": "21 min",
+    "description": "Satyajit Ray visionary short story on human vs machine adapted on screen.",
+    "descriptionHi": "सत्यजीत रे की प्रसिद्ध कहानी पर आधारित विज्ञान और चेतना की अद्भुत बंगाली फ़िल्म।",
+    "thumbnail": "https://img.youtube.com/vi/pz0_CkXSn3U/hqdefault.jpg"
+  },
+  {
+    "id": "hi-live-chutney",
+    "youtubeVideoId": "jcrdVBEkKIs",
+    "title": "Chutney (चटनी)",
+    "titleHi": "चटनी",
+    "director": "Jyoti Kapur Das",
+    "language": "Hindi",
+    "genre": [
+      "Award Winning",
+      "Thriller",
+      "Drama"
+    ],
+    "duration": "16 min",
+    "description": "Tisca Chopra, Adil Hussain, and Rasika Dugal in India most-watched dark short thriller.",
+    "descriptionHi": "टिस्का चोपड़ा, आदिल हुसैन और रसिका दुग्गल की रोंगटे खड़े करने वाली कालजयी कहानी।",
+    "thumbnail": "https://img.youtube.com/vi/jcrdVBEkKIs/hqdefault.jpg"
+  },
+  {
+    "id": "hi-live-kriti",
+    "youtubeVideoId": "4Z9RZ8W9Oow",
+    "title": "Kriti (कृति)",
+    "titleHi": "कृति",
+    "director": "Shirish Kunder",
+    "language": "Hindi",
+    "genre": [
+      "Thriller",
+      "Suspense",
+      "Mystery"
+    ],
+    "duration": "19 min",
+    "description": "Manoj Bajpayee and Radhika Apte in a high-stakes psychological mind game.",
+    "descriptionHi": "मनोज बाजपेयी और राधिका आप्टे का जबर्दस्त साइकोलॉजिकल थ्रिलर।",
+    "thumbnail": "https://img.youtube.com/vi/4Z9RZ8W9Oow/hqdefault.jpg"
+  },
+  {
+    "id": "mr-live-1",
     "youtubeVideoId": "v8N6x0Kq_L8",
-    "title": "Pistulya",
+    "title": "Pistulya (पिस्तुल्या)",
     "titleHi": "पिस्तुल्या",
     "director": "Nagraj Manjule",
     "language": "Marathi",
@@ -3322,28 +3345,30 @@
       "Roots"
     ],
     "duration": "15 min",
-    "description": "National Award winning Marathi short film depicting the struggle for education.",
-    "descriptionHi": "राष्ट्रीय पुरस्कार से सम्मानित नागराज मंजुले की मार्मिक मराठी फ़िल्म।"
+    "description": "National Award-winning masterpiece by Sairat director Nagraj Manjule.",
+    "descriptionHi": "नागराज मंजुले की राष्ट्रीय पुरस्कार से सम्मानित संवेदनशील मराठी फ़िल्म।",
+    "thumbnail": "https://img.youtube.com/vi/v8N6x0Kq_L8/hqdefault.jpg"
   },
   {
-    "id": "pa-1",
-    "youtubeVideoId": "L4qN8e5_k0s",
-    "title": "Nooran",
-    "titleHi": "नूरन",
-    "director": "Navtej Sandhu",
-    "language": "Punjabi",
+    "id": "fa-live-1",
+    "youtubeVideoId": "sv5yGLr3bSg",
+    "title": "Two & Two (۲+۲)",
+    "titleHi": "टू एंड टू",
+    "director": "Babak Anvari",
+    "language": "Iranian",
     "genre": [
-      "Drama",
-      "Roots",
-      "Romance"
+      "World Cinema",
+      "Award Winning",
+      "Drama"
     ],
-    "duration": "18 min",
-    "description": "Cannes showcased Punjabi short story reflecting unsaid rural human emotions.",
-    "descriptionHi": "कान्स फ़िल्म फ़ेस्टिवल में प्रदर्शित पंजाबी संवेदनाओं की दास्तान।"
+    "duration": "9 min",
+    "description": "BAFTA nominated allegorical Iranian short film on absolute truth and freedom.",
+    "descriptionHi": "बाफ्टा नामांकित ईरानी सिनेमा का बेहद विचारोत्तेजक मास्टरपीस।",
+    "thumbnail": "https://img.youtube.com/vi/sv5yGLr3bSg/hqdefault.jpg"
   },
   {
-    "id": "fr-1",
-    "youtubeVideoId": "F6t_7A2XG3Y",
+    "id": "fr-live-1",
+    "youtubeVideoId": "Any0HYMqgFs",
     "title": "Le Ballon Rouge (The Red Balloon)",
     "titleHi": "द रेड बलून",
     "director": "Albert Lamorisse",
@@ -3354,294 +3379,8 @@
       "Drama"
     ],
     "duration": "34 min",
-    "description": "Oscar-winning iconic French cinematic masterpiece across Paris streets.",
-    "descriptionHi": "ऑस्कर विजेता क्लासिक फ़्रेंच सिनेमाई कृति।"
-  },
-  {
-    "id": "es-1",
-    "youtubeVideoId": "H4eX9b1A8_0",
-    "title": "Madre",
-    "titleHi": "माद्रे (Madre)",
-    "director": "Rodrigo Sorogoyen",
-    "language": "Spanish",
-    "genre": [
-      "World Cinema",
-      "Thriller",
-      "Suspense"
-    ],
-    "duration": "18 min",
-    "description": "Academy Award nominated Spanish high-tension telephone call thriller.",
-    "descriptionHi": "ऑस्कर नामांकित रोंगटे खड़े कर देने वाला स्पैनिश थ्रिलर।"
-  },
-  {
-    "id": "ko-1",
-    "youtubeVideoId": "pX4Yq8_M3e1",
-    "title": "The Present",
-    "titleHi": "द प्रेज़ेंट",
-    "director": "Hur Jin-ho",
-    "language": "Korean",
-    "genre": [
-      "World Cinema",
-      "Drama",
-      "Comedy"
-    ],
-    "duration": "20 min",
-    "description": "Heartwarming Korean time-slip drama starring Shin Ha-kyun and Suho.",
-    "descriptionHi": "समय और आशा पर आधारित दिल छू लेने वाला कोरियन ड्रामा।"
-  },
-  {
-    "id": "fa-1",
-    "youtubeVideoId": "kX9L6P2e3qA",
-    "title": "Two & Two",
-    "titleHi": "टू एंड टू",
-    "director": "Babak Anvari",
-    "language": "Iranian",
-    "genre": [
-      "World Cinema",
-      "Award Winning",
-      "Drama"
-    ],
-    "duration": "9 min",
-    "description": "BAFTA nominated allegorical Iranian short film on conformity and truth.",
-    "descriptionHi": "बाफ्टा नामांकित व्यवस्था और सत्य पर चोट करती ईरानी शॉर्ट फ़िल्म।"
-  },
-  {
-    "id": "ja-1",
-    "youtubeVideoId": "W5eP0k7X1r4",
-    "title": "A Fork in the Road",
-    "titleHi": "फ़ॉर्क इन द रोड",
-    "director": "Kenji Sato",
-    "language": "Japanese",
-    "genre": [
-      "World Cinema",
-      "Drama",
-      "Mystery"
-    ],
-    "duration": "14 min",
-    "description": "Subtle, visually atmospheric Japanese reflection on quiet decisions.",
-    "descriptionHi": "गहन जापानी सिनेमाई शिल्प और शांत जीवन दर्शन का नमूना।"
-  },
-  {
-    "id": "ml-harv-1",
-    "youtubeVideoId": "8bZ2qV-4W3Y",
-    "title": "Burn My Body",
-    "titleHi": "बर्न माय बॉडी",
-    "director": "Aaryan Krishna Menon",
-    "language": "Malayalam",
-    "genre": [
-      "Thriller",
-      "Crime",
-      "Award Winning"
-    ],
-    "duration": "28 min",
-    "description": "Sensational Malayalam psychological thriller exploring deep medical ethics.",
-    "descriptionHi": "गहन मनोवैज्ञानिक द्वंद्व और अपराध पर आधारित सनसनीखेज मलयालम फ़िल्म।"
-  },
-  {
-    "id": "ta-harv-2",
-    "youtubeVideoId": "Y-X0nZ7Qj20",
-    "title": "Maanus",
-    "titleHi": "मानुष",
-    "director": "Halitha Shameem",
-    "language": "Tamil",
-    "genre": [
-      "Drama",
-      "Human Drama",
-      "Award Winning"
-    ],
-    "duration": "19 min",
-    "description": "Award winning Tamil short exploring raw human empathy.",
-    "descriptionHi": "मानवीय संवेदना और रिश्तों की गहराई को छूती प्रशंसित तमिल शॉर्ट फ़िल्म।"
-  },
-  {
-    "id": "te-harv-3",
-    "youtubeVideoId": "G3eZ4_8q9mE",
-    "title": "Anukokunda",
-    "titleHi": "अनुकोकुंडा",
-    "director": "Tarun Bhascker",
-    "language": "Telugu",
-    "genre": [
-      "Comedy",
-      "Drama",
-      "Award Winning"
-    ],
-    "duration": "16 min",
-    "description": "Cannes short corner screened Telugu cult comedy-drama.",
-    "descriptionHi": "कान्स फ़िल्म फ़ेस्टिवल में प्रदर्शित लोकप्रिय तेलुगु शॉर्ट फ़िल्म।"
-  },
-  {
-    "id": "kn-harv-4",
-    "youtubeVideoId": "V_5B8e4L1aZ",
-    "title": "Chowkabara",
-    "titleHi": "चौकाबारा",
-    "director": "Sunil Kumar",
-    "language": "Kannada",
-    "genre": [
-      "Thriller",
-      "Suspense"
-    ],
-    "duration": "14 min",
-    "description": "Gripping Kannada suspense short based on traditional mind games.",
-    "descriptionHi": "परंपरागत खेल और दिमाग़ी दांव-पेंच पर आधारित कन्नड़ सस्पेंस थ्रिलर।"
-  },
-  {
-    "id": "mai-harv-1",
-    "youtubeVideoId": "d3W7k8q2Z9A",
-    "title": "Bhor (भोर)",
-    "titleHi": "भोर",
-    "director": "Avinash Das",
-    "language": "Maithili",
-    "genre": [
-      "Drama",
-      "Roots",
-      "Family"
-    ],
-    "duration": "17 min",
-    "description": "Early morning village life and rustic emotional landscape of Mithila.",
-    "descriptionHi": "मिथिला के ग्रामीण जीवन और सवेरे की महक समेटे एक संवेदनशील रचना।"
-  },
-  {
-    "id": "bho-harv-2",
-    "youtubeVideoId": "A7vB6_2L1kY",
-    "title": "Mati Ke Rang",
-    "titleHi": "माटी के रंग",
-    "director": "Anand Ranjan",
-    "language": "Bhojpuri",
-    "genre": [
-      "Drama",
-      "Roots",
-      "Human Drama"
-    ],
-    "duration": "15 min",
-    "description": "Real life human bonds and village struggles in Bihar.",
-    "descriptionHi": "बिहार की लोक संस्कृति और ज़मीनी रिश्तों को बयां करती भोजपुरी फ़िल्म।"
-  },
-  {
-    "id": "bn-harv-3",
-    "youtubeVideoId": "q8L1v7_E9zM",
-    "title": "Chupi Chupi",
-    "titleHi": "चुपी चुपी",
-    "director": "Anik Dutta",
-    "language": "Bengali",
-    "genre": [
-      "Romance",
-      "Drama",
-      "Comedy"
-    ],
-    "duration": "13 min",
-    "description": "A delightful subtle Bengali romantic rendezvous in Kolkata.",
-    "descriptionHi": "कोलकाता के परिवेश में रची-बसी एक प्यारी और हल्की-फुल्की बंगाली प्रेम कहानी।"
-  },
-  {
-    "id": "mr-harv-4",
-    "youtubeVideoId": "M1b8Z9_4kLQ",
-    "title": "Khadak (खड़क)",
-    "titleHi": "खड़क",
-    "director": "Omkar Barve",
-    "language": "Marathi",
-    "genre": [
-      "Award Winning",
-      "Drama",
-      "Roots"
-    ],
-    "duration": "22 min",
-    "description": "National award winning portrayal of arid rural Maharashtra.",
-    "descriptionHi": "सूखे और ग्रामीण संघर्ष पर बनी राष्ट्रीय पुरस्कार विजेता मराठी फ़िल्म।"
-  },
-  {
-    "id": "pa-harv-5",
-    "youtubeVideoId": "Z9v4e7_L1wK",
-    "title": "Chamm (छम्म)",
-    "titleHi": "छम्म",
-    "director": "Rajeev Kumar",
-    "language": "Punjabi",
-    "genre": [
-      "Drama",
-      "Roots",
-      "Social"
-    ],
-    "duration": "20 min",
-    "description": "Hard-hitting Punjabi short story portraying rural social realities.",
-    "descriptionHi": "पंजाब के सामाजिक यथार्थ और ज़मीनी सच को उजागर करती शॉर्ट फ़िल्म।"
-  },
-  {
-    "id": "fr-harv-1",
-    "youtubeVideoId": "T5e8Z_3Kq1A",
-    "title": "Majorité Opprimée (Oppressed Majority)",
-    "titleHi": "ऑप्रेस्ड मेजॉरिटी",
-    "director": "Éléonore Pourriat",
-    "language": "French",
-    "genre": [
-      "World Cinema",
-      "Award Winning",
-      "Drama"
-    ],
-    "duration": "11 min",
-    "description": "Globally viral French short film flipping gender roles.",
-    "descriptionHi": "जेंडर भूमिकाओं को उलट कर सोचने पर मजबूर करने वाली प्रसिद्ध फ़्रेंच फ़िल्म।"
-  },
-  {
-    "id": "es-harv-2",
-    "youtubeVideoId": "X4b9_8kL1qZ",
-    "title": "Timecode",
-    "titleHi": "टाइमकोड",
-    "director": "Juanjo Giménez",
-    "language": "Spanish",
-    "genre": [
-      "World Cinema",
-      "Award Winning",
-      "Romance"
-    ],
-    "duration": "15 min",
-    "description": "Cannes Palme d'Or and Oscar-nominated Spanish parking-lot romance.",
-    "descriptionHi": "कान्स पाल्म डी'ओर और ऑस्कर नामांकित बेहद खूबसूरत स्पैनिश शॉर्ट फ़िल्म।"
-  },
-  {
-    "id": "ko-harv-3",
-    "youtubeVideoId": "L9q4Z_2v8eM",
-    "title": "Human Form",
-    "titleHi": "ह्यूमन फ़ॉर्म",
-    "director": "Doyeon Noh",
-    "language": "Korean",
-    "genre": [
-      "World Cinema",
-      "Thriller",
-      "Horror"
-    ],
-    "duration": "12 min",
-    "description": "Eerie and globally acclaimed Korean short on societal beauty standards.",
-    "descriptionHi": "सुंदरता के सामाजिक दबाव पर बनी रोंगटे खड़े करने वाली कोरियन फ़िल्म।"
-  },
-  {
-    "id": "fa-harv-4",
-    "youtubeVideoId": "K8v3_7q9eLZ",
-    "title": "Tattoo (تاتو)",
-    "titleHi": "टैटू",
-    "director": "Farhad Delaram",
-    "language": "Iranian",
-    "genre": [
-      "World Cinema",
-      "Award Winning",
-      "Drama"
-    ],
-    "duration": "15 min",
-    "description": "Berlinale Crystal Bear winning Iranian masterpiece on personal freedom.",
-    "descriptionHi": "बर्लिन फ़िल्म फ़ेस्टिवल क्रिस्टल बेयर विजेता प्रसिद्ध ईरानी शॉर्ट फ़िल्म।"
-  },
-  {
-    "id": "ja-harv-5",
-    "youtubeVideoId": "B7e9_4kL3vQ",
-    "title": "Shabu-Shabu Spirit",
-    "titleHi": "शाबू-शाबू स्पिरिट",
-    "director": "Yuki Saito",
-    "language": "Japanese",
-    "genre": [
-      "World Cinema",
-      "Comedy",
-      "Drama"
-    ],
-    "duration": "11 min",
-    "description": "Delightful Japanese short depicting family tensions over a hot pot.",
-    "descriptionHi": "पारिवारिक रिश्तों और जापानी भोजन संस्कृति पर आधारित रोचक कहानी।"
+    "description": "Oscar-winning French classic that defined poetry in short-format cinema.",
+    "descriptionHi": "ऑस्कर विजेता क्लासिक फ़्रेंच सिनेमाई कृति।",
+    "thumbnail": "https://img.youtube.com/vi/Any0HYMqgFs/hqdefault.jpg"
   }
 ]

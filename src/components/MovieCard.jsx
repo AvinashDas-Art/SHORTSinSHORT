@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const safeText = (val, lang = 'en') => {
   if (!val) return '';
@@ -10,12 +10,22 @@ const safeText = (val, lang = 'en') => {
 export default function MovieCard({ film, onSelect, lang }) {
   if (!film) return null;
 
+  const vid = film.youtubeVideoId || film.id;
+  const initialThumb = film.thumbnail || (vid ? `https://img.youtube.com/vi/${vid}/hqdefault.jpg` : '');
+  const [imgSrc, setImgSrc] = useState(initialThumb);
+
   const title = lang === 'hi' && film.titleHi ? film.titleHi : safeText(film.title, lang);
   const director = lang === 'hi' && film.directorHi ? film.directorHi : safeText(film.director, lang);
   const language = safeText(film.language, lang) || 'Hindi';
   const duration = safeText(film.duration, lang);
-  const vid = film.youtubeVideoId || film.id;
-  const thumbSrc = film.thumbnail || (vid ? `https://img.youtube.com/vi/${vid}/mqdefault.jpg` : '');
+
+  const handleImgError = () => {
+    if (vid && imgSrc.includes('hqdefault')) {
+      setImgSrc(`https://img.youtube.com/vi/${vid}/mqdefault.jpg`);
+    } else if (vid && imgSrc.includes('mqdefault')) {
+      setImgSrc(`https://img.youtube.com/vi/${vid}/0.jpg`);
+    }
+  };
 
   return (
     <div 
@@ -24,20 +34,18 @@ export default function MovieCard({ film, onSelect, lang }) {
     >
       <div className="relative aspect-video w-full bg-zinc-900 rounded-xl overflow-hidden border border-zinc-800/80 group-hover:border-red-600/60 shadow-md transition duration-300">
         <img 
-          src={thumbSrc} 
+          src={imgSrc} 
           alt={title}
-          onError={(e) => {
-            if (vid) e.target.src = `https://img.youtube.com/vi/${vid}/hqdefault.jpg`;
-          }}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+          onError={handleImgError}
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-95 group-hover:opacity-100"
           loading="lazy"
         />
         
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition" />
 
-        {/* Top Badges: Language & AI/Club */}
+        {/* Top Badges */}
         <div className="absolute top-2 left-2 flex items-center space-x-1.5">
-          <span className="bg-black/70 backdrop-blur-md border border-white/10 text-zinc-300 text-[10px] font-semibold px-2 py-0.5 rounded-md uppercase tracking-wider">
+          <span className="bg-black/80 backdrop-blur-md border border-white/10 text-zinc-300 text-[10px] font-semibold px-2 py-0.5 rounded-md uppercase tracking-wider">
             {language}
           </span>
           {film.hasSubtitles !== false && (
@@ -56,7 +64,7 @@ export default function MovieCard({ film, onSelect, lang }) {
 
         {/* Hover Play Button */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-200">
-          <div className="w-10 h-10 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-lg transform group-hover:scale-110 transition">
+          <div className="w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg transform group-hover:scale-110 transition">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           </div>
         </div>
