@@ -74,7 +74,7 @@ export default function App() {
     };
   }, [allFilms]);
 
-  // Surprise Me
+  // Surprise Random Picker
   const handleSurpriseMe = () => {
     if (allFilms.length === 0) return;
     const randomIndex = Math.floor(Math.random() * allFilms.length);
@@ -116,7 +116,7 @@ export default function App() {
       .slice(0, 10);
   }, [watchHistory, allFilms]);
 
-  // Pure & Genuine Rows
+  // Curated Row Hubs
   const categorizedSections = useMemo(() => {
     const list = [
       {
@@ -127,11 +127,26 @@ export default function App() {
         })
       },
       {
-        title: lang === 'hi' ? 'वर्ल्ड व रीजनल सिनेमा (World & Regional Cinema)' : 'World & Regional Cinema Showcase',
+        title: lang === 'hi' ? 'माटी की कहानियाँ (Roots of India: Maithili • Bhojpuri • Bengali)' : 'Roots of India (Maithili • Bhojpuri • Bengali)',
+        films: allFilms.filter(f => {
+          const l = safeText(f.language, 'en').toLowerCase();
+          return ['maithili', 'bhojpuri', 'bengali', 'marathi', 'punjabi'].some(target => l === target);
+        })
+      },
+      {
+        title: lang === 'hi' ? 'साउथ सिनेमा हब (Malayalam • Tamil • Telugu • Kannada)' : 'South Indian Spotlight (Malayalam • Tamil • Telugu • Kannada)',
+        films: allFilms.filter(f => {
+          const l = safeText(f.language, 'en').toLowerCase();
+          return ['malayalam', 'tamil', 'telugu', 'kannada'].some(target => l === target);
+        })
+      },
+      {
+        title: lang === 'hi' ? 'वर्ल्ड सिनेमा (World Cinema Showcase: French • Iranian)' : 'World Cinema Showcase (French • Iranian • International)',
         films: allFilms.filter(f => {
           const l = safeText(f.language, 'en').toLowerCase();
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
-          return l !== 'hindi' && l !== 'english' || gList.some(g => g.toLowerCase().includes('world'));
+          return ['french', 'spanish', 'korean', 'japanese', 'iranian', 'german', 'silent'].some(target => l === target) ||
+                 gList.some(g => g.toLowerCase().includes('world'));
         })
       },
       {
@@ -154,27 +169,13 @@ export default function App() {
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
           return gList.some(g => g.toLowerCase().includes('thriller') || g.toLowerCase().includes('suspense'));
         })
-      },
-      {
-        title: lang === 'hi' ? 'रोमांस और रिश्ते' : 'Romance & Relationships',
-        films: allFilms.filter(f => {
-          const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
-          return gList.some(g => g.toLowerCase().includes('romance'));
-        })
-      },
-      {
-        title: lang === 'hi' ? 'क्राइम और डार्क कॉमेडी' : 'Crime & Mystery',
-        films: allFilms.filter(f => {
-          const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
-          return gList.some(g => g.toLowerCase().includes('crime') || g.toLowerCase().includes('mystery'));
-        })
       }
     ];
 
     return list.filter(sec => sec.films.length > 0);
   }, [allFilms, lang]);
 
-  // Search & Filter View
+  // Combined Search & Filter View
   const filteredFilms = useMemo(() => {
     return allFilms.filter(film => {
       const matchesSearch = searchTerm === '' || 
