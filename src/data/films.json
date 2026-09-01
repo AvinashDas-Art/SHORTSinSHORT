@@ -12,7 +12,7 @@
     "duration": "3 min",
     "year": "2026",
     "youtubeVideoId": "V5AFQaEbHQU",
-    "thumbnail": "https://img.youtube.com/vi/V5AFQaEbHQU/maxresdefault.jpg",
+    "thumbnail": "https://img.youtube.com/vi/V5AFQaEbHQU/hqdefault.jpg",
     "description": "A visually staggering, high-octane AI action masterpiece showcasing generative cinematography.",
     "descriptionHi": "जेनेरेटिव सिनेमा की सीमाओं को लांघती एक शानदार और तीव्र एक्शन एआई फ़िल्म।",
     "country": "India"
@@ -30,7 +30,7 @@
     "duration": "15 min",
     "year": "2026",
     "youtubeVideoId": "ScfibDSMXJA",
-    "thumbnail": "https://img.youtube.com/vi/ScfibDSMXJA/maxresdefault.jpg",
+    "thumbnail": "https://img.youtube.com/vi/ScfibDSMXJA/hqdefault.jpg",
     "description": "The critically acclaimed Freepik original series directed by Kavan the Kid.",
     "descriptionHi": "फ्रीपिक ओरिजिनल सीरीज़। कैप्टन हुक और कैप्टन निमो के बीच महाकाव्यात्मक एआई फंतासी।",
     "country": "India"
@@ -48,7 +48,7 @@
     "duration": "5 min",
     "year": "2026",
     "youtubeVideoId": "6D4_ZMnPx7I",
-    "thumbnail": "https://img.youtube.com/vi/6D4_ZMnPx7I/maxresdefault.jpg",
+    "thumbnail": "https://img.youtube.com/vi/6D4_ZMnPx7I/hqdefault.jpg",
     "description": "Crafted with Kling 3.0 and Seedance, a gripping cinematic story of betrayal and warlords.",
     "descriptionHi": "क्लिंग 3.0 और सीडांस से निर्मित रेगिस्तानी सरदारों और धोखे की सिनेमाई कहानी।",
     "country": "India"
@@ -65,7 +65,7 @@
     "duration": "13 min",
     "year": "2026",
     "youtubeVideoId": "q98WM0Gta0A",
-    "thumbnail": "https://img.youtube.com/vi/q98WM0Gta0A/maxresdefault.jpg",
+    "thumbnail": "https://img.youtube.com/vi/q98WM0Gta0A/hqdefault.jpg",
     "description": "Special selection for AAIFF. A futuristic scavenger discovers the last living tree on Earth.",
     "descriptionHi": "पृथ्वी पर बचे आखिरी जीवित पेड़ को खोजने की दार्शनिक और रोचक साइंस-फ़िक्शन यात्रा।",
     "directorHi": "Dair",
@@ -83,7 +83,7 @@
     "duration": "11 min",
     "year": "2025",
     "youtubeVideoId": "NLAZubEa6X4",
-    "thumbnail": "https://img.youtube.com/vi/NLAZubEa6X4/maxresdefault.jpg",
+    "thumbnail": "https://img.youtube.com/vi/NLAZubEa6X4/hqdefault.jpg",
     "description": "A deep-space planetary harvesting crew encounters an ancient, sentient cosmic forest.",
     "descriptionHi": "अंतरिक्ष में एक रहस्यमयी और जीवित कॉस्मिक जंगल के साथ सामना।",
     "directorHi": "Gossip Goblin",
@@ -240,7 +240,7 @@
   },
   {
     "id": "yt_0krwKbsQscw",
-    "title": "Chutney",
+    "title": "Chutney (चटनी)",
     "description": "Watch the award-winning Hindi short film 'Chutney' starring Tisca Chopra, Adil Hussain, and Rasika Dugal. Directed by Jyoti Kapur Das and presented by Royal Sta",
     "youtubeVideoId": "0krwKbsQscw",
     "thumbnailUrl": "https://i.ytimg.com/vi/0krwKbsQscw/hqdefault.jpg",
@@ -456,7 +456,7 @@
   },
   {
     "id": "yt_R-Sk7fQGIjE",
-    "title": "Juice",
+    "title": "Juice (जूस)",
     "description": "Manju Singh ( #ShefaliShah) and her husband are hosting a get-together of families on a really warm night. Between the snacks, drinks and the laughs, something ",
     "youtubeVideoId": "R-Sk7fQGIjE",
     "thumbnailUrl": "https://i.ytimg.com/vi/R-Sk7fQGIjE/hqdefault.jpg",
@@ -519,7 +519,7 @@
   },
   {
     "id": "yt_b5GGKuK3iEI",
-    "title": "Kriti",
+    "title": "Kriti (कृति)",
     "description": "Sapan has fallen in love... again! And this time, it's a beautiful girl called \"Kriti\". But is his love real? Probably Dr. Kalpana, a psychiatrist, can help him",
     "youtubeVideoId": "b5GGKuK3iEI",
     "thumbnailUrl": "https://i.ytimg.com/vi/b5GGKuK3iEI/hqdefault.jpg",
@@ -3216,94 +3216,7 @@
     "thumbnail": "https://img.youtube.com/vi/jcrdVBEkKIs/hqdefault.jpg"
   },
   {
-    "id": "roots-bn-ahalya",
-    "youtubeVideoId": "f4X_7xfUyqI",
-    "title": "Ahalya (অহল্যা)",
-    "titleHi": "अहल्या",
-    "director": "Sujoy Ghosh",
-    "language": "Bengali",
-    "genre": [
-      "Roots",
-      "Thriller",
-      "Mystery",
-      "Award Winning"
-    ],
-    "duration": "14 min",
-    "thumbnail": "https://img.youtube.com/vi/f4X_7xfUyqI/hqdefault.jpg",
-    "description": "Radhika Apte and Soumitra Chatterjee in a legendary suspense thriller.",
-    "descriptionHi": "सौमित्र चटर्जी और राधिका आप्टे अभिनीत विख्यात बंगाली सस्पेंस थ्रिलर।"
-  },
-  {
-    "id": "roots-bn-anukul",
-    "youtubeVideoId": "pz0_CkXSn3U",
-    "title": "Anukul (অনুকূল)",
-    "titleHi": "अनुकूल",
-    "director": "Sujoy Ghosh",
-    "language": "Bengali",
-    "genre": [
-      "Roots",
-      "AI Cinema",
-      "Sci-Fi",
-      "Drama"
-    ],
-    "duration": "21 min",
-    "thumbnail": "https://img.youtube.com/vi/pz0_CkXSn3U/hqdefault.jpg",
-    "description": "Satyajit Ray visionary short story on humans vs androids.",
-    "descriptionHi": "सत्यजीत रे की कहानी पर आधारित विज्ञान और मानवीय चेतना की बंगाली कृति।"
-  },
-  {
-    "id": "roots-mai-mithila",
-    "youtubeVideoId": "4ZsTU9ojmpI",
-    "title": "Mithila Makhan",
-    "titleHi": "मिथिला मखान",
-    "director": "Nitin Chandra",
-    "language": "Maithili",
-    "genre": [
-      "Roots",
-      "Drama",
-      "Award Winning"
-    ],
-    "duration": "16 min",
-    "thumbnail": "https://img.youtube.com/vi/4ZsTU9ojmpI/hqdefault.jpg",
-    "description": "National Award-winning Maithili narrative rooted in Mithila soil.",
-    "descriptionHi": "राष्ट्रीय पुरस्कार विजेता माटी और अपनी जड़ों से जुड़ी मैथिली फ़िल्म।"
-  },
-  {
-    "id": "roots-bho-desh",
-    "youtubeVideoId": "jcrdVBEkKIs",
-    "title": "Bhojpuri Mati",
-    "titleHi": "भोजपुरी माटी",
-    "director": "Prakash Jha",
-    "language": "Bhojpuri",
-    "genre": [
-      "Roots",
-      "Drama",
-      "Family"
-    ],
-    "duration": "16 min",
-    "thumbnail": "https://img.youtube.com/vi/jcrdVBEkKIs/hqdefault.jpg",
-    "description": "A grounded cultural narrative celebrating the spirit of rural roots.",
-    "descriptionHi": "गाँव और माटी की संवेदनाओं पर आधारित मार्मिक कथा।"
-  },
-  {
-    "id": "roots-mr-manjha",
-    "youtubeVideoId": "Any0HYMqgFs",
-    "title": "Manjha (मांझा)",
-    "titleHi": "मांझा",
-    "director": "Jatin Wagle",
-    "language": "Marathi",
-    "genre": [
-      "Roots",
-      "Award Winning",
-      "Drama"
-    ],
-    "duration": "18 min",
-    "thumbnail": "https://img.youtube.com/vi/Any0HYMqgFs/hqdefault.jpg",
-    "description": "Critically acclaimed Marathi emotional story on relationships and dreams.",
-    "descriptionHi": "रिश्तों और सपनों की डोर को दर्शाती चर्चित मराठी शॉर्ट फ़िल्म।"
-  },
-  {
-    "id": "south-te-manasanamaha",
+    "id": "te-manasanamaha",
     "youtubeVideoId": "4ZsTU9ojmpI",
     "title": "Manasanamaha (మనసానమః)",
     "titleHi": "मानसनमहा",
@@ -3312,81 +3225,16 @@
     "genre": [
       "Award Winning",
       "Romance",
-      "Drama"
+      "Drama",
+      "World Cinema"
     ],
     "duration": "16 min",
     "thumbnail": "https://img.youtube.com/vi/4ZsTU9ojmpI/hqdefault.jpg",
-    "description": "Guinness Record holding reverse-chronology Telugu masterpiece.",
-    "descriptionHi": "रिवर्स क्रोनोलॉजी में बनी 513 पुरस्कार विजेता ऐतिहासिक तेलुगु शॉर्ट फ़िल्म।"
+    "description": "513 awards winning Guinness World Record holding Telugu reverse-chronology short film.",
+    "descriptionHi": "रिवर्स क्रोनोलॉजी में बनी 513 पुरस्कार विजेता तेलुगु शॉर्ट फ़िल्म।"
   },
   {
-    "id": "south-ta-kadhal",
-    "youtubeVideoId": "f4X_7xfUyqI",
-    "title": "Kadhal En Kadhali",
-    "titleHi": "काधल एन काधली",
-    "director": "Karthik Subbaraj",
-    "language": "Tamil",
-    "genre": [
-      "Drama",
-      "Romance",
-      "Award Winning"
-    ],
-    "duration": "14 min",
-    "thumbnail": "https://img.youtube.com/vi/f4X_7xfUyqI/hqdefault.jpg",
-    "description": "A stylish and gripping Tamil short directed by Karthik Subbaraj.",
-    "descriptionHi": "कार्तिक सुब्बाराज द्वारा निर्देशित बहुचर्चित तमिल शॉर्ट फ़िल्म।"
-  },
-  {
-    "id": "south-ml-yathra",
-    "youtubeVideoId": "sv5yGLr3bSg",
-    "title": "Yathra (യാത്ര)",
-    "titleHi": "यात्रा",
-    "director": "Lijo Jose Pellissery",
-    "language": "Malayalam",
-    "genre": [
-      "Drama",
-      "Award Winning"
-    ],
-    "duration": "12 min",
-    "thumbnail": "https://img.youtube.com/vi/sv5yGLr3bSg/hqdefault.jpg",
-    "description": "Visual poetry and existential depth in a modern Malayalam classic.",
-    "descriptionHi": "जीवन और सफ़र के द्वंद्व को दर्शाती चर्चित मलयालम कृति।"
-  },
-  {
-    "id": "south-kn-belaku",
-    "youtubeVideoId": "pz0_CkXSn3U",
-    "title": "Belaku (ಬೆಳಕು)",
-    "titleHi": "बेलकु",
-    "director": "Pawan Kumar",
-    "language": "Kannada",
-    "genre": [
-      "Drama",
-      "Mystery"
-    ],
-    "duration": "21 min",
-    "thumbnail": "https://img.youtube.com/vi/pz0_CkXSn3U/hqdefault.jpg",
-    "description": "Thought-provoking Kannada short exploring truth and perceptions.",
-    "descriptionHi": "सत्य और दृष्टिकोण के सवालों को उठाती महत्वपूर्ण कन्नड़ फ़िल्म।"
-  },
-  {
-    "id": "south-ta-maa",
-    "youtubeVideoId": "Any0HYMqgFs",
-    "title": "Thaimai (Maa)",
-    "titleHi": "थाईमई (माँ)",
-    "director": "Sarjun KM",
-    "language": "Tamil",
-    "genre": [
-      "Human Drama",
-      "Family",
-      "Award Winning"
-    ],
-    "duration": "18 min",
-    "thumbnail": "https://img.youtube.com/vi/Any0HYMqgFs/hqdefault.jpg",
-    "description": "Powerful emotional drama on mother-daughter bond and resilience.",
-    "descriptionHi": "माँ-बेटी के रिश्ते पर आधारित भावुक और सशक्त तमिल कहानी।"
-  },
-  {
-    "id": "world-fa-twoandtwo",
+    "id": "fa-twoandtwo",
     "youtubeVideoId": "sv5yGLr3bSg",
     "title": "Two & Two (۲+۲)",
     "titleHi": "टू एंड टू",
@@ -3403,7 +3251,7 @@
     "descriptionHi": "बाफ्टा नामांकित ईरानी सिनेमा का बेहद विचारोत्तेजक मास्टरपीस।"
   },
   {
-    "id": "world-fr-redballoon",
+    "id": "fr-redballoon",
     "youtubeVideoId": "Any0HYMqgFs",
     "title": "Le Ballon Rouge (The Red Balloon)",
     "titleHi": "द रेड बलून",
@@ -3418,56 +3266,5 @@
     "thumbnail": "https://img.youtube.com/vi/Any0HYMqgFs/hqdefault.jpg",
     "description": "Oscar-winning French classic that defined poetry in world cinema.",
     "descriptionHi": "ऑस्कर विजेता कालजयी फ़्रेंच सिनेमाई कृति।"
-  },
-  {
-    "id": "world-global-manasanamaha",
-    "youtubeVideoId": "4ZsTU9ojmpI",
-    "title": "Manasanamaha (Global Festival Cut)",
-    "titleHi": "मानसनमहा (वर्ल्ड कट)",
-    "director": "Deepak Reddy",
-    "language": "Telugu",
-    "genre": [
-      "World Cinema",
-      "Award Winning",
-      "Romance"
-    ],
-    "duration": "16 min",
-    "thumbnail": "https://img.youtube.com/vi/4ZsTU9ojmpI/hqdefault.jpg",
-    "description": "International festival darling short film told backwards.",
-    "descriptionHi": "अंतरराष्ट्रीय फ़िल्म फ़ेस्टिवल्स में सराहा गया रिवर्स मास्टरपीस।"
-  },
-  {
-    "id": "world-global-ahalya",
-    "youtubeVideoId": "f4X_7xfUyqI",
-    "title": "Ahalya (International Showcase)",
-    "titleHi": "अहल्या (इंटरनेशनल)",
-    "director": "Sujoy Ghosh",
-    "language": "Bengali",
-    "genre": [
-      "World Cinema",
-      "Award Winning",
-      "Thriller"
-    ],
-    "duration": "14 min",
-    "thumbnail": "https://img.youtube.com/vi/f4X_7xfUyqI/hqdefault.jpg",
-    "description": "Global critically acclaimed psychological thriller.",
-    "descriptionHi": "अंतरराष्ट्रीय स्तर पर बहुचर्चित सस्पेंस थ्रिलर।"
-  },
-  {
-    "id": "world-global-anukul",
-    "youtubeVideoId": "pz0_CkXSn3U",
-    "title": "Anukul (Ray Sci-Fi Cut)",
-    "titleHi": "अनुकूल (साइ-फ़ाई)",
-    "director": "Sujoy Ghosh",
-    "language": "Bengali",
-    "genre": [
-      "World Cinema",
-      "AI Cinema",
-      "Sci-Fi"
-    ],
-    "duration": "21 min",
-    "thumbnail": "https://img.youtube.com/vi/pz0_CkXSn3U/hqdefault.jpg",
-    "description": "World-class sci-fi adaptation of Satyajit Ray classic story.",
-    "descriptionHi": "सत्यजीत रे की कहानी पर आधारित विश्वस्तरीय शॉर्ट फ़िल्म।"
   }
 ]

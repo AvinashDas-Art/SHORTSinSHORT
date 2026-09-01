@@ -74,14 +74,14 @@ export default function App() {
     };
   }, [allFilms]);
 
-  // Surprise Random Picker
+  // Surprise Me
   const handleSurpriseMe = () => {
     if (allFilms.length === 0) return;
     const randomIndex = Math.floor(Math.random() * allFilms.length);
     handlePlayFilm(allFilms[randomIndex]);
   };
 
-  // 7-second Hero Banner
+  // Hero Carousel
   const heroFilms = useMemo(() => allFilms.slice(0, 8), [allFilms]);
   useEffect(() => {
     if (isHeroHovered || heroFilms.length <= 1) return;
@@ -91,18 +91,15 @@ export default function App() {
     return () => clearInterval(timer);
   }, [isHeroHovered, heroFilms]);
 
-  // Client-Side Smart Recommendation
+  // Recommended
   const recommendedFilms = useMemo(() => {
     if (watchHistory.length === 0) return [];
     const genreScore = {};
-    const langScore = {};
     const watchedIds = new Set(watchHistory.map(f => f.id || f.youtubeVideoId));
 
     watchHistory.slice(0, 8).forEach(film => {
       const gList = Array.isArray(film.genre) ? film.genre : [film.genre];
       gList.forEach(g => { if (g) genreScore[g] = (genreScore[g] || 0) + 1; });
-      const l = safeText(film.language, 'en');
-      if (l) langScore[l] = (langScore[l] || 0) + 1;
     });
 
     return allFilms
@@ -111,8 +108,6 @@ export default function App() {
         let score = 0;
         const gList = Array.isArray(f.genre) ? f.genre : [f.genre];
         gList.forEach(g => { if (genreScore[g]) score += genreScore[g] * 2; });
-        const l = safeText(f.language, 'en');
-        if (langScore[l]) score += langScore[l] * 1.5;
         return { film: f, score };
       })
       .filter(item => item.score > 0)
@@ -121,37 +116,22 @@ export default function App() {
       .slice(0, 10);
   }, [watchHistory, allFilms]);
 
-  // Rich Categorized Sections
+  // Pure & Genuine Rows
   const categorizedSections = useMemo(() => {
     const list = [
       {
-        title: lang === 'hi' ? 'पुरस्कृत फ़िल्में (Award Winning)' : 'Award Winning & Acclaimed',
+        title: lang === 'hi' ? 'पुरस्कृत फ़िल्में (Award Winning & Acclaimed)' : 'Award Winning & Acclaimed',
         films: allFilms.filter(f => {
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
           return gList.some(g => g.toLowerCase().includes('award'));
         })
       },
       {
-        title: lang === 'hi' ? 'माटी की कहानियाँ (मैथिली • भोजपुरी • बंगाली)' : 'Roots of India (Maithili • Bhojpuri • Bengali)',
-        films: allFilms.filter(f => {
-          const l = safeText(f.language, 'en').toLowerCase();
-          return ['maithili', 'bhojpuri', 'bengali', 'marathi', 'punjabi'].some(target => l === target);
-        })
-      },
-      {
-        title: lang === 'hi' ? 'साउथ सिनेमा हब (मलयालम • तमिल • तेलुगु • कन्नड़)' : 'South Indian Spotlight (Malayalam • Tamil • Telugu • Kannada)',
-        films: allFilms.filter(f => {
-          const l = safeText(f.language, 'en').toLowerCase();
-          return ['malayalam', 'tamil', 'telugu', 'kannada'].some(target => l === target);
-        })
-      },
-      {
-        title: lang === 'hi' ? 'वर्ल्ड सिनेमा (French • Iranian • International)' : 'World Cinema Showcase (French • Iranian • International)',
+        title: lang === 'hi' ? 'वर्ल्ड व रीजनल सिनेमा (World & Regional Cinema)' : 'World & Regional Cinema Showcase',
         films: allFilms.filter(f => {
           const l = safeText(f.language, 'en').toLowerCase();
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
-          return ['french', 'spanish', 'korean', 'japanese', 'iranian', 'german', 'italian'].some(target => l === target) ||
-                 gList.some(g => g.toLowerCase().includes('world'));
+          return l !== 'hindi' && l !== 'english' || gList.some(g => g.toLowerCase().includes('world'));
         })
       },
       {
@@ -162,7 +142,7 @@ export default function App() {
         })
       },
       {
-        title: lang === 'hi' ? 'ह्यूमन ड्रामा (Human Drama)' : 'Human Drama & Emotions',
+        title: lang === 'hi' ? 'ह्यूमन ड्रामा और संवेदनाएँ' : 'Human Drama & Emotions',
         films: allFilms.filter(f => {
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
           return gList.some(g => g.toLowerCase() === 'drama');
@@ -183,17 +163,10 @@ export default function App() {
         })
       },
       {
-        title: lang === 'hi' ? 'क्राइम और मिस्ट्री' : 'Crime & Mystery',
+        title: lang === 'hi' ? 'क्राइम और डार्क कॉमेडी' : 'Crime & Mystery',
         films: allFilms.filter(f => {
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
           return gList.some(g => g.toLowerCase().includes('crime') || g.toLowerCase().includes('mystery'));
-        })
-      },
-      {
-        title: lang === 'hi' ? 'कॉमेडी और फ़ैमिली' : 'Comedy & Family',
-        films: allFilms.filter(f => {
-          const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
-          return gList.some(g => g.toLowerCase().includes('comedy') || g.toLowerCase().includes('family'));
         })
       }
     ];
@@ -201,7 +174,7 @@ export default function App() {
     return list.filter(sec => sec.films.length > 0);
   }, [allFilms, lang]);
 
-  // Filter View
+  // Search & Filter View
   const filteredFilms = useMemo(() => {
     return allFilms.filter(film => {
       const matchesSearch = searchTerm === '' || 
@@ -275,7 +248,7 @@ export default function App() {
             <div className="space-y-4 -mt-10 relative z-10 pb-16">
               {recommendedFilms.length > 0 && (
                 <MovieRow
-                  title={lang === 'hi' ? '✨ आपके लिए अनुशंसित (Recommended For You)' : '✨ Recommended For You'}
+                  title={lang === 'hi' ? '✨ आपके लिए अनुशंसित' : '✨ Recommended For You'}
                   films={recommendedFilms}
                   onSelectFilm={handlePlayFilm}
                   lang={lang}
