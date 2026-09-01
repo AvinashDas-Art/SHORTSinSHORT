@@ -1,5 +1,12 @@
 import React from 'react';
 
+const safeText = (val, lang = 'en') => {
+  if (!val) return '';
+  if (typeof val === 'string') return val;
+  if (typeof val === 'object') return val[lang] || val.en || Object.values(val)[0] || '';
+  return String(val);
+};
+
 export default function Navbar({ 
   isClubView, 
   onOpenClub, 
@@ -42,9 +49,10 @@ export default function Navbar({
             className="bg-zinc-900 border border-zinc-800 text-xs text-zinc-300 px-2.5 py-1.5 rounded-lg focus:outline-none focus:border-red-600"
           >
             <option value="All">{lang === 'hi' ? 'कैटगरी: सब' : 'Genre: All'}</option>
-            {genres.map(g => (
-              <option key={g} value={g}>{g}</option>
-            ))}
+            {genres.map((g, idx) => {
+              const label = safeText(g, lang);
+              return <option key={idx} value={typeof g === 'string' ? g : label}>{label}</option>;
+            })}
           </select>
         </div>
       )}

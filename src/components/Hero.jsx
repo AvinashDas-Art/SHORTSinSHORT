@@ -1,7 +1,19 @@
 import React from 'react';
 
+const safeText = (val, lang = 'en') => {
+  if (!val) return '';
+  if (typeof val === 'string') return val;
+  if (typeof val === 'object') return val[lang] || val.en || Object.values(val)[0] || '';
+  return String(val);
+};
+
 export default function Hero({ film, onPlay, lang, onMouseEnter, onMouseLeave }) {
   if (!film) return null;
+
+  const title = lang === 'hi' && film.titleHi ? film.titleHi : safeText(film.title, lang);
+  const description = lang === 'hi' && film.descriptionHi ? film.descriptionHi : safeText(film.description, lang);
+  const language = safeText(film.language, lang);
+  const duration = safeText(film.duration, lang);
 
   return (
     <div 
@@ -12,7 +24,7 @@ export default function Hero({ film, onPlay, lang, onMouseEnter, onMouseLeave })
       <div className="absolute inset-0">
         <img 
           src={film.thumbnail} 
-          alt={film.title}
+          alt={title}
           className="w-full h-full object-cover object-center opacity-60 transition-all duration-1000 transform scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0f] via-[#0d0d0f]/40 to-transparent" />
@@ -26,16 +38,16 @@ export default function Hero({ film, onPlay, lang, onMouseEnter, onMouseLeave })
               {Array.isArray(film.genre) && film.genre.includes('AI Magic') ? 'AI SPECIAL' : 'FEATURED'}
             </span>
             <span className="text-xs text-zinc-400 font-medium">
-              {film.language} • {film.duration} • {film.year || '2026'}
+              {language} • {duration} • {film.year || '2026'}
             </span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl md:text-6xl font-black text-white tracking-tight leading-none drop-shadow-md">
-            {lang === 'hi' && film.titleHi ? film.titleHi : film.title}
+            {title}
           </h1>
 
           <p className="text-sm md:text-base text-zinc-300 line-clamp-3 leading-relaxed drop-shadow">
-            {lang === 'hi' && film.descriptionHi ? film.descriptionHi : film.description}
+            {description}
           </p>
 
           <div className="flex items-center space-x-4 pt-2">
