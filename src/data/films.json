@@ -5,7 +5,9 @@
     "titleHi": "एपेक्स",
     "director": "The Dor Brothers",
     "directorHi": "द डोर ब्रदर्स",
-    "genre": "AI Cinema",
+    "genre": [
+      "AI Cinema"
+    ],
     "language": "English",
     "duration": "3 min",
     "year": "2026",
@@ -20,7 +22,9 @@
     "titleHi": "द क्रॉनिकल्स ऑफ़ बोन",
     "director": "Kavan the Kid (Freepik)",
     "directorHi": "कावन द किड (फ्रीपिक)",
-    "genre": "AI Cinema",
+    "genre": [
+      "AI Cinema"
+    ],
     "language": "English",
     "duration": "15 min",
     "year": "2026",
@@ -35,7 +39,9 @@
     "titleHi": "बोन थ्रोन",
     "director": "Lennard Smith",
     "directorHi": "लेनार्ड स्मिथ",
-    "genre": "AI Cinema",
+    "genre": [
+      "AI Cinema"
+    ],
     "language": "English",
     "duration": "5 min",
     "year": "2026",
@@ -49,7 +55,9 @@
     "title": "JACKPOT",
     "titleHi": "जैकपॉट",
     "director": "Dair",
-    "genre": "AI Cinema",
+    "genre": [
+      "AI Cinema"
+    ],
     "language": "English",
     "duration": "13 min",
     "year": "2026",
@@ -63,7 +71,9 @@
     "title": "WOODNUTS",
     "titleHi": "वुडनट्स",
     "director": "Gossip Goblin",
-    "genre": "AI Cinema",
+    "genre": [
+      "AI Cinema"
+    ],
     "language": "English",
     "duration": "11 min",
     "year": "2025",
