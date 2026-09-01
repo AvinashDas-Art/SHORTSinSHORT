@@ -1,5 +1,70 @@
 [
   {
+    "id": "ai-dor-apex",
+    "title": "Apex",
+    "director": "The Dor Brothers",
+    "genre": "AI Cinema",
+    "language": "English",
+    "duration": "3 min",
+    "year": "2026",
+    "youtubeId": "V5AFQaEbHQU",
+    "thumbnail": "https://img.youtube.com/vi/V5AFQaEbHQU/maxresdefault.jpg",
+    "description": "A visually staggering, high-octane AI action masterpiece showcasing the absolute bleeding edge of generative cinematography.",
+    "featured": true
+  },
+  {
+    "id": "ai-freepik-bone-5",
+    "title": "The Chronicles of Bone",
+    "director": "Kavan the Kid (Freepik)",
+    "genre": "AI Cinema",
+    "language": "English",
+    "duration": "15 min",
+    "year": "2026",
+    "youtubeId": "ScfibDSMXJA",
+    "thumbnail": "https://img.youtube.com/vi/ScfibDSMXJA/maxresdefault.jpg",
+    "description": "The critically acclaimed Freepik original series. Captain Hook faces mutiny and encounters Captain Nemo in an epic AI fantasy.",
+    "featured": false
+  },
+  {
+    "id": "ai-lennard-bone-throne",
+    "title": "BONE THRONE",
+    "director": "Lennard Smith",
+    "genre": "AI Cinema",
+    "language": "English",
+    "duration": "5 min",
+    "year": "2026",
+    "youtubeId": "6D4_ZMnPx7I",
+    "thumbnail": "https://img.youtube.com/vi/6D4_ZMnPx7I/maxresdefault.jpg",
+    "description": "Crafted with Kling 3.0 and Seedance, a gripping cinematic story of betrayal, family, and desert warlords with stunning motion consistency.",
+    "featured": false
+  },
+  {
+    "id": "ai-dair-jackpot",
+    "title": "JACKPOT",
+    "director": "Dair",
+    "genre": "AI Cinema",
+    "language": "English",
+    "duration": "13 min",
+    "year": "2026",
+    "youtubeId": "q98WM0Gta0A",
+    "thumbnail": "https://img.youtube.com/vi/q98WM0Gta0A/maxresdefault.jpg",
+    "description": "Special selection for AAIFF. A futuristic scavenger discovers the last living tree on Earth, leading to a witty and visually dazzling philosophical adventure.",
+    "featured": false
+  },
+  {
+    "id": "ai-goblin-woodnuts",
+    "title": "WOODNUTS",
+    "director": "Gossip Goblin",
+    "genre": "AI Cinema",
+    "language": "English",
+    "duration": "11 min",
+    "year": "2025",
+    "youtubeId": "NLAZubEa6X4",
+    "thumbnail": "https://img.youtube.com/vi/NLAZubEa6X4/maxresdefault.jpg",
+    "description": "A deep-space planetary harvesting crew encounters an ancient, sentient cosmic forest. Over 9 million views of pure atmospheric tension.",
+    "featured": false
+  },
+  {
     "id": "yt_qEvQGmjUGJM",
     "title": {
       "en": "The Gratitude List",
@@ -12,7 +77,8 @@
     "youtubeVideoId": "qEvQGmjUGJM",
     "thumbnailUrl": "https://i.ytimg.com/vi/qEvQGmjUGJM/hqdefault.jpg",
     "genre": [
-      "AI Cinema", "Drama",
+      "AI Cinema",
+      "Drama",
       "Romance"
     ],
     "language": "Hindi",
