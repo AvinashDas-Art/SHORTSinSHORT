@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "sync": "node scripts/sync-films.js"
+    "sync": "node scripts/sync-films.js",
+    "harvest": "node scripts/harvest-films.js"
   },
   "dependencies": {
     "@capacitor/android": "^8.5.1",
