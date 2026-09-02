@@ -251,26 +251,3 @@ body { background: var(--sis3-bg) !important; color: var(--sis3-cream); padding-
   .sis4-mood-console { padding: 1.4rem 18px; grid-template-columns: 1fr; gap: 1.6rem; }
 }
 
-
-/* True fullscreen: only the film enters fullscreen, never the detail copy. */
-.sis3-player-stage:fullscreen,
-.sis3-player-stage:-webkit-full-screen {
-  width: 100vw;
-  height: 100vh;
-  min-height: 100vh;
-  padding: 0;
-  overflow: hidden;
-  background: #000;
-}
-.sis3-player-stage:fullscreen .sis3-video-frame,
-.sis3-player-stage:-webkit-full-screen .sis3-video-frame {
-  width: 100vw;
-  max-width: none;
-  height: 100vh;
-  aspect-ratio: auto;
-}
-.sis3-player-stage:fullscreen .sis3-video-frame iframe,
-.sis3-player-stage:-webkit-full-screen .sis3-video-frame iframe {
-  width: 100vw;
-  height: 100vh;
-}

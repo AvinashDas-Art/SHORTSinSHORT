@@ -25,29 +25,12 @@ const cleanEditorialText = (value, lang = 'en') => {
 
 export default function PlayerModal({ film, onClose, lang }) {
   const shell = useRef(null);
-  const stage = useRef(null);
-
-  const toggleFullscreen = () => {
-    const target = stage.current;
-    if (!target) return;
-    const active = document.fullscreenElement || document.webkitFullscreenElement;
-    if (active) {
-      const exit = document.exitFullscreen || document.webkitExitFullscreen;
-      exit?.call(document);
-      screen.orientation?.unlock?.();
-      return;
-    }
-    const request = target.requestFullscreen || target.webkitRequestFullscreen;
-    const result = request?.call(target);
-    result?.then?.(() => screen.orientation?.lock?.('landscape')?.catch?.(() => {}));
-  };
 
   useEffect(() => {
     const previous = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     const keys = (event) => {
       if (event.key === 'Escape') onClose();
-      if (event.key === 'f' || event.key === 'F') toggleFullscreen();
     };
     window.addEventListener('keydown', keys);
     return () => {
@@ -69,16 +52,16 @@ export default function PlayerModal({ film, onClose, lang }) {
       <header className="sis3-player-top">
         <button type="button" onClick={onClose} aria-label="Close player">←</button>
         <span>SHORTSinSHORT</span>
-        <button type="button" onClick={toggleFullscreen} aria-label="Fullscreen">⛶</button>
+        <span aria-hidden="true" />
       </header>
 
-      <div className="sis3-player-stage" ref={stage}>
+      <div className="sis3-player-stage">
         <div className="sis3-video-frame">
           {videoId ? (
             <iframe
               src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1&controls=1&iv_load_policy=3&cc_load_policy=0`}
               title={title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
               allowFullScreen
             />
           ) : <p>{lang === 'hi' ? 'वीडियो उपलब्ध नहीं है' : 'Video unavailable'}</p>}
