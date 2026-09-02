@@ -17,6 +17,7 @@ const cleanEditorialText = (value, lang = 'en') => {
   if (sentences?.length) return sentences.slice(0, 2).join(' ').trim();
   const clauses = raw.split(',').map((part) => part.trim()).filter(Boolean);
   if (clauses.length > 2) return `${clauses.slice(0, 2).join(', ')}.`;
+  if (!/[.!?][”’'"]?$/.test(raw)) return '';
   if (raw.length <= 190) return raw;
   return `${raw.slice(0, 187).replace(/\s+\S*$/, '')}…`;
 };
@@ -28,7 +29,10 @@ export default function Hero({ film, onPlay, lang, onMouseEnter, onMouseLeave })
   const videoId = film.youtubeVideoId || film.id;
   const title = lang === 'hi' && film.titleHi ? film.titleHi : safeText(film.title, lang);
   const rawDescription = lang === 'hi' && film.descriptionHi ? film.descriptionHi : film.description;
-  const description = cleanEditorialText(rawDescription, lang);
+  const cleanedDescription = cleanEditorialText(rawDescription, lang);
+  const description = cleanedDescription || (lang === 'hi'
+    ? 'दुनिया भर से चुनी हुई एक असाधारण शॉर्ट फ़िल्म।'
+    : `A handpicked short film from ${safeText(film.country, lang) || 'world cinema'}, selected for its cinematic craft.`);
   const language = safeText(film.language, lang);
   const duration = safeText(film.duration, lang) || safeText(film.runtime, lang);
   const country = safeText(film.country, lang);

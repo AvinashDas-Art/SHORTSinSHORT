@@ -17,6 +17,7 @@ const cleanEditorialText = (value, lang = 'en') => {
   if (sentences?.length) return sentences.slice(0, 2).join(' ').trim();
   const clauses = raw.split(',').map((part) => part.trim()).filter(Boolean);
   if (clauses.length > 2) return `${clauses.slice(0, 2).join(', ')}.`;
+  if (!/[.!?][”’'"]?$/.test(raw)) return '';
   if (raw.length <= 190) return raw;
   return `${raw.slice(0, 187).replace(/\s+\S*$/, '')}…`;
 };
