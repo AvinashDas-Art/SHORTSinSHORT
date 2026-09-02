@@ -26,7 +26,7 @@ export default function Navbar({
   onResetFilters 
 }) {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-40 bg-[#0d0d0f]/95 backdrop-blur-md border-b border-zinc-800/80 px-3 md:px-8 py-3 flex items-center justify-between transition-all duration-300">
+    <nav className="sis-nav fixed top-0 left-0 right-0 z-40 bg-[#0d0d0f]/95 backdrop-blur-md border-b border-zinc-800/80 px-3 md:px-8 py-3 flex items-center justify-between transition-all duration-300">
       <div className="flex items-center space-x-4">
         <button 
           onClick={onResetFilters} 

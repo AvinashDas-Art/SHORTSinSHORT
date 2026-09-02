@@ -30,7 +30,7 @@ export default function MovieCard({ film, onSelect, lang }) {
   return (
     <div 
       onClick={() => onSelect(film)}
-      className="group relative flex-shrink-0 w-full cursor-pointer select-none transition-all duration-300 transform hover:-translate-y-1"
+      className="sis-film-card group relative flex-shrink-0 w-full cursor-pointer select-none transition-all duration-300 transform hover:-translate-y-1"
     >
       <div className="relative aspect-video w-full bg-zinc-900 rounded-xl overflow-hidden border border-zinc-800/80 group-hover:border-red-600/60 shadow-md transition duration-300">
         <img 

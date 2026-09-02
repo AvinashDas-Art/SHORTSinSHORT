@@ -36,7 +36,7 @@ export default function PlayerModal({ film, onClose, lang, onProgressUpdate }) {
   return (
     <div 
       ref={containerRef}
-      className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex flex-col justify-center items-center p-2 sm:p-4 md:p-6"
+      className="sis-player-modal fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex flex-col justify-center items-center p-2 sm:p-4 md:p-6"
     >
       <div className="relative w-full max-w-5xl bg-zinc-950 border border-zinc-800/80 rounded-2xl overflow-hidden shadow-2xl flex flex-col">
         {/* Header */}

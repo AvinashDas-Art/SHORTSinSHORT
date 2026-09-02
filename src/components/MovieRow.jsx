@@ -38,7 +38,7 @@ export default function MovieRow({ title, films, onSelectFilm, lang }) {
   };
 
   return (
-    <div className="relative px-4 md:px-8 py-3 group/row select-none">
+    <div className="sis-film-row relative px-4 md:px-8 py-3 group/row select-none">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center space-x-2">
           <div className="w-1 h-4 bg-red-600 rounded-full" />

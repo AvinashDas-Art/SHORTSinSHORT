@@ -19,7 +19,7 @@ export default function Hero({ film, onPlay, lang, onMouseEnter, onMouseLeave })
 
   return (
     <div 
-      className="relative w-full h-[65vh] md:h-[75vh] bg-black overflow-hidden select-none"
+      className="sis-hero relative w-full h-[65vh] md:h-[75vh] bg-black overflow-hidden select-none"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >

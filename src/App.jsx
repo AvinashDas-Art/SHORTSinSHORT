@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import MovieRow from './components/MovieRow';
+import TimePicker from './components/TimePicker';
 import MovieCard from './components/MovieCard';
 import PlayerModal from './components/PlayerModal';
 import ClubModal from './components/ClubModal';
@@ -120,14 +121,14 @@ export default function App() {
   const categorizedSections = useMemo(() => {
     const list = [
       {
-        title: lang === 'hi' ? 'पुरस्कृत और बहुप्रशंसित (Award Winning & Acclaimed)' : 'Award Winning & Acclaimed',
+        title: lang === 'hi' ? 'पुरस्कृत और बहुप्रशंसित (Award Winners & Festival Favourites)' : 'Award Winners & Festival Favourites',
         films: allFilms.filter(f => {
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
           return gList.some(g => g.toLowerCase().includes('award'));
         })
       },
       {
-        title: lang === 'hi' ? '🌍 वर्ल्ड सिनेमा (World Cinema Showcase)' : 'World Cinema Showcase (International Classics)',
+        title: lang === 'hi' ? '🌍 वर्ल्ड सिनेमा (World Cinema Showcase)' : 'World Cinema, In Short',
         films: allFilms.filter(f => {
           const l = safeText(f.language, 'en').toLowerCase();
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
@@ -203,7 +204,7 @@ export default function App() {
   const isFiltered = selectedGenre !== 'All' || selectedLangFilter !== 'All' || searchTerm !== '';
 
   return (
-    <div className="min-h-screen bg-[#0d0d0f] text-white flex flex-col font-sans selection:bg-red-600 selection:text-white">
+    <div className="sis-v2 min-h-screen bg-[#221f1a] text-white flex flex-col font-sans selection:bg-red-600 selection:text-white">
       <Navbar
         isClubView={isClubView}
         onOpenClub={() => { setIsClubView(true); setIsArchiveView(false); }}
@@ -263,6 +264,12 @@ export default function App() {
                   lang={lang}
                 />
               )}
+              <TimePicker
+                films={allFilms}
+                onSelectFilm={handlePlayFilm}
+                lang={lang}
+              />
+
 
               {categorizedSections.map((section) => (
                 <MovieRow
