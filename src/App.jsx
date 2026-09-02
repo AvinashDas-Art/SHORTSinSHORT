@@ -230,6 +230,8 @@ export default function App() {
         setSelectedLangFilter={setSelectedLangFilter}
         languages={languages}
         onResetFilters={handleResetFilters}
+        films={allFilms}
+        onSelectFilm={handlePlayFilm}
       />
 
       <main className="flex-1 pt-16">
