@@ -25,16 +25,29 @@ const cleanEditorialText = (value, lang = 'en') => {
 
 export default function PlayerModal({ film, onClose, lang }) {
   const shell = useRef(null);
+  const stage = useRef(null);
+
+  const toggleFullscreen = () => {
+    const target = stage.current;
+    if (!target) return;
+    const active = document.fullscreenElement || document.webkitFullscreenElement;
+    if (active) {
+      const exit = document.exitFullscreen || document.webkitExitFullscreen;
+      exit?.call(document);
+      screen.orientation?.unlock?.();
+      return;
+    }
+    const request = target.requestFullscreen || target.webkitRequestFullscreen;
+    const result = request?.call(target);
+    result?.then?.(() => screen.orientation?.lock?.('landscape')?.catch?.(() => {}));
+  };
 
   useEffect(() => {
     const previous = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     const keys = (event) => {
       if (event.key === 'Escape') onClose();
-      if ((event.key === 'f' || event.key === 'F') && shell.current) {
-        if (!document.fullscreenElement) shell.current.requestFullscreen?.();
-        else document.exitFullscreen?.();
-      }
+      if (event.key === 'f' || event.key === 'F') toggleFullscreen();
     };
     window.addEventListener('keydown', keys);
     return () => {
@@ -56,10 +69,10 @@ export default function PlayerModal({ film, onClose, lang }) {
       <header className="sis3-player-top">
         <button type="button" onClick={onClose} aria-label="Close player">←</button>
         <span>SHORTSinSHORT</span>
-        <button type="button" onClick={() => shell.current?.requestFullscreen?.()} aria-label="Fullscreen">⛶</button>
+        <button type="button" onClick={toggleFullscreen} aria-label="Fullscreen">⛶</button>
       </header>
 
-      <div className="sis3-player-stage">
+      <div className="sis3-player-stage" ref={stage}>
         <div className="sis3-video-frame">
           {videoId ? (
             <iframe
