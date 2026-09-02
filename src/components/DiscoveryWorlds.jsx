@@ -13,6 +13,13 @@ const runtime = (film) => {
   return match ? Number(match[1]) : null;
 };
 
+const timeBucket = (film, upperBound) => {
+  const length = runtime(film);
+  const lowerBounds = { 5: 0, 10: 5, 15: 10, 20: 15, 30: 20 };
+  const lowerBound = lowerBounds[upperBound] ?? 0;
+  return length !== null && length > lowerBound && length <= upperBound;
+};
+
 const genres = (film) => (Array.isArray(film?.genre) ? film.genre : [film?.genre])
   .map((item) => text(item).toLowerCase())
   .filter(Boolean);
@@ -173,17 +180,17 @@ function MoodAndTime({ films, onSelectFilm, lang }) {
     ['Documentary', lang === 'hi' ? 'कुछ जानना है' : 'Show me something real']
   ];
   const results = useMemo(() => dedupe(films.filter((film) => {
-    const length = runtime(film);
-    const withinTime = length !== null && length <= minutes;
     const matchesMood = mood === 'All' || genres(film).some((genre) => genre.includes(mood.toLowerCase()));
-    return withinTime && matchesMood;
+    return timeBucket(film, minutes) && matchesMood;
   })).slice(0, 30), [films, minutes, mood]);
-  const fallback = useMemo(() => dedupe(films.filter((film) => {
-    const length = runtime(film);
-    return length !== null && length <= minutes;
-  })).slice(0, 30), [films, minutes]);
+  const fallback = useMemo(() => dedupe(films.filter((film) => timeBucket(film, minutes))).slice(0, 30), [films, minutes]);
   const visible = results.length ? results : fallback;
   const heroFilm = visible[0] || films[0];
+  const rangeLabel = minutes === 5
+    ? (lang === 'hi' ? '5 मिनट तक' : 'Up to 5 minutes')
+    : (lang === 'hi'
+      ? `${minutes === 10 ? '5.1' : minutes === 15 ? '10.1' : minutes === 20 ? '15.1' : '20.1'} से ${minutes} मिनट`
+      : `${minutes === 10 ? '5.1' : minutes === 15 ? '10.1' : minutes === 20 ? '15.1' : '20.1'} to ${minutes} minutes`);
 
   return (
     <div className="sis4-world-content sis4-mood">
@@ -199,7 +206,7 @@ function MoodAndTime({ films, onSelectFilm, lang }) {
       </section>
 
       <main className="sis4-programme-results">
-        <header><div><small>YOUR PROGRAMME</small><h2>{visible.length} {lang === 'hi' ? 'फ़िल्में आपके लिए' : 'films for right now'}</h2></div><p>{lang === 'hi' ? `${minutes} मिनट के भीतर` : `Under ${minutes} minutes`}</p></header>
+        <header><div><small>YOUR PROGRAMME</small><h2>{visible.length} {lang === 'hi' ? 'फ़िल्में आपके लिए' : 'films for right now'}</h2></div><p>{rangeLabel}</p></header>
         <FilmGrid films={visible} onSelectFilm={onSelectFilm} lang={lang} />
       </main>
     </div>
