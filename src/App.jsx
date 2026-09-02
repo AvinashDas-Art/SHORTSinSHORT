@@ -116,7 +116,7 @@ export default function App() {
       .slice(0, 10);
   }, [watchHistory, allFilms]);
 
-  // Dedicated Rows for Each Language Hub
+  // Dedicated Rows
   const categorizedSections = useMemo(() => {
     const list = [
       {
@@ -127,7 +127,18 @@ export default function App() {
         })
       },
       {
-        title: lang === 'hi' ? '🌴 मलयालम सिनेमा हब (Malayalam Masterpieces)' : 'Roots of Kerala (Malayalam Short Films)',
+        title: lang === 'hi' ? '🌍 वर्ल्ड सिनेमा (World Cinema Showcase)' : 'World Cinema Showcase (International Classics)',
+        films: allFilms.filter(f => {
+          const l = safeText(f.language, 'en').toLowerCase();
+          const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
+          const isWorldGenre = gList.some(g => g.toLowerCase().includes('world'));
+          const isInternationalLang = ['french', 'iranian', 'spanish', 'german', 'korean', 'japanese'].includes(l);
+          const isSilentClassic = l === 'silent' && isWorldGenre;
+          return isInternationalLang || isSilentClassic || (isWorldGenre && l !== 'malayalam' && l !== 'tamil' && l !== 'telugu' && l !== 'kannada' && l !== 'hindi' && l !== 'bhojpuri' && l !== 'maithili' && l !== 'marathi' && l !== 'bengali');
+        })
+      },
+      {
+        title: lang === 'hi' ? '🌴 मलयालम सिनेमा हब (Roots of Kerala)' : 'Roots of Kerala (Malayalam Short Films)',
         films: allFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'malayalam')
       },
       {
@@ -145,15 +156,6 @@ export default function App() {
       {
         title: lang === 'hi' ? '🎭 बांग्ला शॉर्ट सिनेमा (Bengali Masterpieces)' : 'Bangla Cinema Showcase (Bengali Shorts)',
         films: allFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'bengali')
-      },
-      {
-        title: lang === 'hi' ? '🌍 वर्ल्ड व साउथ सिनेमा (World & South Cinema Showcase)' : 'World & South Cinema Showcase',
-        films: allFilms.filter(f => {
-          const l = safeText(f.language, 'en').toLowerCase();
-          const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
-          return ['telugu', 'tamil', 'kannada', 'french', 'iranian', 'silent'].includes(l) ||
-                 gList.some(g => g.toLowerCase().includes('world'));
-        })
       },
       {
         title: lang === 'hi' ? 'AI सिनेमा और न्यू-एज विज़ुअल्स' : 'AI Magic & Generative Cinema',
