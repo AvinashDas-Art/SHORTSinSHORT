@@ -1,0 +1,46 @@
+name: Catalogue Health Check
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 3 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: catalogue-health-main
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout catalogue
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Audit YouTube availability
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: npm run catalogue:audit -- --apply
+      - name: Verify production build
+        run: npm run build
+      - name: Publish catalogue changes
+        run: |
+          if git diff --quiet -- src/data/films.json src/data/unavailable-films.json; then
+            echo "Catalogue already healthy."
+            exit 0
+          fi
+          git config user.name "SHORTSinSHORT Catalogue Bot"
+          git config user.email "catalogue-bot@users.noreply.github.com"
+          git add src/data/films.json src/data/unavailable-films.json
+          git commit -m "Auto-hide unavailable YouTube films"
+          git push origin HEAD:main
