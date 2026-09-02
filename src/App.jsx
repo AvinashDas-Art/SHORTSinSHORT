@@ -83,7 +83,15 @@ export default function App() {
   };
 
   // Hero Carousel
-  const heroFilms = useMemo(() => allFilms.slice(0, 8), [allFilms]);
+  const heroFilms = useMemo(() => {
+    const isAI = (film) => {
+      const genres = Array.isArray(film.genre) ? film.genre : [film.genre];
+      return genres.some((genre) => String(genre || '').toLowerCase().includes('ai'));
+    };
+    const editorial = allFilms.filter((film) => !isAI(film));
+    const aiCinema = allFilms.filter(isAI);
+    return [...editorial, ...aiCinema].slice(0, 8);
+  }, [allFilms]);
   useEffect(() => {
     if (isHeroHovered || heroFilms.length <= 1) return;
     const timer = setInterval(() => {
