@@ -42,6 +42,11 @@ export default function Navbar({
     document.querySelector('.sis3-film-row, .sis-time-picker')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  const timeCinema = () => {
+    setSearchOpen(false);
+    document.querySelector('.sis-time-picker')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  };
+
   return (
     <>
       <header className="sis3-nav">
@@ -52,8 +57,7 @@ export default function Navbar({
         <nav className="sis3-primary-links" aria-label="Primary navigation">
           <button type="button" onClick={goHome}>{lang === 'hi' ? 'फ़िल्में' : 'Films'}</button>
           <button type="button" onClick={explore}>{lang === 'hi' ? 'संग्रह' : 'Collections'}</button>
-          <button type="button" onClick={explore}>{lang === 'hi' ? 'देश' : 'Countries'}</button>
-          <button type="button" onClick={explore}>{lang === 'hi' ? 'फ़ेस्टिवल' : 'Festivals'}</button>
+          <button type="button" onClick={timeCinema}>{lang === 'hi' ? 'समय के हिसाब से' : 'Cinema by Time'}</button>
         </nav>
 
         <div className="sis3-nav-actions">
