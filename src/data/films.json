@@ -4531,5 +4531,27 @@
     "thumbnail": "https://img.youtube.com/vi/VVQP-IpZZaU/hqdefault.jpg",
     "description": "Raw, realistic indie comedy drama starring Nawazuddin Siddiqui in an unforgettable role.",
     "descriptionHi": "नवाज़ुद्दीन सिद्दीकी अभिनीत यथार्थवादी और व्यंग्यात्मक क्लासिक हिंदी शॉर्ट फ़िल्म।"
+  },
+  {
+    "id": "sf78305",
+    "title": {
+      "en": "Alike",
+      "hi": "अलाइक"
+    },
+    "description": {
+      "en": "A father tries to protect his son's colorful imagination from a gray, rule-bound world, until he must choose what really matters. A vivid animated fable.",
+      "hi": "एक पिता अपने बेटे की रंगीन कल्पना को एक धूसर, नियमों से बंधी दुनिया से बचाने की कोशिश करता है, जब तक उसे असली मायने चुनने ना पड़ें। एक रंगीन एनिमेशन कल्पित कथा."
+    },
+    "youtubeVideoId": "REPLACE_ME",
+    "thumbnailUrl": "https://img.youtube.com/vi/REPLACE_ME/hqdefault.jpg",
+    "genre": [
+      "Animation",
+      "Family"
+    ],
+    "language": "Spanish",
+    "country": "Spain",
+    "popularityScore": 73,
+    "duration": "8 min",
+    "isFeatured": false
   }
 ]
