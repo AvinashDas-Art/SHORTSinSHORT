@@ -80,7 +80,7 @@ a,
 }
 
 .sis-hero {
-  min-height: min(84svh, 780px) !important;
+  min-height: min(78svh, 740px) !important;
   background-color: #5f4436 !important;
   isolation: isolate;
 }
@@ -92,11 +92,11 @@ a,
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(34, 31, 26, .95) 0%, rgba(34, 31, 26, .74) 34%, rgba(34, 31, 26, .12) 70%),
-    linear-gradient(0deg, var(--sis-canvas) 0%, transparent 42%);
+    linear-gradient(90deg, rgba(20, 17, 14, .78) 0%, rgba(20, 17, 14, .48) 34%, rgba(20, 17, 14, .04) 72%),
+    linear-gradient(0deg, var(--sis-canvas) 0%, transparent 34%);
 }
 
-.sis-hero > * {
+.sis-hero > div:last-child {
   position: relative;
   z-index: 2;
 }
@@ -327,5 +327,69 @@ a,
     transition-duration: .001ms !important;
     animation-duration: .001ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+
+/* SHORTSinSHORT V2 hero correction */
+.sis-hero > div:first-child {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+}
+
+.sis-hero > div:first-child img {
+  opacity: .88 !important;
+  filter: saturate(1.04) contrast(1.04) brightness(1.08) !important;
+}
+
+.sis-hero > div:last-child {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+.sis-time-picker {
+  margin-top: 2rem;
+  grid-template-columns: minmax(300px, .72fr) minmax(480px, 1.5fr);
+  border-radius: 6px;
+  background: #302b25;
+}
+
+.sis-time-copy {
+  padding: 1.55rem 1.75rem;
+}
+
+.sis-time-copy h2 {
+  font-size: clamp(1.65rem, 2.45vw, 2.35rem);
+}
+
+.sis-time-copy > p:last-of-type {
+  margin-bottom: 1rem;
+}
+
+.sis-time-feature {
+  min-height: 205px;
+  padding: 1.6rem 2rem;
+  background-position: center 36% !important;
+  background-size: cover !important;
+}
+
+.sis-time-feature::after {
+  background:
+    linear-gradient(90deg, rgba(24, 20, 17, .9) 0%, rgba(24, 20, 17, .5) 48%, rgba(24, 20, 17, .08) 100%),
+    linear-gradient(0deg, rgba(24, 20, 17, .45), transparent 60%);
+}
+
+@media (max-width: 900px) {
+  .sis-hero {
+    min-height: 68svh !important;
+  }
+
+  .sis-time-picker {
+    grid-template-columns: 1fr;
+  }
+
+  .sis-time-feature {
+    min-height: 190px;
   }
 }

@@ -31,6 +31,9 @@ export default function TimePicker({ films = [], onSelectFilm, lang = 'en' }) {
     : text(featured.title, lang);
   const language = text(featured.language, lang);
   const length = text(featured.duration, lang) || text(featured.runtime, lang);
+  const videoId = featured.youtubeVideoId || featured.id;
+  const artwork = featured.backdrop || featured.thumbnail ||
+    (videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : '');
 
   return (
     <section className="sis-time-picker" aria-labelledby="sis-time-title">
@@ -58,7 +61,10 @@ export default function TimePicker({ films = [], onSelectFilm, lang = 'en' }) {
         </div>
       </div>
 
-      <div className="sis-time-feature">
+      <div
+        className="sis-time-feature"
+        style={artwork ? { backgroundImage: `url("${artwork}")` } : undefined}
+      >
         <div>
           <p className="sis-time-kicker">
             {lang === 'hi' ? `${minutes} मिनट के भीतर` : `A great film under ${minutes} minutes`}
