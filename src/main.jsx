@@ -1,3 +1,5 @@
+import './styles/shortsinshort-v2.css';
+import './styles/shortsinshort-v3.css';
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
