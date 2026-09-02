@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "sync": "node scripts/sync-films.js",
     "harvest": "node scripts/harvest-films.js",
-    "catalogue:audit": "node scripts/audit-youtube-catalogue.mjs"
+    "catalogue:audit": "node scripts/audit-youtube-catalogue.mjs",
+    "catalogue:discover": "node scripts/discover-youtube-films.mjs"
   },
   "dependencies": {
     "@capacitor/android": "^8.5.1",
