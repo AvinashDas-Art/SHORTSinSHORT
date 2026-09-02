@@ -136,3 +136,62 @@ body { background: var(--sis3-bg) !important; color: var(--sis3-cream); padding-
 }
 
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+
+
+/* V3.1 final polish */
+.sis3-player-info h2 {
+  max-width: 620px;
+  font-size: clamp(2.3rem, 4.4vw, 4.4rem);
+  text-wrap: balance;
+}
+
+.sis3-curator-note p {
+  max-width: 680px;
+  text-wrap: pretty;
+}
+
+.sis3-dock-icon {
+  width: 19px;
+  height: 19px;
+  display: grid;
+  place-items: center;
+}
+
+.sis3-dock-icon svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.65;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 980px) {
+  .sis3-hero > img {
+    top: -4%;
+    height: 108%;
+    object-position: 67% 42%;
+  }
+
+  .sis3-hero-content {
+    bottom: 7%;
+  }
+
+  .sis-v2 > main {
+    padding-bottom: calc(92px + env(safe-area-inset-bottom));
+  }
+
+  .sis3-mobile-dock {
+    bottom: calc(9px + env(safe-area-inset-bottom));
+  }
+
+  .sis-time-picker {
+    margin-bottom: 5.5rem !important;
+  }
+
+  .sis3-player-info h2 {
+    max-width: 340px;
+    font-size: clamp(2.25rem, 12vw, 3.45rem);
+  }
+}

@@ -6,17 +6,33 @@ const safeText = (value, lang = 'en') => {
   if (typeof value === 'object') return value[lang] || value.en || Object.values(value)[0] || '';
   return String(value);
 };
+const cleanEditorialText = (value, lang = 'en') => {
+  const raw = safeText(value, lang)
+    .replace(/(^|\s)#[\p{L}\p{N}_-]+/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .replace(/^[\s'"“”‘’,:;-]+/, '')
+    .trim();
+  if (!raw) return '';
+  const sentences = raw.match(/[^.!?]+[.!?]+/g);
+  if (sentences?.length) return sentences.slice(0, 2).join(' ').trim();
+  const clauses = raw.split(',').map((part) => part.trim()).filter(Boolean);
+  if (clauses.length > 2) return `${clauses.slice(0, 2).join(', ')}.`;
+  if (raw.length <= 190) return raw;
+  return `${raw.slice(0, 187).replace(/\s+\S*$/, '')}…`;
+};
+
 
 export default function Hero({ film, onPlay, lang, onMouseEnter, onMouseLeave }) {
   if (!film) return null;
 
   const videoId = film.youtubeVideoId || film.id;
   const title = lang === 'hi' && film.titleHi ? film.titleHi : safeText(film.title, lang);
-  const description = lang === 'hi' && film.descriptionHi ? film.descriptionHi : safeText(film.description, lang);
+  const rawDescription = lang === 'hi' && film.descriptionHi ? film.descriptionHi : film.description;
+  const description = cleanEditorialText(rawDescription, lang);
   const language = safeText(film.language, lang);
   const duration = safeText(film.duration, lang) || safeText(film.runtime, lang);
   const country = safeText(film.country, lang);
-  const artwork = film.backdrop || film.thumbnail || (videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : '');
+  const artwork = film.backdrop || (videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : '') || film.thumbnail;
 
   return (
     <section className="sis3-hero" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>

@@ -6,6 +6,21 @@ const safeText = (value, lang = 'en') => {
   if (typeof value === 'object') return value[lang] || value.en || Object.values(value)[0] || '';
   return String(value);
 };
+const cleanEditorialText = (value, lang = 'en') => {
+  const raw = safeText(value, lang)
+    .replace(/(^|\s)#[\p{L}\p{N}_-]+/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .replace(/^[\s'"“”‘’,:;-]+/, '')
+    .trim();
+  if (!raw) return '';
+  const sentences = raw.match(/[^.!?]+[.!?]+/g);
+  if (sentences?.length) return sentences.slice(0, 2).join(' ').trim();
+  const clauses = raw.split(',').map((part) => part.trim()).filter(Boolean);
+  if (clauses.length > 2) return `${clauses.slice(0, 2).join(', ')}.`;
+  if (raw.length <= 190) return raw;
+  return `${raw.slice(0, 187).replace(/\s+\S*$/, '')}…`;
+};
+
 
 export default function PlayerModal({ film, onClose, lang }) {
   const shell = useRef(null);
@@ -31,7 +46,8 @@ export default function PlayerModal({ film, onClose, lang }) {
   const videoId = film.youtubeVideoId || film.id;
   const title = lang === 'hi' && film.titleHi ? film.titleHi : safeText(film.title, lang);
   const director = lang === 'hi' && film.directorHi ? film.directorHi : safeText(film.director, lang);
-  const description = lang === 'hi' && film.descriptionHi ? film.descriptionHi : safeText(film.description, lang);
+  const rawDescription = lang === 'hi' && film.descriptionHi ? film.descriptionHi : film.description;
+  const description = cleanEditorialText(rawDescription, lang);
   const metadata = [safeText(film.country, lang), safeText(film.language, lang), film.year, safeText(film.duration, lang)].filter(Boolean);
 
   return (
@@ -46,7 +62,7 @@ export default function PlayerModal({ film, onClose, lang }) {
         <div className="sis3-video-frame">
           {videoId ? (
             <iframe
-              src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1`}
+              src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1&controls=1&iv_load_policy=3&cc_load_policy=0`}
               title={title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
