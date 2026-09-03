@@ -24,6 +24,7 @@ const paths = {
   unavailable: path.join(root, 'src/data/unavailable-films.json'),
   queue: path.join(root, 'src/data/discovery-queue.json'),
   rejected: path.join(root, 'src/data/discovery-rejected.json'),
+  approved: path.join(root, 'src/data/discovery-approved.json'),
   queries: path.join(root, 'scripts/discovery-queries.json')
 };
 
@@ -36,9 +37,10 @@ const films = readJson(paths.films);
 const unavailable = readJson(paths.unavailable);
 const oldQueue = readJson(paths.queue);
 const oldRejected = readJson(paths.rejected);
+const approved = readJson(paths.approved);
 const queryBank = readJson(paths.queries);
 
-for (const pair of Object.entries({ films, unavailable, oldQueue, oldRejected, queryBank })) {
+for (const pair of Object.entries({ films, unavailable, oldQueue, oldRejected, approved, queryBank })) {
   if (!Array.isArray(pair[1])) {
     console.error('ERROR: ' + pair[0] + ' का root JSON array होना चाहिए।');
     process.exit(1);
@@ -96,14 +98,17 @@ const prestigePattern = /(award|winner|winning|festival|official selection|nomin
 const now = new Date();
 const nowIso = now.toISOString();
 const expiryMs = 28 * 24 * 60 * 60 * 1000;
+const approvedIds = new Set(approved.map(videoIdFrom).filter(Boolean));
+const approvedReplays = oldQueue.filter((item) => approvedIds.has(videoIdFrom(item)));
 const activeQueue = oldQueue.filter((item) => {
+  if (approvedIds.has(videoIdFrom(item))) return false;
   if (item?.status && item.status !== 'pending') return false;
   const expires = Date.parse(item?.expiresAt || '');
   return !Number.isFinite(expires) || expires > now.getTime();
 });
 
 const knownIds = new Set(
-  [...films, ...unavailable, ...activeQueue, ...oldRejected].map(videoIdFrom).filter(Boolean)
+  [...films, ...unavailable, ...activeQueue, ...oldRejected, ...approved].map(videoIdFrom).filter(Boolean)
 );
 
 if (!queryBank.length) {
@@ -259,6 +264,7 @@ for (const query of selectedQueries) console.log('QUERY ' + query.q);
 console.log('Fresh search results: ' + ids.length);
 console.log('Eligible candidates: ' + candidates.length);
 console.log('Added to review queue: ' + selected.length);
+console.log('Approved replays removed from queue: ' + approvedReplays.length);
 console.log('Pending review total: ' + queue.length);
 console.log('Automatically rejected this run: ' + automaticRejects.length);
 for (const item of selected) {
