@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import https from 'https';
 
-const API_KEY = process.env.YOUTUBE_API_KEY || "AIzaSyByBdyDejCmzQCUH6E8SKB9KGc6yiXKHGc";
+const API_KEY = process.env.YOUTUBE_API_KEY;
 
 const searchQueries = [
   "Large Short Films",
@@ -42,6 +42,10 @@ function parseDuration(pt) {
 }
 
 async function run() {
+  if (!API_KEY) {
+    throw new Error('YOUTUBE_API_KEY environment variable is required.');
+  }
+
   console.log("🚀 YouTube Data API से शॉर्ट फ़िल्में फ़ेच की जा रही हैं (10,000+ Views)...");
   const filmsMap = new Map();
 
@@ -108,4 +112,7 @@ async function run() {
   console.log("✅ src/data/films.json सफलतापूर्वक अपडेट हो गया!");
 }
 
-run();
+run().catch((error) => {
+  console.error(error.message);
+  process.exitCode = 1;
+});
