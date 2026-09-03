@@ -44,3 +44,50 @@ jobs:
           git add src/data/discovery-queue.json src/data/discovery-rejected.json
           git commit -m "Add YouTube films to curator review queue"
           git push origin HEAD:main
+      - name: Prepare curator review notification
+        env:
+          REVIEW_FILE: ${{ runner.temp }}/shortsinshort-review.json
+        run: node scripts/build-review-notification.mjs
+      - name: Notify SHORTSinSHORT curator
+        uses: actions/github-script@v7
+        env:
+          REVIEW_FILE: ${{ runner.temp }}/shortsinshort-review.json
+        with:
+          script: |
+            const fs = require('fs');
+            const review = JSON.parse(fs.readFileSync(process.env.REVIEW_FILE, 'utf8'));
+            if (!review.pendingCount) {
+              core.info('No pending candidates.');
+              return;
+            }
+            const title = 'SHORTSinSHORT - Films Awaiting Approval';
+            const all = await github.paginate(github.rest.issues.listForRepo, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100
+            });
+            const existing = all.find((item) => !item.pull_request && item.title === title);
+            if (existing) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.number,
+                body: review.body,
+                assignees: [context.repo.owner]
+              });
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.number,
+                body: `@${context.repo.owner} review queue updated - ${review.pendingCount} candidate(s) waiting.`
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body: review.body,
+                assignees: [context.repo.owner]
+              });
+            }
