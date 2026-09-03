@@ -1344,5 +1344,33 @@
     "title": "The 2020 Sundance Film Festival Awards Ceremony",
     "rejectedAt": "2026-09-03T04:00:13.739Z",
     "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "E924SDt8EZs",
+    "reason": "runtime_under_1_minute",
+    "title": "Every festival selection so far… 🎬",
+    "rejectedAt": "2026-09-03T07:23:20.815Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "-vL6yzBRPlo",
+    "reason": "runtime_under_1_minute",
+    "title": "Unexpected Act At Cannes Film festival Red Carpet 😨",
+    "rejectedAt": "2026-09-03T07:23:20.815Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "dYNB1MPLjGQ",
+    "reason": "runtime_under_1_minute",
+    "title": "Why Complex Short Films Get Rejected by Festival Judges",
+    "rejectedAt": "2026-09-03T07:23:20.815Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "3L3iHMZKMO0",
+    "reason": "weak_short_film_signal",
+    "title": "Lloyd Neck - 2008 Sundance Film Festival",
+    "rejectedAt": "2026-09-03T07:23:20.815Z",
+    "rejectionType": "automatic"
   }
 ]
