@@ -846,5 +846,194 @@
     "reason": "editorial_non_film",
     "rejectedAt": "2026-09-03T03:24:33.715Z",
     "rejectionType": "automatic_quality_v2"
+  },
+  {
+    "youtubeVideoId": "ZB2LV1wHHzM",
+    "reason": "non_film_title",
+    "title": "A Guide to Film Festivals — Where to Apply, Getting In, and Networking Explained",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "_dMs2CN7GgE",
+    "reason": "runtime_under_1_minute",
+    "title": "The Pudding | Royal Stag Barrel Select Shorts x MAMI | Short Film Contest Open",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "BVA-gMG72VU",
+    "reason": "editorial_non_film",
+    "title": "How to get your short film into festivals",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "4VwvryDDkdo",
+    "reason": "runtime_under_1_minute",
+    "title": "International Short Film Festival Detmold 2021Trailer",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "io6qKmpIZlQ",
+    "reason": "non_film_title",
+    "title": "festival Trailer of 2nd Pimpri Chinchwad International Short Film Festival 2020",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "r1BjHSBPeII",
+    "reason": "weak_short_film_signal",
+    "title": "D R E A M E R S (BFI Future Film Festival Official Selection 2019) Poetry Film",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "CPA8Nt93tgI",
+    "reason": "runtime_under_1_minute",
+    "title": "Krantigarbha | Short Film | Pebble International Film Festival 2021 - OFFICIAL SELECTION",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "YGVm2fbI3bE",
+    "reason": "runtime_under_1_minute",
+    "title": "DEAD WISH | OFFICIALLY SELECTED FOR SCREENING AT BENGALURU INTERNATIONAL SHORT FILM FESTIVAL 2019",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "jlXDgEXN29k",
+    "reason": "runtime_under_1_minute",
+    "title": "MOBILE SHORT FILM FESTIVAL",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "sHi7mkshwLs",
+    "reason": "runtime_under_1_minute",
+    "title": "2023 Very Short Film Festival : Calling for Submissions - closing date 17 April 2023",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "IqFf0A_Dp3U",
+    "reason": "non_film_title",
+    "title": "\"Rosso Cremisi\", TRAILER, official selection \"Short Film Corner\", Festival de Cannes 2016",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "GKrx9XHmbkY",
+    "reason": "runtime_under_1_minute",
+    "title": "Oscars Short Films 2026: Best Live-Action Short Film Nominations",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "11DfKnzHx8M",
+    "reason": "runtime_under_1_minute",
+    "title": "Official Cannes Short Film Festival Trailer 2023",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "QzE8JRyPaZM",
+    "reason": "runtime_under_1_minute",
+    "title": "CANNES SHORT FILM FESTIVAL 2018 Official Trailer",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "6DvqWWbPVi4",
+    "reason": "runtime_under_1_minute",
+    "title": "Cannes Film Festival 2025- Robert Pattinson Red Carpet #shorts",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "yHQk7X98jXo",
+    "reason": "runtime_under_1_minute",
+    "title": "Cannes Film Festival 2014 // Virginia L'amour Différent // Official Trailer // Short Film Corner",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "MiPSR7ECLps",
+    "reason": "non_film_title",
+    "title": "Cannes 2024 Short Film 'Tea' Blake Rice and the Team Interview",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "JugA_5qh0ZA",
+    "reason": "runtime_over_30_minutes",
+    "title": "Emerging Voices: Crafting Short Films, at Sundance 2026 with Antigravity Academy",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "CiYpOWNxWRA",
+    "reason": "runtime_under_1_minute",
+    "title": "Filmmakers Jarreau Carrillo & Julius Pryor discuss winning Sundance Short Film Special Jury Award",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "tS2dhu9ViTU",
+    "reason": "non_film_title",
+    "title": "Short Film Tour | 2026 Sundance Film Festival | Trailer",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "j3lBLj0-L9U",
+    "reason": "non_film_title",
+    "title": "DA YIE by Anthony Nti (Clermont-Ferrand Film Festival) - Trailer",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "4vxP3nAizoE",
+    "reason": "weak_short_film_signal",
+    "title": "Festival du Court-Métrage de Clermont Ferrand 2012",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "-usZwUdK31o",
+    "reason": "non_film_title",
+    "title": "2020 Clermont-Ferrand Shorts Festival Nominee - The Physics of Sorrow - Donald Sutherland (TRAILER)",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "88zYdPlHK0M",
+    "reason": "runtime_under_1_minute",
+    "title": "#FESTIVALCLERMONTFERRAND Une immersion au cœur du court‑métrage |",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "xJ4HCzqK3uw",
+    "reason": "weak_short_film_signal",
+    "title": "Clermont-Ferrand International Short FF: Tim Redford in conversation with Nadia Denton",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "BWqUwBGDhh4",
+    "reason": "runtime_under_1_minute",
+    "title": "Clermont Ferrand Film Festival - L'Atelier - Italian crew",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "npFIM-SUasc",
+    "reason": "runtime_under_1_minute",
+    "title": "Official selection at the 45th Festival du court métrage de Clermont Ferrand",
+    "rejectedAt": "2026-09-03T03:29:49.689Z",
+    "rejectionType": "automatic"
   }
 ]
