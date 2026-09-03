@@ -12,6 +12,7 @@ const copy = {
     cadence: 'प्रति सप्ताह',
     join: 'Cinema Club से जुड़ें — ₹5/सप्ताह',
     payment: 'सुरक्षित भुगतान Razorpay पर पूरा होगा। सदस्यता कभी भी रद्द की जा सकती है।',
+    delivery: 'Launch phase में welcome और Club updates उस email पर भेजे जाएंगे, जो आप payment के समय देंगे।',
     included: 'आपको क्या मिलेगा',
     benefits: [
       ['हर सप्ताह Curator’s Five', 'पाँच चुनी हुई फ़िल्मों का नया कार्यक्रम, सही viewing order और SHORTSinSHORT का मूल curator note।'],
@@ -30,6 +31,7 @@ const copy = {
     cadence: 'per week',
     join: 'Join Cinema Club — ₹5/week',
     payment: 'Secure checkout is completed on Razorpay. Cancel anytime.',
+    delivery: 'During launch, your welcome note and Club updates will be sent to the email provided at checkout.',
     included: 'What members receive',
     benefits: [
       ['Curator’s Five, every week', 'A fresh five-film programme with a considered viewing order and an original SHORTSinSHORT curator note.'],
@@ -87,6 +89,7 @@ export default function ClubModal({ onClose, lang }) {
                   {text.join}
                 </button>
                 <p className="mt-3 text-center text-[.68rem] leading-5 text-zinc-500">{text.payment}</p>
+                <p className="mt-2 text-center text-[.68rem] leading-5 text-zinc-400">{text.delivery}</p>
               </div>
             </aside>
           </div>
