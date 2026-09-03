@@ -1141,5 +1141,12 @@
     "reason": "editorial_non_film",
     "rejectedAt": "2026-09-03T03:45:37.531Z",
     "rejectionType": "automatic_quality_v2"
+  },
+  {
+    "youtubeVideoId": "V3w_Ej-ppvA",
+    "reason": "editorial_non_film",
+    "title": "Glenn Owen Dodds at Clermont-Ferrand Short Film Festival - Short Film Marketing - Lesson 1 Posters",
+    "rejectedAt": "2026-09-03T03:50:23.508Z",
+    "rejectionType": "automatic"
   }
 ]
