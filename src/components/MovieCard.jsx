@@ -8,10 +8,10 @@ const safeText = (value, lang = 'en') => {
 };
 
 export default function MovieCard({ film, onSelect, lang }) {
-  if (!film) return null;
-  const videoId = film.youtubeVideoId || film.id;
+  const videoId = film?.youtubeVideoId || film?.id;
   const fallback = videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : '';
-  const [image, setImage] = useState(film.thumbnail || fallback);
+  const [image, setImage] = useState(film?.thumbnail || fallback);
+  if (!film) return null;
   const title = lang === 'hi' && film.titleHi ? film.titleHi : safeText(film.title, lang);
   const director = lang === 'hi' && film.directorHi ? film.directorHi : safeText(film.director, lang);
   const language = safeText(film.language, lang);

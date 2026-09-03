@@ -14,6 +14,7 @@ import TimePicker from './components/TimePicker';
 import MovieCard from './components/MovieCard';
 import PlayerModal from './components/PlayerModal';
 import ClubModal from './components/ClubModal';
+import LegalPage from './components/LegalPage';
 import ArchiveView from './components/ArchiveView';
 import filmsData from './data/films.json';
 
@@ -31,6 +32,7 @@ export default function App() {
   const [selectedLangFilter, setSelectedLangFilter] = useState('All');
   const [isClubView, setIsClubView] = useState(false);
   const [isArchiveView, setIsArchiveView] = useState(false);
+  const [legalView, setLegalView] = useState(null);
   const [activeFilm, setActiveFilm] = useState(null);
   const [heroIndex, setHeroIndex] = useState(0);
   const [isHeroHovered, setIsHeroHovered] = useState(false);
@@ -62,6 +64,7 @@ export default function App() {
     setSearchTerm('');
     setIsClubView(false);
     setIsArchiveView(false);
+    setLegalView(null);
   };
 
   const allFilms = useMemo(() => filmsData || [], []);
@@ -223,9 +226,9 @@ export default function App() {
     <div className="sis-v2 min-h-screen bg-[#221f1a] text-white flex flex-col font-sans selection:bg-red-600 selection:text-white">
       <Navbar
         isClubView={isClubView}
-        onOpenClub={() => { setIsClubView(true); setIsArchiveView(false); }}
+        onOpenClub={() => { setIsClubView(true); setIsArchiveView(false); setLegalView(null); }}
         isArchiveView={isArchiveView}
-        onOpenArchive={() => { setIsArchiveView(true); setIsClubView(false); }}
+        onOpenArchive={() => { setIsArchiveView(true); setIsClubView(false); setLegalView(null); }}
         onSurpriseMe={handleSurpriseMe}
         lang={lang}
         setLang={setLang}
@@ -243,7 +246,9 @@ export default function App() {
       />
 
       <main className="flex-1 pt-16">
-        {isClubView ? (
+        {legalView ? (
+          <LegalPage page={legalView} lang={lang} onBack={() => setLegalView(null)} />
+        ) : isClubView ? (
           <ClubModal onClose={() => setIsClubView(false)} lang={lang} />
         ) : isArchiveView ? (
           <ArchiveView onSelectFilm={handlePlayFilm} lang={lang} onBack={handleResetFilters} />
@@ -311,8 +316,15 @@ export default function App() {
         />
       )}
 
-      <footer className="border-t border-zinc-800/60 py-8 px-4 text-center text-xs text-zinc-500">
-        <p>© 2026 SHORTSinSHORT. Curated World Cinema in Short Formats.</p>
+      <footer className="border-t border-zinc-800/60 px-4 py-8 text-center text-xs text-zinc-500">
+        <p>© 2026 SHORTSinSHORT. An Equal Tales Entertainment Pvt Ltd initiative.</p>
+        <nav className="mx-auto mt-4 flex max-w-4xl flex-wrap justify-center gap-x-5 gap-y-3" aria-label="Legal and support">
+          <button type="button" onClick={() => { setLegalView('contact'); setIsClubView(false); setIsArchiveView(false); window.scrollTo(0, 0); }} className="border-0 bg-transparent hover:text-white">{lang === 'hi' ? 'हमारे बारे में और संपर्क' : 'About & Contact'}</button>
+          <button type="button" onClick={() => { setLegalView('content'); setIsClubView(false); setIsArchiveView(false); window.scrollTo(0, 0); }} className="border-0 bg-transparent hover:text-white">{lang === 'hi' ? 'कंटेंट और कॉपीराइट' : 'Content & Copyright'}</button>
+          <button type="button" onClick={() => { setLegalView('membership'); setIsClubView(false); setIsArchiveView(false); window.scrollTo(0, 0); }} className="border-0 bg-transparent hover:text-white">{lang === 'hi' ? 'सदस्यता की शर्तें' : 'Membership Terms'}</button>
+          <button type="button" onClick={() => { setLegalView('refunds'); setIsClubView(false); setIsArchiveView(false); window.scrollTo(0, 0); }} className="border-0 bg-transparent hover:text-white">{lang === 'hi' ? 'Cancellation और Refund' : 'Cancellation & Refund'}</button>
+          <button type="button" onClick={() => { setLegalView('privacy'); setIsClubView(false); setIsArchiveView(false); window.scrollTo(0, 0); }} className="border-0 bg-transparent hover:text-white">Privacy</button>
+        </nav>
       </footer>
     </div>
   );

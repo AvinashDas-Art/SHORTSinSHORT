@@ -67,6 +67,7 @@ export default function Navbar({
         <button type="button" onClick={() => openWorld('atlas')}><span className="sis3-dock-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c2.3 2.2 3.5 4.8 3.5 8S14.3 17.8 12 20M12 4c-2.3 2.2-3.5 4.8-3.5 8S9.7 17.8 12 20"/></svg></span>{lang === 'hi' ? 'दुनिया' : 'Worlds'}</button>
         <button type="button" onClick={onSurpriseMe}><span className="sis3-dock-icon"><svg viewBox="0 0 24 24"><path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg></span>{lang === 'hi' ? 'सरप्राइज़' : 'Surprise'}</button>
         <button type="button" onClick={onOpenArchive}><span className="sis3-dock-icon"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 5v14M16 5v14M4 10h4M16 10h4M4 14h4M16 14h4"/></svg></span>{lang === 'hi' ? 'मेरी रील' : 'My Reel'}</button>
+        <button type="button" onClick={onOpenClub} aria-pressed={isClubView}><span className="sis3-dock-icon"><svg viewBox="0 0 24 24"><path d="m12 3 2.2 4.7 5.1.7-3.7 3.6.9 5.1-4.5-2.4-4.5 2.4.9-5.1-3.7-3.6 5.1-.7z"/></svg></span>{lang === 'hi' ? 'क्लब ₹5' : 'Club ₹5'}</button>
       </nav>
 
       {activeWorld && <DiscoveryWorlds world={activeWorld} films={films} lang={lang} onClose={() => setActiveWorld(null)} onSelectFilm={onSelectFilm} />}
