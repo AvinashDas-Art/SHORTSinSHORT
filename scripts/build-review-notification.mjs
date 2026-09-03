@@ -15,7 +15,7 @@ const clean = (value) => String(value || '')
   .replace(/\]/g, '\\]')
   .trim();
 
-const shown = pending.slice(0, 40);
+const shown = pending.slice(0, 20);
 const lines = [
   '# SHORTSinSHORT Curator Review',
   '',

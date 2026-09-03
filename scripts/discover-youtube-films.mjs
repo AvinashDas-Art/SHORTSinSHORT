@@ -11,7 +11,7 @@ const numberArg = (name, fallback) => {
   return Number.isFinite(value) && value > 0 ? Math.floor(value) : fallback;
 };
 const queriesPerRun = Math.min(numberArg('queries', 7), 10);
-const maxNew = Math.min(numberArg('max', 30), 100);
+const maxNew = Math.min(numberArg('max', 12), 30);
 const maxQueue = 500;
 
 if (!apiKey) {
@@ -78,6 +78,7 @@ const cleanText = (value) => String(value || '')
 
 const positivePattern = /(short[\s-]*film|shortfilm|award[\s-]*winning|festival[\s-]*(selected|winner|film)|cortometraje|court métrage|curta[\s-]*metragem|cortometraggio|kurzfilm|film court|लघु\s*(फिल्म|फ़िल्म)|शॉर्ट\s*(फिल्म|फ़िल्म)|فيلم قصير|短編映画|단편영화|короткометраж)/i;
 const rejectPattern = /(\bofficial\s+trailer\b|\btrailer\b|\bteaser\b|\breaction\b|\breview\b|\bexplained\b|\brecap\b|\bbehind the scenes\b|\bmaking of\b|\bfull episode\b|\binterview\b|\bpodcast\b|\bmusic video\b|\blyric video\b|#shorts\b)/i;
+const editorialNonFilmPattern = /(?:\bhow\s+(?:to|i|we)\b.{0,80}\b(?:short[\s-]*film|filmmak(?:er|ing)|screenwrit)|\b(?:short[\s-]*film|filmmak(?:er|ing)|screenwrit)\b.{0,80}\b(?:course|tutorial|tips?|guide|clich[eé]s?|mistakes?|budget)|\b(?:festival|short[\s-]*film)\b.{0,50}\b(?:promo|promotion|highlights?|recap|coverage|news)|\b(?:promo|promotion|highlights?|recap|coverage|news)\b.{0,50}\b(?:festival|short[\s-]*film)|\binside\s+(?:the\s+)?[^|]{0,60}\bfilm\s+festival\b|\b(?:wins?|won)\s+at\s+(?:cannes|sundance|berlinale|venice|tribeca)\b)/i;
 const prestigePattern = /(award|winner|winning|festival|official selection|nominated|nominee|cannes|sundance|bafta|oscar|clermont|berlinale|venice|tribeca)/i;
 
 const now = new Date();
@@ -176,6 +177,7 @@ for (const pair of searchResults) {
   else if (seconds < 60) rejectReason = 'runtime_under_1_minute';
   else if (seconds > 1800) rejectReason = 'runtime_over_30_minutes';
   else if (rejectPattern.test(title)) rejectReason = 'non_film_title';
+  else if (editorialNonFilmPattern.test(title)) rejectReason = 'editorial_non_film';
   else if (!positivePattern.test(searchable)) rejectReason = 'weak_short_film_signal';
 
   if (rejectReason) {
