@@ -1,3 +1,11 @@
+
+const getSafeString = (val) => {
+  if (!val) return "";
+  if (typeof val === "string") return val;
+  if (typeof val === "object") return (val.en || val.hi || Object.values(val)[0] || "");
+  return String(val);
+};
+
 import React, { useState, useEffect, useMemo } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -196,8 +204,8 @@ export default function App() {
   const filteredFilms = useMemo(() => {
     return allFilms.filter(film => {
       const matchesSearch = searchTerm === '' || 
-        (film.title && film.title.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        (film.director && film.director.toLowerCase().includes(searchTerm.toLowerCase()));
+        (film.title && getSafeString(film.title).toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (film.director && getSafeString(film.director).toLowerCase().includes(searchTerm.toLowerCase()));
       
       const gList = Array.isArray(film.genre) ? film.genre : [film.genre];
       const matchesGenre = selectedGenre === 'All' || gList.some(g => typeof g === 'string' && g.toLowerCase() === selectedGenre.toLowerCase());
