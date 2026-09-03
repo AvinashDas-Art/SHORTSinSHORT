@@ -16,6 +16,7 @@ import PlayerModal from './components/PlayerModal';
 import ClubModal from './components/ClubModal';
 import LegalPage from './components/LegalPage';
 import ArchiveView from './components/ArchiveView';
+import ProfileModal from './components/ProfileModal';
 import filmsData from './data/films.json';
 
 const safeText = (val, lang = 'en') => {
@@ -34,6 +35,7 @@ export default function App() {
   const [isArchiveView, setIsArchiveView] = useState(false);
   const [legalView, setLegalView] = useState(null);
   const [activeFilm, setActiveFilm] = useState(null);
+  const [profileOpen, setProfileOpen] = useState(false);
   const [heroIndex, setHeroIndex] = useState(0);
   const [isHeroHovered, setIsHeroHovered] = useState(false);
   const [watchHistory, setWatchHistory] = useState([]);
@@ -243,6 +245,7 @@ export default function App() {
         onResetFilters={handleResetFilters}
         films={allFilms}
         onSelectFilm={handlePlayFilm}
+        onOpenProfile={() => setProfileOpen(true)}
       />
 
       <main className="flex-1 pt-16">
@@ -315,6 +318,8 @@ export default function App() {
           lang={lang}
         />
       )}
+
+      {profileOpen && <ProfileModal lang={lang} onClose={() => setProfileOpen(false)} />}
 
       <footer className="border-t border-zinc-800/60 px-4 py-8 text-center text-xs text-zinc-500">
         <p>© 2026 SHORTSinSHORT. An Equal Tales Entertainment Pvt Ltd initiative.</p>

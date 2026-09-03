@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAuth } from '../context/AuthContext';
 
 const SUBSCRIPTION_LINK = 'https://rzp.io/rzp/B9Z7fmQU';
 
@@ -13,6 +14,8 @@ const copy = {
     join: 'Cinema Club से जुड़ें — ₹5/सप्ताह',
     payment: 'सुरक्षित भुगतान Razorpay पर पूरा होगा। सदस्यता कभी भी रद्द की जा सकती है।',
     delivery: 'Launch phase में welcome और Club updates उस email पर भेजे जाएंगे, जो आप payment के समय देंगे।',
+    profileFirst: 'सदस्यता शुरू करने से पहले अपनी मुफ़्त प्रोफ़ाइल बनाएं।',
+    signedIn: 'इस प्रोफ़ाइल का email payment में भी इस्तेमाल करें:',
     included: 'आपको क्या मिलेगा',
     benefits: [
       ['हर सप्ताह Curator’s Five', 'पाँच चुनी हुई फ़िल्मों का नया कार्यक्रम, सही viewing order और SHORTSinSHORT का मूल curator note।'],
@@ -32,6 +35,8 @@ const copy = {
     join: 'Join Cinema Club — ₹5/week',
     payment: 'Secure checkout is completed on Razorpay. Cancel anytime.',
     delivery: 'During launch, your welcome note and Club updates will be sent to the email provided at checkout.',
+    profileFirst: 'Create your free profile before starting membership.',
+    signedIn: 'Use this profile email at checkout as well:',
     included: 'What members receive',
     benefits: [
       ['Curator’s Five, every week', 'A fresh five-film programme with a considered viewing order and an original SHORTSinSHORT curator note.'],
@@ -45,8 +50,19 @@ const copy = {
 
 export default function ClubModal({ onClose, lang }) {
   const text = copy[lang === 'hi' ? 'hi' : 'en'];
+  const { currentUser, loginWithGoogle, isConfigured } = useAuth();
+  const [loginError, setLoginError] = React.useState('');
 
-  const handleSubscribe = () => {
+  const handleSubscribe = async () => {
+    if (isConfigured && !currentUser) {
+      try {
+        setLoginError('');
+        await loginWithGoogle();
+      } catch (error) {
+        if (error?.code !== 'auth/popup-closed-by-user') setLoginError(error.message);
+      }
+      return;
+    }
     const checkout = window.open(SUBSCRIPTION_LINK, '_blank', 'noopener,noreferrer');
     if (checkout) checkout.opener = null;
   };
@@ -86,10 +102,12 @@ export default function ClubModal({ onClose, lang }) {
                   onClick={handleSubscribe}
                   className="w-full rounded-full bg-[#ff6256] px-5 py-4 text-sm font-extrabold text-white shadow-lg shadow-red-950/30 transition hover:bg-[#ff756b] focus:outline-none focus:ring-2 focus:ring-[#ff8b82]"
                 >
-                  {text.join}
+                  {isConfigured && !currentUser ? text.profileFirst : text.join}
                 </button>
                 <p className="mt-3 text-center text-[.68rem] leading-5 text-zinc-500">{text.payment}</p>
                 <p className="mt-2 text-center text-[.68rem] leading-5 text-zinc-400">{text.delivery}</p>
+                {currentUser?.email && <p className="mt-2 text-center text-[.68rem] leading-5 text-amber-200">{text.signedIn} {currentUser.email}</p>}
+                {loginError && <p className="mt-2 text-center text-[.68rem] leading-5 text-red-300" role="alert">{loginError}</p>}
               </div>
             </aside>
           </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import DiscoveryWorlds from './DiscoveryWorlds';
+import { useAuth } from '../context/AuthContext';
 
 const safeText = (value, lang = 'en') => {
   if (!value) return '';
@@ -16,10 +17,11 @@ export default function Navbar({
   isClubView, onOpenClub, isArchiveView, onOpenArchive, onSurpriseMe,
   lang, setLang, searchTerm, setSearchTerm, selectedGenre, setSelectedGenre,
   genres = [], selectedLangFilter, setSelectedLangFilter, languages = [],
-  onResetFilters, films = [], onSelectFilm
+  onResetFilters, films = [], onSelectFilm, onOpenProfile
 }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [activeWorld, setActiveWorld] = useState(null);
+  const { currentUser } = useAuth();
 
   const goHome = () => {
     setSearchOpen(false);
@@ -49,6 +51,9 @@ export default function Navbar({
           <button className="sis3-text-action sis3-desktop-action" type="button" onClick={onSurpriseMe}>{lang === 'hi' ? 'कोई शानदार फ़िल्म चलाइए' : 'Play me a great film'}</button>
           <button className="sis3-text-action sis3-desktop-action" type="button" onClick={onOpenArchive} aria-pressed={isArchiveView}>{lang === 'hi' ? 'मेरी रील' : 'My Reel'}</button>
           <button className="sis3-club-action" type="button" onClick={onOpenClub} aria-pressed={isClubView}>Club ₹5</button>
+          <button className="sis3-profile-action" type="button" onClick={onOpenProfile} aria-label={currentUser ? 'Open profile' : 'Create profile'}>
+            {currentUser?.photoURL ? <img src={currentUser.photoURL} alt="" referrerPolicy="no-referrer" /> : <span aria-hidden="true">{currentUser ? (currentUser.displayName || currentUser.email || 'S').charAt(0).toUpperCase() : '◯'}</span>}
+          </button>
           <button className="sis3-language" type="button" onClick={() => setLang(lang === 'hi' ? 'en' : 'hi')}>{lang === 'hi' ? 'EN' : 'HI'}</button>
         </div>
       </header>
