@@ -13,7 +13,19 @@ const readArray = (file) => {
 
 const idOf = (item) => String(item?.youtubeVideoId || item?.videoId || item?.id || '').trim();
 const titleOf = (item) => String(item?.title || '').trim();
-const editorialNonFilmPattern = /(?:\bhow\s+(?:to|i|we)\b.{0,80}\b(?:short[\s-]*film|filmmak(?:er|ing)|screenwrit)|\b(?:short[\s-]*film|filmmak(?:er|ing)|screenwrit)\b.{0,80}\b(?:course|tutorial|tips?|guide|clich[eé]s?|mistakes?|budget)|\b(?:festival|short[\s-]*film)\b.{0,50}\b(?:promo|promotion|highlights?|recap|coverage|news)|\b(?:promo|promotion|highlights?|recap|coverage|news)\b.{0,50}\b(?:festival|short[\s-]*film)|\binside\s+(?:the\s+)?[^|]{0,60}\bfilm\s+festival\b|\b(?:wins?|won)\s+at\s+(?:cannes|sundance|berlinale|venice|tribeca)\b)/i;
+const editorialNonFilmPatterns = [
+  /\bhow\s+(?:to|i|we)\b.{0,100}\b(?:short[\s-]*films?|filmmak(?:er|ing)|screenwrit)/i,
+  /\b(?:what|why|when|where)\s+(?:to|should|can|do|is|are)\b.{0,100}\b(?:short[\s-]*films?|filmmak(?:er|ing)|screenwrit)/i,
+  /\bavoid\b.{0,100}\b(?:short[\s-]*films?|filmmak(?:er|ing)|screenwrit)/i,
+  /\b(?:short[\s-]*films?|filmmak(?:er|ing)|screenwrit)\b.{0,100}\b(?:course|tutorial|tips?|guide|clich[eé]s?|mistakes?|budget|festival\s+circuit|social\s+media|distribution|marketing|promotion|release\s+strategy)/i,
+  /\b(?:course|tutorial|tips?|guide|clich[eé]s?|mistakes?|budget|festival\s+circuit|social\s+media|distribution|marketing|promotion|release\s+strategy)\b.{0,100}\b(?:short[\s-]*films?|filmmak(?:er|ing)|screenwrit)/i,
+  /\bfilm\s+festivals?\b.{0,80}\b(?:social\s+media|what\s+to\s+do|submission|distribution|marketing|promotion)/i,
+  /\b(?:festival|short[\s-]*films?)\b.{0,50}\b(?:promo|promotion|highlights?|recap|coverage|news)/i,
+  /\b(?:promo|promotion|highlights?|recap|coverage|news)\b.{0,50}\b(?:festival|short[\s-]*films?)/i,
+  /\binside\s+(?:the\s+)?[^|]{0,60}\bfilm\s+festival\b/i,
+  /\b(?:wins?|won)\s+at\s+(?:cannes|sundance|berlinale|venice|tribeca)\b/i
+];
+const isEditorialNonFilmTitle = (title) => editorialNonFilmPatterns.some((pattern) => pattern.test(title));
 
 const queue = readArray(queuePath);
 const rejected = readArray(rejectedPath);
@@ -23,7 +35,7 @@ const kept = [];
 
 for (const item of queue) {
   const pending = !item?.status || item.status === 'pending';
-  if (pending && editorialNonFilmPattern.test(titleOf(item))) {
+  if (pending && isEditorialNonFilmTitle(titleOf(item))) {
     moved.push({
       ...item,
       status: 'rejected',
@@ -49,7 +61,7 @@ for (let index = merged.length - 1; index >= 0; index -= 1) {
 deduped.reverse();
 
 console.log('Review queue total: ' + queue.length);
-console.log('Quality V2 removals: ' + moved.length);
+console.log('Quality V2.1 removals: ' + moved.length);
 for (const item of moved) console.log('MOVE ' + (idOf(item) || '?') + ' | ' + titleOf(item));
 
 if (!apply) {

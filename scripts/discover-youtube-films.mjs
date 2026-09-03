@@ -78,7 +78,19 @@ const cleanText = (value) => String(value || '')
 
 const positivePattern = /(short[\s-]*film|shortfilm|award[\s-]*winning|festival[\s-]*(selected|winner|film)|cortometraje|court métrage|curta[\s-]*metragem|cortometraggio|kurzfilm|film court|लघु\s*(फिल्म|फ़िल्म)|शॉर्ट\s*(फिल्म|फ़िल्म)|فيلم قصير|短編映画|단편영화|короткометраж)/i;
 const rejectPattern = /(\bofficial\s+trailer\b|\btrailer\b|\bteaser\b|\breaction\b|\breview\b|\bexplained\b|\brecap\b|\bbehind the scenes\b|\bmaking of\b|\bfull episode\b|\binterview\b|\bpodcast\b|\bmusic video\b|\blyric video\b|#shorts\b)/i;
-const editorialNonFilmPattern = /(?:\bhow\s+(?:to|i|we)\b.{0,80}\b(?:short[\s-]*film|filmmak(?:er|ing)|screenwrit)|\b(?:short[\s-]*film|filmmak(?:er|ing)|screenwrit)\b.{0,80}\b(?:course|tutorial|tips?|guide|clich[eé]s?|mistakes?|budget)|\b(?:festival|short[\s-]*film)\b.{0,50}\b(?:promo|promotion|highlights?|recap|coverage|news)|\b(?:promo|promotion|highlights?|recap|coverage|news)\b.{0,50}\b(?:festival|short[\s-]*film)|\binside\s+(?:the\s+)?[^|]{0,60}\bfilm\s+festival\b|\b(?:wins?|won)\s+at\s+(?:cannes|sundance|berlinale|venice|tribeca)\b)/i;
+const editorialNonFilmPatterns = [
+  /\bhow\s+(?:to|i|we)\b.{0,100}\b(?:short[\s-]*films?|filmmak(?:er|ing)|screenwrit)/i,
+  /\b(?:what|why|when|where)\s+(?:to|should|can|do|is|are)\b.{0,100}\b(?:short[\s-]*films?|filmmak(?:er|ing)|screenwrit)/i,
+  /\bavoid\b.{0,100}\b(?:short[\s-]*films?|filmmak(?:er|ing)|screenwrit)/i,
+  /\b(?:short[\s-]*films?|filmmak(?:er|ing)|screenwrit)\b.{0,100}\b(?:course|tutorial|tips?|guide|clich[eé]s?|mistakes?|budget|festival\s+circuit|social\s+media|distribution|marketing|promotion|release\s+strategy)/i,
+  /\b(?:course|tutorial|tips?|guide|clich[eé]s?|mistakes?|budget|festival\s+circuit|social\s+media|distribution|marketing|promotion|release\s+strategy)\b.{0,100}\b(?:short[\s-]*films?|filmmak(?:er|ing)|screenwrit)/i,
+  /\bfilm\s+festivals?\b.{0,80}\b(?:social\s+media|what\s+to\s+do|submission|distribution|marketing|promotion)/i,
+  /\b(?:festival|short[\s-]*films?)\b.{0,50}\b(?:promo|promotion|highlights?|recap|coverage|news)/i,
+  /\b(?:promo|promotion|highlights?|recap|coverage|news)\b.{0,50}\b(?:festival|short[\s-]*films?)/i,
+  /\binside\s+(?:the\s+)?[^|]{0,60}\bfilm\s+festival\b/i,
+  /\b(?:wins?|won)\s+at\s+(?:cannes|sundance|berlinale|venice|tribeca)\b/i
+];
+const isEditorialNonFilmTitle = (title) => editorialNonFilmPatterns.some((pattern) => pattern.test(title));
 const prestigePattern = /(award|winner|winning|festival|official selection|nominated|nominee|cannes|sundance|bafta|oscar|clermont|berlinale|venice|tribeca)/i;
 
 const now = new Date();
@@ -177,7 +189,7 @@ for (const pair of searchResults) {
   else if (seconds < 60) rejectReason = 'runtime_under_1_minute';
   else if (seconds > 1800) rejectReason = 'runtime_over_30_minutes';
   else if (rejectPattern.test(title)) rejectReason = 'non_film_title';
-  else if (editorialNonFilmPattern.test(title)) rejectReason = 'editorial_non_film';
+  else if (isEditorialNonFilmTitle(title)) rejectReason = 'editorial_non_film';
   else if (!positivePattern.test(searchable)) rejectReason = 'weak_short_film_signal';
 
   if (rejectReason) {
