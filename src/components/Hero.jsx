@@ -1,3 +1,26 @@
+
+// Daily deterministic shuffle using current date
+const getDailyHeroFilms = (allFilms) => {
+  if (!allFilms || allFilms.length === 0) return [];
+  
+  // Quality filter: must have title and id
+  const validFilms = allFilms.filter(f => f && (f.id || f.youtubeId));
+  if (validFilms.length <= 6) return validFilms;
+
+  const today = new Date();
+  // Unique seed per day (YYYYMMDD)
+  const daySeed = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+  
+  // Seeded pseudo-random shuffle
+  const shuffled = [...validFilms];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.abs(Math.sin(daySeed + i)) * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  
+  return shuffled.slice(0, 6);
+};
+
 import React from 'react';
 
 const safeText = (value, lang = 'en') => {
