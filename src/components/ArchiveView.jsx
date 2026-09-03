@@ -18,10 +18,10 @@ export default function ArchiveView({ onSelectFilm, lang, onBack }) {
       <div className="flex items-center justify-between mb-8 pb-4 border-b border-zinc-800">
         <div>
           <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight">
-            {lang === 'hi' ? 'मेरी रील (Personal History)' : 'My Reel'}
+            {lang === 'hi' ? 'मेरा सिनेमा' : 'My Cinema'}
           </h1>
           <p className="text-xs text-zinc-400 mt-1">
-            {lang === 'hi' ? 'आपके द्वारा हाल ही में देखी और छोड़ी गई फ़िल्में' : 'Your recently watched & saved films'}
+            {lang === 'hi' ? 'हाल में देखी गई फ़िल्में' : 'Your recently watched films'}
           </p>
         </div>
         <button
@@ -37,7 +37,7 @@ export default function ArchiveView({ onSelectFilm, lang, onBack }) {
           <div className="w-12 h-12 mx-auto rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-600">
             🎬
           </div>
-          <p className="text-sm">{lang === 'hi' ? 'आपकी रील अभी खाली है। फ़िल्में देखना शुरू करें!' : 'Your reel is empty. Start streaming films!'}</p>
+          <p className="text-sm">{lang === 'hi' ? 'आपका सिनेमा अभी खाली है। कोई फ़िल्म देखकर शुरुआत करें!' : 'Your cinema is empty. Start with a film!'}</p>
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
