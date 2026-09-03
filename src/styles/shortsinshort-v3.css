@@ -23,7 +23,7 @@ body { background: var(--sis3-bg) !important; color: var(--sis3-cream); padding-
 .sis3-primary-links { display: flex; justify-content: center; gap: 1.7rem; }
 .sis3-primary-links button, .sis3-text-action { border: 0; background: none; color: #d8d4cc; font-size: .75rem; font-weight: 600; }
 .sis3-primary-links button:hover, .sis3-text-action:hover { color: white; }
-.sis3-nav-actions { display: flex; align-items: center; gap: .55rem; }
+.sis3-nav-actions { display: flex; align-items: center; gap: .9rem; }
 .sis3-icon-button, .sis3-language { width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid var(--sis3-line); border-radius: 50%; background: rgba(255,255,255,.035); color: white; }
 .sis3-icon-button svg { width: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; }
 .sis3-language { font-size: .68rem; font-weight: 700; }
