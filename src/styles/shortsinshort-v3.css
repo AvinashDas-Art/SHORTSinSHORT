@@ -123,8 +123,9 @@ body { background: var(--sis3-bg) !important; color: var(--sis3-cream); padding-
   .sis3-row-arrow { display: none; }
   .sis-time-picker { margin: 1.6rem 18px .7rem !important; grid-template-columns: 1fr !important; }
   .sis-time-feature { min-height: 180px !important; }
-  .sis3-mobile-dock { position: fixed; z-index: 50; inset: auto 10px 9px; height: 58px; padding: 0 .3rem; display: grid; grid-template-columns: repeat(4,1fr); border: 1px solid rgba(255,255,255,.14); border-radius: 18px; background: rgba(25,26,23,.92); box-shadow: 0 16px 45px rgba(0,0,0,.38); backdrop-filter: blur(20px); }
+  .sis3-mobile-dock { position: fixed; z-index: 50; inset: auto 10px 9px; height: 58px; padding: 0 .3rem; display: grid; grid-template-columns: repeat(5,1fr); border: 1px solid rgba(255,255,255,.14); border-radius: 18px; background: rgba(25,26,23,.92); box-shadow: 0 16px 45px rgba(0,0,0,.38); backdrop-filter: blur(20px); }
   .sis3-mobile-dock button { display: grid; place-items: center; align-content: center; gap: .1rem; border: 0; background: none; color: #bdb9b1; font-size: .52rem; }
+  .sis3-mobile-dock button[aria-pressed="true"] { color: var(--sis3-coral); }
   .sis3-mobile-dock span { color: white; font-size: 1rem; line-height: 1; }
   body { padding-bottom: 74px; }
   .sis3-player-top { height: 56px; padding: 0 12px; }
