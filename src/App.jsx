@@ -39,6 +39,8 @@ export default function App() {
   const [profileOpen, setProfileOpen] = useState(false);
   const [heroIndex, setHeroIndex] = useState(0);
   const [heroDayKey, setHeroDayKey] = useState(() => getIndiaDateKey());
+  const [heroReadyKey, setHeroReadyKey] = useState('');
+  const [unavailableHeroIds, setUnavailableHeroIds] = useState(() => new Set());
   const [isHeroHovered, setIsHeroHovered] = useState(false);
   const [watchHistory, setWatchHistory] = useState([]);
 
@@ -98,21 +100,42 @@ export default function App() {
   };
 
   // Five fresh hero films per India calendar day; each remains on screen for 7 seconds.
-  const heroFilms = useMemo(
+  const dailyHeroFilms = useMemo(
     () => getDailyHeroFilms(allFilms, heroDayKey),
     [allFilms, heroDayKey]
+  );
+  const heroFilms = useMemo(
+    () => dailyHeroFilms.filter((film) => !unavailableHeroIds.has(film.youtubeVideoId || film.youtubeId || film.id)),
+    [dailyHeroFilms, unavailableHeroIds]
   );
   useEffect(() => {
     const timer = setInterval(() => setHeroDayKey(getIndiaDateKey()), 60_000);
     return () => clearInterval(timer);
   }, []);
   useEffect(() => {
-    if (isHeroHovered || heroFilms.length <= 1) return;
-    const timer = setInterval(() => {
+    setHeroIndex(0);
+    setHeroReadyKey('');
+  }, [heroDayKey]);
+  useEffect(() => {
+    if (isHeroHovered || heroFilms.length <= 1 || !heroReadyKey) return undefined;
+    const timer = setTimeout(() => {
+      setHeroReadyKey('');
       setHeroIndex((prev) => (prev + 1) % heroFilms.length);
     }, 7000);
-    return () => clearInterval(timer);
-  }, [isHeroHovered, heroFilms]);
+    return () => clearTimeout(timer);
+  }, [isHeroHovered, heroFilms.length, heroIndex, heroReadyKey]);
+
+  const handleHeroArtworkUnavailable = (filmKey) => {
+    if (!filmKey) return;
+    setUnavailableHeroIds((current) => {
+      if (current.has(filmKey)) return current;
+      const updated = new Set(current);
+      updated.add(filmKey);
+      return updated;
+    });
+    setHeroReadyKey('');
+    setHeroIndex(0);
+  };
 
   // Client-Side Recommendations
   const recommendedFilms = useMemo(() => {
@@ -276,10 +299,13 @@ export default function App() {
           <>
             <Hero
               film={heroFilms[heroIndex]}
+              nextFilm={heroFilms.length > 1 ? heroFilms[(heroIndex + 1) % heroFilms.length] : null}
               onPlay={handlePlayFilm}
               lang={lang}
               onMouseEnter={() => setIsHeroHovered(true)}
               onMouseLeave={() => setIsHeroHovered(false)}
+              onArtworkReady={setHeroReadyKey}
+              onArtworkUnavailable={handleHeroArtworkUnavailable}
             />
 
             <div className="space-y-4 -mt-10 relative z-10 pb-16">
