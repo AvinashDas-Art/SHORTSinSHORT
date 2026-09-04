@@ -1,3 +1,11 @@
+
+const getSafeString = (val) => {
+  if (!val) return "";
+  if (typeof val === "string") return val;
+  if (typeof val === "object") return (val.en || val.hi || Object.values(val)[0] || "");
+  return String(val);
+};
+
 import React, { useState, useEffect, useMemo } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -6,8 +14,11 @@ import TimePicker from './components/TimePicker';
 import MovieCard from './components/MovieCard';
 import PlayerModal from './components/PlayerModal';
 import ClubModal from './components/ClubModal';
+import LegalPage from './components/LegalPage';
 import ArchiveView from './components/ArchiveView';
+import ProfileModal from './components/ProfileModal';
 import filmsData from './data/films.json';
+import { getDailyHeroFilms, getIndiaDateKey } from './utils/dailyHeroFilms';
 
 const safeText = (val, lang = 'en') => {
   if (!val) return '';
@@ -23,8 +34,13 @@ export default function App() {
   const [selectedLangFilter, setSelectedLangFilter] = useState('All');
   const [isClubView, setIsClubView] = useState(false);
   const [isArchiveView, setIsArchiveView] = useState(false);
+  const [legalView, setLegalView] = useState(null);
   const [activeFilm, setActiveFilm] = useState(null);
+  const [profileOpen, setProfileOpen] = useState(false);
   const [heroIndex, setHeroIndex] = useState(0);
+  const [heroDayKey, setHeroDayKey] = useState(() => getIndiaDateKey());
+  const [heroReadyKey, setHeroReadyKey] = useState('');
+  const [unavailableHeroIds, setUnavailableHeroIds] = useState(() => new Set());
   const [isHeroHovered, setIsHeroHovered] = useState(false);
   const [watchHistory, setWatchHistory] = useState([]);
 
@@ -54,6 +70,7 @@ export default function App() {
     setSearchTerm('');
     setIsClubView(false);
     setIsArchiveView(false);
+    setLegalView(null);
   };
 
   const allFilms = useMemo(() => filmsData || [], []);
@@ -82,23 +99,43 @@ export default function App() {
     handlePlayFilm(allFilms[randomIndex]);
   };
 
-  // Hero Carousel
-  const heroFilms = useMemo(() => {
-    const isAI = (film) => {
-      const genres = Array.isArray(film.genre) ? film.genre : [film.genre];
-      return genres.some((genre) => String(genre || '').toLowerCase().includes('ai'));
-    };
-    const editorial = allFilms.filter((film) => !isAI(film));
-    const aiCinema = allFilms.filter(isAI);
-    return [...editorial, ...aiCinema].slice(0, 8);
-  }, [allFilms]);
+  // Five fresh hero films per India calendar day; each remains on screen for 7 seconds.
+  const dailyHeroFilms = useMemo(
+    () => getDailyHeroFilms(allFilms, heroDayKey),
+    [allFilms, heroDayKey]
+  );
+  const heroFilms = useMemo(
+    () => dailyHeroFilms.filter((film) => !unavailableHeroIds.has(film.youtubeVideoId || film.youtubeId || film.id)),
+    [dailyHeroFilms, unavailableHeroIds]
+  );
   useEffect(() => {
-    if (isHeroHovered || heroFilms.length <= 1) return;
-    const timer = setInterval(() => {
+    const timer = setInterval(() => setHeroDayKey(getIndiaDateKey()), 60_000);
+    return () => clearInterval(timer);
+  }, []);
+  useEffect(() => {
+    setHeroIndex(0);
+    setHeroReadyKey('');
+  }, [heroDayKey]);
+  useEffect(() => {
+    if (isHeroHovered || heroFilms.length <= 1 || !heroReadyKey) return undefined;
+    const timer = setTimeout(() => {
+      setHeroReadyKey('');
       setHeroIndex((prev) => (prev + 1) % heroFilms.length);
     }, 7000);
-    return () => clearInterval(timer);
-  }, [isHeroHovered, heroFilms]);
+    return () => clearTimeout(timer);
+  }, [isHeroHovered, heroFilms.length, heroIndex, heroReadyKey]);
+
+  const handleHeroArtworkUnavailable = (filmKey) => {
+    if (!filmKey) return;
+    setUnavailableHeroIds((current) => {
+      if (current.has(filmKey)) return current;
+      const updated = new Set(current);
+      updated.add(filmKey);
+      return updated;
+    });
+    setHeroReadyKey('');
+    setHeroIndex(0);
+  };
 
   // Client-Side Recommendations
   const recommendedFilms = useMemo(() => {
@@ -196,8 +233,8 @@ export default function App() {
   const filteredFilms = useMemo(() => {
     return allFilms.filter(film => {
       const matchesSearch = searchTerm === '' || 
-        (film.title && film.title.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        (film.director && film.director.toLowerCase().includes(searchTerm.toLowerCase()));
+        (film.title && getSafeString(film.title).toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (film.director && getSafeString(film.director).toLowerCase().includes(searchTerm.toLowerCase()));
       
       const gList = Array.isArray(film.genre) ? film.genre : [film.genre];
       const matchesGenre = selectedGenre === 'All' || gList.some(g => typeof g === 'string' && g.toLowerCase() === selectedGenre.toLowerCase());
@@ -215,9 +252,9 @@ export default function App() {
     <div className="sis-v2 min-h-screen bg-[#221f1a] text-white flex flex-col font-sans selection:bg-red-600 selection:text-white">
       <Navbar
         isClubView={isClubView}
-        onOpenClub={() => { setIsClubView(true); setIsArchiveView(false); }}
+        onOpenClub={() => { setIsClubView(true); setIsArchiveView(false); setLegalView(null); }}
         isArchiveView={isArchiveView}
-        onOpenArchive={() => { setIsArchiveView(true); setIsClubView(false); }}
+        onOpenArchive={() => { setIsArchiveView(true); setIsClubView(false); setLegalView(null); }}
         onSurpriseMe={handleSurpriseMe}
         lang={lang}
         setLang={setLang}
@@ -232,10 +269,13 @@ export default function App() {
         onResetFilters={handleResetFilters}
         films={allFilms}
         onSelectFilm={handlePlayFilm}
+        onOpenProfile={() => setProfileOpen(true)}
       />
 
       <main className="flex-1 pt-16">
-        {isClubView ? (
+        {legalView ? (
+          <LegalPage page={legalView} lang={lang} onBack={() => setLegalView(null)} />
+        ) : isClubView ? (
           <ClubModal onClose={() => setIsClubView(false)} lang={lang} />
         ) : isArchiveView ? (
           <ArchiveView onSelectFilm={handlePlayFilm} lang={lang} onBack={handleResetFilters} />
@@ -259,10 +299,13 @@ export default function App() {
           <>
             <Hero
               film={heroFilms[heroIndex]}
+              nextFilm={heroFilms.length > 1 ? heroFilms[(heroIndex + 1) % heroFilms.length] : null}
               onPlay={handlePlayFilm}
               lang={lang}
               onMouseEnter={() => setIsHeroHovered(true)}
               onMouseLeave={() => setIsHeroHovered(false)}
+              onArtworkReady={setHeroReadyKey}
+              onArtworkUnavailable={handleHeroArtworkUnavailable}
             />
 
             <div className="space-y-4 -mt-10 relative z-10 pb-16">
@@ -303,8 +346,17 @@ export default function App() {
         />
       )}
 
-      <footer className="border-t border-zinc-800/60 py-8 px-4 text-center text-xs text-zinc-500">
-        <p>© 2026 SHORTSinSHORT. Curated World Cinema in Short Formats.</p>
+      {profileOpen && <ProfileModal lang={lang} onClose={() => setProfileOpen(false)} />}
+
+      <footer className="border-t border-zinc-800/60 px-4 py-8 text-center text-xs text-zinc-500">
+        <p>© 2026 SHORTSinSHORT. An Equal Tales Entertainment Pvt Ltd initiative.</p>
+        <nav className="mx-auto mt-4 flex max-w-4xl flex-wrap justify-center gap-x-5 gap-y-3" aria-label="Legal and support">
+          <button type="button" onClick={() => { setLegalView('contact'); setIsClubView(false); setIsArchiveView(false); window.scrollTo(0, 0); }} className="border-0 bg-transparent hover:text-white">{lang === 'hi' ? 'हमारे बारे में और संपर्क' : 'About & Contact'}</button>
+          <button type="button" onClick={() => { setLegalView('content'); setIsClubView(false); setIsArchiveView(false); window.scrollTo(0, 0); }} className="border-0 bg-transparent hover:text-white">{lang === 'hi' ? 'कंटेंट और कॉपीराइट' : 'Content & Copyright'}</button>
+          <button type="button" onClick={() => { setLegalView('membership'); setIsClubView(false); setIsArchiveView(false); window.scrollTo(0, 0); }} className="border-0 bg-transparent hover:text-white">{lang === 'hi' ? 'सदस्यता की शर्तें' : 'Membership Terms'}</button>
+          <button type="button" onClick={() => { setLegalView('refunds'); setIsClubView(false); setIsArchiveView(false); window.scrollTo(0, 0); }} className="border-0 bg-transparent hover:text-white">{lang === 'hi' ? 'Cancellation और Refund' : 'Cancellation & Refund'}</button>
+          <button type="button" onClick={() => { setLegalView('privacy'); setIsClubView(false); setIsArchiveView(false); window.scrollTo(0, 0); }} className="border-0 bg-transparent hover:text-white">Privacy</button>
+        </nav>
       </footer>
     </div>
   );

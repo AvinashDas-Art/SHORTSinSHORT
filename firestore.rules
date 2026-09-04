@@ -1,0 +1,39 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner() {
+      return signedIn()
+        && request.auth.token.email_verified == true
+        && request.auth.token.email == 'equaltales@gmail.com';
+    }
+
+    match /users/{userId} {
+      allow get: if isOwner() || (signedIn() && request.auth.uid == userId);
+      allow list: if isOwner();
+
+      allow create: if signedIn()
+        && request.auth.uid == userId
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.membershipStatus == 'free';
+
+      allow update: if isOwner() || (
+        signedIn()
+        && request.auth.uid == userId
+        && request.resource.data.uid == resource.data.uid
+        && request.resource.data.email == request.auth.token.email
+        && request.resource.data.membershipStatus == resource.data.membershipStatus
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly([
+          'displayName', 'email', 'photoURL', 'lastSeenAt'
+        ])
+      );
+
+      allow delete: if false;
+    }
+  }
+}

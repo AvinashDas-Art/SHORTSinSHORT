@@ -1,59 +1,98 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { auth, loginWithGoogle, logoutUser } from '../firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
+import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { auth, db, googleProvider, isFirebaseConfigured } from '../firebase';
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
+
+async function syncUserProfile(user) {
+  if (!db || !user) return null;
+
+  const profileRef = doc(db, 'users', user.uid);
+  const existing = await getDoc(profileRef);
+  const identity = {
+    uid: user.uid,
+    email: user.email || '',
+    displayName: user.displayName || '',
+    photoURL: user.photoURL || '',
+    lastSeenAt: serverTimestamp(),
+  };
+
+  if (existing.exists()) {
+    await setDoc(profileRef, identity, { merge: true });
+  } else {
+    await setDoc(profileRef, {
+      ...identity,
+      membershipStatus: 'free',
+      createdAt: serverTimestamp(),
+    });
+  }
+
+  const freshProfile = await getDoc(profileRef);
+  return freshProfile.exists() ? freshProfile.data() : null;
+}
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [isPremium, setIsPremium] = useState(() => {
-    return localStorage.getItem('is_premium_member') === 'true';
-  });
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(isFirebaseConfigured);
+  const [authError, setAuthError] = useState('');
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-      if (user) {
-        const savedStatus = localStorage.getItem(`premium_${user.uid}`);
-        if (savedStatus === 'true') {
-          setIsPremium(true);
-        }
-      } else {
-        setIsPremium(false);
-      }
+    if (!auth) {
       setLoading(false);
+      return undefined;
+    }
+
+    return onAuthStateChanged(auth, async (user) => {
+      setCurrentUser(user);
+      setAuthError('');
+      if (!user) {
+        setProfile(null);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        setProfile(await syncUserProfile(user));
+      } catch (error) {
+        console.error('Profile sync failed:', error);
+        setAuthError('Profile data could not be refreshed.');
+      } finally {
+        setLoading(false);
+      }
     });
-    return unsubscribe;
   }, []);
 
-  const activatePremium = () => {
-    setIsPremium(true);
-    localStorage.setItem('is_premium_member', 'true');
-    if (currentUser) {
-      localStorage.setItem(`premium_${currentUser.uid}`, 'true');
+  const loginWithGoogle = async () => {
+    if (!auth || !googleProvider) {
+      throw new Error('Profile sign-in is not configured yet.');
     }
+    setAuthError('');
+    const result = await signInWithPopup(auth, googleProvider);
+    return result.user;
   };
 
-  const value = {
+  const logout = async () => {
+    if (auth) await signOut(auth);
+  };
+
+  const value = useMemo(() => ({
     currentUser,
+    profile,
+    loading,
+    authError,
     loginWithGoogle,
-    logout: async () => {
-      await logoutUser();
-      setIsPremium(false);
-      localStorage.removeItem('is_premium_member');
-    },
-    isPremium,
-    activatePremium
-  };
+    logout,
+    isConfigured: isFirebaseConfigured,
+    isMember: profile?.membershipStatus === 'active',
+  }), [currentUser, profile, loading, authError]);
 
-  return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {
-  return useContext(AuthContext);
+  const value = useContext(AuthContext);
+  if (!value) throw new Error('useAuth must be used inside AuthProvider');
+  return value;
 }
