@@ -28,6 +28,17 @@
     <meta name="twitter:title" content="SHORTSinSHORT - Curated World Cinema in Short Formats" />
     <meta name="twitter:description" content="Stream award-winning international short films, thrillers, human dramas, and groundbreaking AI cinema." />
     <meta name="twitter:image" content="https://www.shortsinshort.com/og-image.png" />
+  
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#dc2626" />
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("/sw.js").catch(() => {});
+        });
+      }
+    </script>
+
   </head>
   <body class="bg-[#0d0d0f] text-white">
     <div id="root"></div>

@@ -1,16 +1,21 @@
 {
-  "name": "SHORTSinSHORT",
-  "short_name": "SHORTS",
-  "description": "Curated World Cinema in Short Formats",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#0d0d0f",
-  "theme_color": "#0d0d0f",
+  "short_name": "SHORTSinSHORT",
+  "name": "SHORTSinSHORT - Curated World Cinema",
   "icons": [
     {
-      "src": "/og-image.png",
-      "sizes": "1200x630",
-      "type": "image/png"
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
-  ]
+  ],
+  "start_url": "/",
+  "background_color": "#0d0d0f",
+  "theme_color": "#dc2626",
+  "display": "standalone",
+  "orientation": "portrait"
 }
