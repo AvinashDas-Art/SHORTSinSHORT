@@ -18,6 +18,7 @@ import LegalPage from './components/LegalPage';
 import ArchiveView from './components/ArchiveView';
 import ProfileModal from './components/ProfileModal';
 import filmsData from './data/films.json';
+import { getDailyHeroFilms, getIndiaDateKey } from './utils/dailyHeroFilms';
 
 const safeText = (val, lang = 'en') => {
   if (!val) return '';
@@ -37,6 +38,7 @@ export default function App() {
   const [activeFilm, setActiveFilm] = useState(null);
   const [profileOpen, setProfileOpen] = useState(false);
   const [heroIndex, setHeroIndex] = useState(0);
+  const [heroDayKey, setHeroDayKey] = useState(() => getIndiaDateKey());
   const [isHeroHovered, setIsHeroHovered] = useState(false);
   const [watchHistory, setWatchHistory] = useState([]);
 
@@ -95,16 +97,15 @@ export default function App() {
     handlePlayFilm(allFilms[randomIndex]);
   };
 
-  // Hero Carousel
-  const heroFilms = useMemo(() => {
-    const isAI = (film) => {
-      const genres = Array.isArray(film.genre) ? film.genre : [film.genre];
-      return genres.some((genre) => String(genre || '').toLowerCase().includes('ai'));
-    };
-    const editorial = allFilms.filter((film) => !isAI(film));
-    const aiCinema = allFilms.filter(isAI);
-    return [...editorial, ...aiCinema].slice(0, 8);
-  }, [allFilms]);
+  // Five fresh hero films per India calendar day; each remains on screen for 7 seconds.
+  const heroFilms = useMemo(
+    () => getDailyHeroFilms(allFilms, heroDayKey),
+    [allFilms, heroDayKey]
+  );
+  useEffect(() => {
+    const timer = setInterval(() => setHeroDayKey(getIndiaDateKey()), 60_000);
+    return () => clearInterval(timer);
+  }, []);
   useEffect(() => {
     if (isHeroHovered || heroFilms.length <= 1) return;
     const timer = setInterval(() => {
