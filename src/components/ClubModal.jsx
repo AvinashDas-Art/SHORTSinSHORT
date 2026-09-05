@@ -7,15 +7,21 @@ export default function ClubModal({ onClose, lang = "en" }) {
     const txnid = "TXN" + Date.now();
     const amount = "20.00";
     const productinfo = "CinemaClub";
-    const firstname = "Member";
+    const firstname = "Avinash";
     const email = "contact@shortsinshort.com";
     const phone = "9876543210";
     const surl = "https://shortsinshort.com/?payment=success";
     const furl = "https://shortsinshort.com/?payment=failed";
+    const service_provider = "payu_paisa";
+    const udf1 = "";
+    const udf2 = "";
+    const udf3 = "";
+    const udf4 = "";
+    const udf5 = "";
 
-    // Standard PayU formula with exactly 11 pipes between email and salt:
-    // sha512(key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5||||||SALT)
-    const hashString = `${key}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|||||||||||${salt}`;
+    // Exact PayU Formula:
+    // sha512(key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5||||||salt)
+    const hashString = `${key}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|${udf1}|${udf2}|${udf3}|${udf4}|${udf5}||||||${salt}`;
 
     const enc = new TextEncoder();
     const hashBuffer = await crypto.subtle.digest("SHA-512", enc.encode(hashString));
@@ -36,7 +42,13 @@ export default function ClubModal({ onClose, lang = "en" }) {
       phone,
       surl,
       furl,
-      hash
+      service_provider,
+      hash,
+      udf1,
+      udf2,
+      udf3,
+      udf4,
+      udf5
     };
 
     Object.entries(fields).forEach(([k, v]) => {
