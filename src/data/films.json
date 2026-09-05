@@ -6350,7 +6350,11 @@
     "titleHi": "स्नो बेयर",
     "director": "Aaron Blaise",
     "language": "Silent",
-    "genre": ["Animation", "Drama", "Award Winning"],
+    "genre": [
+      "Animation",
+      "Drama",
+      "Award Winning"
+    ],
     "duration": "12 min",
     "year": "2025",
     "thumbnail": "https://i.ytimg.com/vi/xOXolSQcEb4/maxresdefault.jpg",
@@ -6367,7 +6371,11 @@
     "titleHi": "एक लोमड़ी और एक चूहा",
     "director": "Camille Chaix, Hugo Jean, Juliette Jourdan, Marie Pillier & Kevin Roger",
     "language": "Silent",
-    "genre": ["Animation", "Comedy", "Family"],
+    "genre": [
+      "Animation",
+      "Comedy",
+      "Family"
+    ],
     "duration": "6 min",
     "year": "2015",
     "thumbnail": "https://i.ytimg.com/vi/gZyjJtBIlow/maxresdefault.jpg",
@@ -6384,7 +6392,11 @@
     "titleHi": "सनडाउन",
     "director": "Juliette Brocal, Camille Letouze, Ana Moniz, Ruitao She & Shanshan Zou",
     "language": "Silent",
-    "genre": ["Animation", "Drama", "World Cinema"],
+    "genre": [
+      "Animation",
+      "Drama",
+      "World Cinema"
+    ],
     "duration": "5 min",
     "year": "2020",
     "thumbnail": "https://i.ytimg.com/vi/jKh-DP89FPY/maxresdefault.jpg",
@@ -6401,7 +6413,11 @@
     "titleHi": "बिन बुलाये",
     "director": "Anshul Tiwari",
     "language": "Hindi",
-    "genre": ["Drama", "Romance", "Award Winning"],
+    "genre": [
+      "Drama",
+      "Romance",
+      "Award Winning"
+    ],
     "duration": "20 min",
     "year": "2019",
     "thumbnail": "https://i.ytimg.com/vi/y5y17tmaZlY/maxresdefault.jpg",
@@ -6418,7 +6434,11 @@
     "titleHi": "अर्ली रिटायरमेंट",
     "director": "Michelle Bossy",
     "language": "English",
-    "genre": ["Drama", "LGBTQ+", "World Cinema"],
+    "genre": [
+      "Drama",
+      "LGBTQ+",
+      "World Cinema"
+    ],
     "duration": "13 min",
     "thumbnail": "https://i.ytimg.com/vi/iiyIRord8bI/maxresdefault.jpg",
     "description": "After a breakup, Alex moves in with his parents and confronts love, loss and family expectations.",
@@ -6434,7 +6454,11 @@
     "titleHi": "लास्ट नाइट",
     "director": "Rutopa",
     "language": "English",
-    "genre": ["Animation", "Drama", "Independent"],
+    "genre": [
+      "Animation",
+      "Drama",
+      "Independent"
+    ],
     "duration": "4 min",
     "thumbnail": "https://i.ytimg.com/vi/7WbbwrrRSTg/maxresdefault.jpg",
     "description": "An intimate independent animated short shaped by memory, connection and a single night.",
@@ -6450,7 +6474,11 @@
     "titleHi": "द साइलेंट चाइल्ड",
     "director": "Chris Overton",
     "language": "English & British Sign Language",
-    "genre": ["Drama", "Social", "Oscar Winner"],
+    "genre": [
+      "Drama",
+      "Social",
+      "Oscar Winner"
+    ],
     "duration": "20 min",
     "year": "2017",
     "thumbnail": "https://i.ytimg.com/vi/2GbxFIVQv8c/maxresdefault.jpg",
@@ -6467,7 +6495,11 @@
     "titleHi": "रात दिन दिन रात",
     "director": "Adeeb Rais",
     "language": "Hindi",
-    "genre": ["Drama", "Relationship", "Indian Cinema"],
+    "genre": [
+      "Drama",
+      "Relationship",
+      "Indian Cinema"
+    ],
     "duration": "21 min",
     "year": "2025",
     "thumbnail": "https://i.ytimg.com/vi/qbRIQEWierk/maxresdefault.jpg",
@@ -6484,7 +6516,11 @@
     "titleHi": "प्रॉमिस",
     "director": "Lukas Leu",
     "language": "English",
-    "genre": ["Romance", "LGBTQ+", "Independent"],
+    "genre": [
+      "Romance",
+      "LGBTQ+",
+      "Independent"
+    ],
     "duration": "6 min",
     "year": "2024",
     "thumbnail": "https://i.ytimg.com/vi/hppnzLFcE9s/maxresdefault.jpg",
@@ -6501,7 +6537,11 @@
     "titleHi": "द ऑटम गर्ल",
     "director": "Kyle Misak",
     "language": "English",
-    "genre": ["Coming of Age", "Drama", "Award Winning"],
+    "genre": [
+      "Coming of Age",
+      "Drama",
+      "Award Winning"
+    ],
     "duration": "19 min",
     "year": "2021",
     "thumbnail": "https://i.ytimg.com/vi/u7rFIzy9_B4/maxresdefault.jpg",
@@ -6518,7 +6558,11 @@
     "titleHi": "स्लाइस ऑफ़ लाइफ़",
     "director": "Luka Hrgović & Dino Julius",
     "language": "English",
-    "genre": ["Sci-Fi", "Thriller", "Independent"],
+    "genre": [
+      "Sci-Fi",
+      "Thriller",
+      "Independent"
+    ],
     "duration": "25 min",
     "year": "2019",
     "thumbnail": "https://i.ytimg.com/vi/5eDQ2SSsmEk/maxresdefault.jpg",
@@ -6535,7 +6579,11 @@
     "titleHi": "आई शपथ",
     "director": "Gautam Vaze",
     "language": "Marathi",
-    "genre": ["Drama", "Family", "Indian Cinema"],
+    "genre": [
+      "Drama",
+      "Family",
+      "Indian Cinema"
+    ],
     "duration": "15 min",
     "thumbnail": "https://i.ytimg.com/vi/KZy58OG4A9E/maxresdefault.jpg",
     "description": "A tender childhood story about truth, innocence and the unexpected weight of a small lie.",
@@ -6551,7 +6599,11 @@
     "titleHi": "उश्का बाहा",
     "director": "Shaun O'Connor",
     "language": "English",
-    "genre": ["Drama", "Historical", "World Cinema"],
+    "genre": [
+      "Drama",
+      "Historical",
+      "World Cinema"
+    ],
     "duration": "8 min",
     "thumbnail": "https://i.ytimg.com/vi/WtJgMViTbNo/sddefault.jpg",
     "description": "A multi-award-winning Irish story set in the shadow of the Titanic era.",
@@ -6567,7 +6619,11 @@
     "titleHi": "इन दिस लाइफ़",
     "director": "Shivam Jemini",
     "language": "Hindi",
-    "genre": ["Drama", "Relationship", "Award Winning"],
+    "genre": [
+      "Drama",
+      "Relationship",
+      "Award Winning"
+    ],
     "duration": "24 min",
     "year": "2024",
     "thumbnail": "https://i.ytimg.com/vi/DiTHml2rXwQ/maxresdefault.jpg",
@@ -6584,7 +6640,11 @@
     "titleHi": "षणमुगम सैलून",
     "director": "Karuppiah C Ram",
     "language": "Tamil",
-    "genre": ["Drama", "Philosophical", "Indian Cinema"],
+    "genre": [
+      "Drama",
+      "Philosophical",
+      "Indian Cinema"
+    ],
     "duration": "11 min",
     "year": "2020",
     "thumbnail": "https://i.ytimg.com/vi/q8irbXZ4SiI/maxresdefault.jpg",
@@ -6601,7 +6661,11 @@
     "titleHi": "मनसनमहा",
     "director": "Deepak Reddy",
     "language": "Telugu",
-    "genre": ["Romance", "Drama", "Oscar Qualified"],
+    "genre": [
+      "Romance",
+      "Drama",
+      "Oscar Qualified"
+    ],
     "duration": "17 min",
     "year": "2020",
     "thumbnail": "https://i.ytimg.com/vi/4ZsTU9ojmpI/sddefault.jpg",
@@ -6618,7 +6682,11 @@
     "titleHi": "अर्जुन",
     "director": "Shivraj Waichal",
     "language": "Marathi",
-    "genre": ["Drama", "Children", "Filmfare Winner"],
+    "genre": [
+      "Drama",
+      "Children",
+      "Filmfare Winner"
+    ],
     "duration": "15 min",
     "year": "2021",
     "thumbnail": "https://i.ytimg.com/vi/pJoBU73N73U/maxresdefault.jpg",
