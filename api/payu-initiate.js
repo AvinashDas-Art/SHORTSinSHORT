@@ -16,8 +16,6 @@ export default function handler(req, res) {
   const surl = "https://shortsinshort.com/?payment=success";
   const furl = "https://shortsinshort.com/?payment=failed";
 
-  // PayU Standard SHA-512 Formula:
-  // sha512(key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5||||||SALT)
   const hashString = `${key}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|||||||||||${salt}`;
   const hash = crypto.createHash("sha512").update(hashString).digest("hex").toLowerCase();
 
