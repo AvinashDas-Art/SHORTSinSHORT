@@ -69,7 +69,7 @@ export default async function handler(req, res) {
       });
     }
 
-    if (!raw.data || Number(raw.data.status) !== 1 || !raw.data.result) {
+    if (!raw.data || Number(raw.data.status) !== 1 || !raw.data.transaction_details) {
       return res.status(404).json({
         error: "PayU did not return a successful verify_payment result",
         apiBase: raw.apiBase,
@@ -77,7 +77,9 @@ export default async function handler(req, res) {
       });
     }
 
-    const detail = raw.data.result[txnid] || Object.values(raw.data.result)[0];
+    const detail =
+      raw.data.transaction_details[txnid] ||
+      Object.values(raw.data.transaction_details)[0];
 
     if (!detail) {
       return res.status(404).json({

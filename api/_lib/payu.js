@@ -79,9 +79,10 @@ export async function payuVerifyPayment({ txnid, key, salt }) {
   if (!response.ok) return null;
 
   const data = await response.json().catch(() => null);
-  if (!data || Number(data.status) !== 1 || !data.result) return null;
+  if (!data || Number(data.status) !== 1 || !data.transaction_details) return null;
 
-  const detail = data.result[txnid] || Object.values(data.result)[0];
+  const detail =
+    data.transaction_details[txnid] || Object.values(data.transaction_details)[0];
   if (!detail) return null;
 
   return detail;
