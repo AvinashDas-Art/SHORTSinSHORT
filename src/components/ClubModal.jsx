@@ -1,13 +1,35 @@
 import React from "react";
+import { useAuth } from "../context/AuthContext";
+
+const PAYU_LINK = "https://u.payu.in/PAYUMN/BrSLkzWRrctK";
 
 export default function ClubModal({ onClose, lang = "en" }) {
-  const PAYU_LINK = "https://u.payu.in/PAYUMN/BrSLkzWRrctK";
-
-  const handleCheckout = () => {
-    window.location.href = PAYU_LINK;
-  };
-
+  const { currentUser, loginWithGoogle } = useAuth();
   const isHindi = lang === "hi";
+
+  const handleCheckout = async () => {
+    try {
+      const user = currentUser || await loginWithGoogle();
+      const email = user?.email?.trim().toLowerCase();
+
+      if (!email) {
+        throw new Error("Google account email unavailable");
+      }
+
+      const message = isHindi
+        ? `PayU पर भुगतान करते समय यही email लिखें:\n\n${email}\n\nअलग email लिखने पर membership अपने-आप activate नहीं होगी।`
+        : `Use this exact email during PayU checkout:\n\n${email}\n\nMembership cannot activate automatically with a different email.`;
+
+      if (!window.confirm(message)) return;
+      window.location.href = PAYU_LINK;
+    } catch (error) {
+      window.alert(
+        isHindi
+          ? "भुगतान से पहले Google login पूरा नहीं हो सका। फिर कोशिश कीजिए।"
+          : "Google sign-in could not be completed. Please try again."
+      );
+    }
+  };
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 text-white">

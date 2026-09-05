@@ -33,6 +33,12 @@ async function syncUserProfile(user) {
 }
 
 export function AuthProvider({ children }) {
+  const [membershipClock, setMembershipClock] = useState(Date.now());
+
+  useEffect(() => {
+    const timer = setInterval(() => setMembershipClock(Date.now()), 60000);
+    return () => clearInterval(timer);
+  }, []);
   const [currentUser, setCurrentUser] = useState(null);
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(isFirebaseConfigured);
@@ -85,8 +91,11 @@ export function AuthProvider({ children }) {
     loginWithGoogle,
     logout,
     isConfigured: isFirebaseConfigured,
-    isMember: profile?.membershipStatus === 'active',
-  }), [currentUser, profile, loading, authError]);
+    isMember:
+      currentUser?.email?.toLowerCase() === 'equaltales@gmail.com' ||
+      (profile?.membershipStatus === 'active' &&
+        profile?.membershipExpiresAt?.toMillis?.() > membershipClock),
+  }), [currentUser, profile, loading, authError, membershipClock]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
