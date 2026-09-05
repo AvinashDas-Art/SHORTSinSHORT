@@ -6831,5 +6831,32 @@
       "privacyStatus": "public",
       "madeForKids": false
     }
+  },
+  {
+    "id": "yt-onlybookshindi-p5cs63L6H6g",
+    "title": "The Monkey’s Paw | W. W. Jacobs की खौफनाक क्लासिक कहानी",
+    "titleHi": "The Monkey’s Paw | W. W. Jacobs की खौफनाक क्लासिक कहानी",
+    "director": "Only Books",
+    "genre": [
+      "AI Magic"
+    ],
+    "language": "Hindi",
+    "duration": "8 min",
+    "durationSeconds": 470,
+    "year": "2026",
+    "youtubeVideoId": "p5cs63L6H6g",
+    "thumbnail": "https://i.ytimg.com/vi/p5cs63L6H6g/maxresdefault.jpg",
+    "description": "क्या हो अगर आपकी हर इच्छा पूरी हो सकती हो… लेकिन हर इच्छा की अपनी एक कीमत हो?\n\nThe Monkey’s Paw, W. W. Jacobs की 1902 में प्रकाशित प्रसिद्ध क्लासिक हॉरर कहानी है—एक ऐसी कहानी जिसने “Be careful what you wish for” वाले विचार को horror literature की सबसे यादगार अवधारणाओं में बदल दिय",
+    "descriptionHi": "क्या हो अगर आपकी हर इच्छा पूरी हो सकती हो… लेकिन हर इच्छा की अपनी एक कीमत हो?\n\nThe Monkey’s Paw, W. W. Jacobs की 1902 में प्रकाशित प्रसिद्ध क्लासिक हॉरर कहानी है—एक ऐसी कहानी जिसने “Be careful what you wish for” वाले विचार को horror literature की सबसे यादगार अवधारणाओं में बदल दिय",
+    "country": "India",
+    "availability": "available",
+    "youtubeHealth": {
+      "available": true,
+      "reason": null,
+      "checkedAt": "2026-09-05T20:19:01.353Z",
+      "embeddable": true,
+      "privacyStatus": "public",
+      "madeForKids": false
+    }
   }
 ]
