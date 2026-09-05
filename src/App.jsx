@@ -7,6 +7,7 @@ const getSafeString = (val) => {
 };
 
 import React, { useState, useEffect, useMemo } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import MovieRow from './components/MovieRow';
@@ -19,6 +20,47 @@ import ArchiveView from './components/ArchiveView';
 import ProfileModal from './components/ProfileModal';
 import filmsData from './data/films.json';
 import { getDailyHeroFilms, getIndiaDateKey } from './utils/dailyHeroFilms';
+import { filmPath } from './utils/slug';
+
+const SITE_URL = 'https://www.shortsinshort.com';
+const DEFAULT_TITLE = 'SHORTSinSHORT - Curated World Cinema in Short Formats';
+const DEFAULT_DESCRIPTION = 'Discover handpicked short films from India and around the world, presented through authorised creator and YouTube embeds., thrillers, human dramas, and groundbreaking AI cinema.';
+
+const setMetaTag = (attr, key, content) => {
+  if (!content) return;
+  let tag = document.querySelector(`meta[${attr}="${key}"]`);
+  if (!tag) {
+    tag = document.createElement('meta');
+    tag.setAttribute(attr, key);
+    document.head.appendChild(tag);
+  }
+  tag.setAttribute('content', content);
+};
+
+const setCanonical = (href) => {
+  let link = document.querySelector('link[rel="canonical"]');
+  if (!link) {
+    link = document.createElement('link');
+    link.setAttribute('rel', 'canonical');
+    document.head.appendChild(link);
+  }
+  link.setAttribute('href', href);
+};
+
+const setJsonLd = (data) => {
+  let script = document.getElementById('film-jsonld');
+  if (!data) {
+    if (script) script.remove();
+    return;
+  }
+  if (!script) {
+    script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = 'film-jsonld';
+    document.head.appendChild(script);
+  }
+  script.textContent = JSON.stringify(data);
+};
 
 const safeText = (val, lang = 'en') => {
   if (!val) return '';
@@ -28,6 +70,8 @@ const safeText = (val, lang = 'en') => {
 };
 
 export default function App() {
+  const { filmId } = useParams();
+  const navigate = useNavigate();
   const [lang, setLang] = useState('en');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('All');
@@ -55,6 +99,7 @@ export default function App() {
 
   const handlePlayFilm = (film) => {
     setActiveFilm(film);
+    navigate(filmPath(film));
     try {
       const saved = JSON.parse(localStorage.getItem('shorts_watch_history') || '[]');
       const filtered = saved.filter(f => (f.id || f.youtubeVideoId) !== (film.id || film.youtubeVideoId));
@@ -62,6 +107,11 @@ export default function App() {
       localStorage.setItem('shorts_watch_history', JSON.stringify(updated));
       setWatchHistory(updated);
     } catch (e) {}
+  };
+
+  const handleClosePlayer = () => {
+    setActiveFilm(null);
+    if (filmId) navigate('/');
   };
 
   const handleResetFilters = () => {
@@ -81,6 +131,79 @@ export default function App() {
   // (dailyHeroFilms.js does its own reversal internally, so the Hero keeps
   // using `allFilms` in its original order — do not swap that one.)
   const newestFirstFilms = useMemo(() => [...allFilms].reverse(), [allFilms]);
+
+  const filmsById = useMemo(() => {
+    const map = new Map();
+    allFilms.forEach((f) => {
+      const id = f.id || f.youtubeVideoId;
+      if (id) map.set(id, f);
+    });
+    return map;
+  }, [allFilms]);
+
+  // Opening a /film/:filmId link directly (a shared link, a bookmark, or a
+  // page refresh) should open that film's player, same as clicking it from
+  // a row. A bad/unknown id just sends the visitor back to the homepage.
+  useEffect(() => {
+    if (!filmId) {
+      // Covers the browser Back/Forward buttons: the URL already changed to
+      // "/" (react-router updates filmId on its own for that), so just
+      // close the player - no navigate() here, or Back would get stuck.
+      setActiveFilm((current) => (current ? null : current));
+      return;
+    }
+    const decoded = decodeURIComponent(filmId);
+    const film = filmsById.get(decoded);
+    if (film) {
+      setActiveFilm((current) => {
+        const currentId = current?.id || current?.youtubeVideoId;
+        return currentId === decoded ? current : film;
+      });
+    } else if (filmsById.size > 0) {
+      navigate('/', { replace: true });
+    }
+  }, [filmId, filmsById, navigate]);
+
+  // Per-film <title>/meta description/canonical/VideoObject so a shared
+  // film link (and Google's JS-rendered index) carries that film's own
+  // details instead of the generic homepage ones.
+  useEffect(() => {
+    if (activeFilm) {
+      const title = safeText(activeFilm.title, lang) || DEFAULT_TITLE;
+      const description = safeText(activeFilm.descriptionHi || activeFilm.description, lang) || DEFAULT_DESCRIPTION;
+      const pageTitle = `${title} | SHORTSinSHORT`;
+      document.title = pageTitle;
+      setMetaTag('name', 'description', description);
+      setMetaTag('property', 'og:title', pageTitle);
+      setMetaTag('property', 'og:description', description);
+      if (activeFilm.thumbnail) setMetaTag('property', 'og:image', activeFilm.thumbnail);
+      setMetaTag('name', 'twitter:title', pageTitle);
+      setMetaTag('name', 'twitter:description', description);
+      const canonicalUrl = SITE_URL + filmPath(activeFilm);
+      setCanonical(canonicalUrl);
+      setJsonLd({
+        '@context': 'https://schema.org',
+        '@type': 'VideoObject',
+        name: title,
+        description,
+        thumbnailUrl: activeFilm.thumbnail ? [activeFilm.thumbnail] : undefined,
+        uploadDate: activeFilm.year ? `${activeFilm.year}-01-01` : undefined,
+        duration: Number.isFinite(activeFilm.durationSeconds) ? `PT${activeFilm.durationSeconds}S` : undefined,
+        embedUrl: activeFilm.youtubeVideoId ? `https://www.youtube.com/embed/${activeFilm.youtubeVideoId}` : undefined,
+        contentUrl: activeFilm.youtubeVideoId ? `https://www.youtube.com/watch?v=${activeFilm.youtubeVideoId}` : undefined
+      });
+    } else {
+      document.title = DEFAULT_TITLE;
+      setMetaTag('name', 'description', DEFAULT_DESCRIPTION);
+      setMetaTag('property', 'og:title', DEFAULT_TITLE);
+      setMetaTag('property', 'og:description', DEFAULT_DESCRIPTION);
+      setMetaTag('property', 'og:image', SITE_URL + '/og-image.png');
+      setMetaTag('name', 'twitter:title', DEFAULT_TITLE);
+      setMetaTag('name', 'twitter:description', DEFAULT_DESCRIPTION);
+      setCanonical(SITE_URL + '/');
+      setJsonLd(null);
+    }
+  }, [activeFilm, lang]);
 
   // Distinct Languages & Genres
   const { genres, languages } = useMemo(() => {
@@ -348,7 +471,7 @@ export default function App() {
       {activeFilm && (
         <PlayerModal
           film={activeFilm}
-          onClose={() => setActiveFilm(null)}
+          onClose={handleClosePlayer}
           lang={lang}
         />
       )}

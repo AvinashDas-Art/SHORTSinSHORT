@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { filmPath } from '../utils/slug';
 
 const safeText = (value, lang = 'en') => {
   if (!value) return '';
@@ -20,7 +21,11 @@ export default function MovieCard({ film, onSelect, lang }) {
 
   return (
     <article className="sis3-film-card">
-      <button type="button" onClick={() => onSelect(film)} aria-label={`${lang === 'hi' ? 'देखिए' : 'Watch'} ${title}`}>
+      <a
+        href={filmPath(film)}
+        onClick={(event) => { event.preventDefault(); onSelect(film); }}
+        aria-label={`${lang === 'hi' ? 'देखिए' : 'Watch'} ${title}`}
+      >
         <span className="sis3-card-art">
           <img
             src={image}
@@ -39,7 +44,7 @@ export default function MovieCard({ film, onSelect, lang }) {
           <strong>{title}</strong>
           <small>{[country || language, director].filter(Boolean).join(' · ')}</small>
         </span>
-      </button>
+      </a>
     </article>
   );
 }
