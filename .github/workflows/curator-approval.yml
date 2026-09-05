@@ -50,6 +50,8 @@ jobs:
           ACTION="${REVIEW_COMMAND%%|*}"
           VIDEO_ID="${REVIEW_COMMAND#*|}"
           npm run catalogue:review -- "$ACTION" "$VIDEO_ID"
+      - name: Publish approved films to live catalogue
+        run: npm run catalogue:publish-approved
       - name: Verify production build
         run: npm run build
       - name: Save curator decision
@@ -60,7 +62,7 @@ jobs:
           VIDEO_ID="${REVIEW_COMMAND#*|}"
           git config user.name "SHORTSinSHORT Curator Bot"
           git config user.email "curator-bot@users.noreply.github.com"
-          git add src/data/discovery-queue.json src/data/discovery-approved.json src/data/discovery-rejected.json
+          git add src/data/discovery-queue.json src/data/discovery-approved.json src/data/discovery-rejected.json src/data/films.json
           git commit -m "Record curator ${ACTION}: ${VIDEO_ID}"
           git pull --rebase origin main
           git push origin HEAD:main
@@ -72,9 +74,12 @@ jobs:
           script: |
             const [action, videoId] = process.env.REVIEW_COMMAND.split('|');
             const word = action === 'approve' ? 'APPROVED' : 'REJECTED';
+            const note = action === 'approve'
+              ? 'यह फ़िल्म अब live catalogue में जुड़ गयी है।'
+              : 'Live catalogue नहीं बदला है।';
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: `✅ ${word}: \`${videoId}\`\n\nLive catalogue अभी नहीं बदला है।`
+              body: `✅ ${word}: \`${videoId}\`\n\n${note}`
             });

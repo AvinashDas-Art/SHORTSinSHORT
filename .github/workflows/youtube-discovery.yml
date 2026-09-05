@@ -32,6 +32,10 @@ jobs:
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
         run: npm run catalogue:discover -- --apply
+      - name: Discover review candidates from configured channels
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: npm run catalogue:discover-channels -- --apply
       - name: Verify production build
         run: npm run build
       - name: Save review queue

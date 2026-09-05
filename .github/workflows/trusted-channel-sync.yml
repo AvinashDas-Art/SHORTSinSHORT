@@ -1,0 +1,47 @@
+name: Trusted Channel Sync
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: trusted-channel-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout catalogue
+        uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Sync trusted channels
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: npm run catalogue:trusted-sync -- --apply
+      - name: Verify production build
+        run: npm run build
+      - name: Publish new films
+        run: |
+          if git diff --quiet -- src/data/films.json; then
+            echo "No new films from trusted channels."
+            exit 0
+          fi
+          git config user.name "SHORTSinSHORT Trusted Channel Bot"
+          git config user.email "trusted-channel-bot@users.noreply.github.com"
+          git add src/data/films.json
+          git commit -m "Auto-add new upload(s) from a trusted channel"
+          git pull --rebase origin main
+          git push origin HEAD:main

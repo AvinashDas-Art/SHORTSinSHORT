@@ -12,7 +12,10 @@
     "harvest": "node scripts/harvest-films.js",
     "catalogue:audit": "node scripts/audit-youtube-catalogue.mjs",
     "catalogue:discover": "node scripts/discover-youtube-films.mjs",
+    "catalogue:discover-channels": "node scripts/discover-channel-films.mjs",
     "catalogue:review": "node scripts/review-youtube-candidate.mjs",
+    "catalogue:publish-approved": "node scripts/publish-approved-films.mjs",
+    "catalogue:trusted-sync": "node scripts/sync-trusted-channels.mjs",
     "catalogue:clean-discovery": "node scripts/clean-discovery-review-queue.mjs"
   },
   "dependencies": {
