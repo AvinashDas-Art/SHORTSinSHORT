@@ -1,6 +1,5 @@
-import crypto from "crypto";
-import { cert, getApps, initializeApp } from "firebase-admin/app";
-import { FieldValue, Timestamp, getFirestore } from "firebase-admin/firestore";
+import { verifyPayuHash, payuVerifyPayment } from "./_lib/payu.js";
+import { adminDb, applyMembershipForPayment } from "./_lib/membership.js";
 
 function parseBody(body) {
   if (!body) return {};
@@ -10,53 +9,12 @@ function parseBody(body) {
   return body;
 }
 
-function secureEqual(received, expected) {
-  const left = Buffer.from(String(received || "").toLowerCase());
-  const right = Buffer.from(String(expected || "").toLowerCase());
-  return left.length === right.length && crypto.timingSafeEqual(left, right);
-}
-
-function verifyPayuHash(payload, salt) {
-  const reverse = [
-    salt,
-    payload.status || "",
-    "", "", "", "", "", "",
-    payload.udf5 || "",
-    payload.udf4 || "",
-    payload.udf3 || "",
-    payload.udf2 || "",
-    payload.udf1 || "",
-    payload.email || "",
-    payload.firstname || "",
-    payload.productinfo || "",
-    payload.amount || "",
-    payload.txnid || "",
-    payload.key || "",
-  ].join("|");
-
-  const extra = payload.additionalCharges || payload.additional_charges;
-  const source = extra ? `${extra}|${reverse}` : reverse;
-  const expected = crypto.createHash("sha512").update(source).digest("hex");
-
-  return secureEqual(payload.hash, expected);
-}
-
-function adminDb() {
-  const projectId = process.env.FIREBASE_ADMIN_PROJECT_ID;
-  const clientEmail = process.env.FIREBASE_ADMIN_CLIENT_EMAIL;
-  const privateKey = process.env.FIREBASE_ADMIN_PRIVATE_KEY?.replace(/\\n/g, "\n");
-
-  if (!projectId || !clientEmail || !privateKey) {
-    throw new Error("Firebase Admin credentials are not configured");
-  }
-
-  if (!getApps().length) {
-    initializeApp({
-      credential: cert({ projectId, clientEmail, privateKey }),
-    });
-  }
-
-  return getFirestore();
+function isSuccessStatus(status, unmappedstatus) {
+  const successStatus = String(status || "").toLowerCase() === "success";
+  const successUnmapped = ["captured", "success"].includes(
+    String(unmappedstatus || "success").toLowerCase()
+  );
+  return successStatus && successUnmapped;
 }
 
 export default async function handler(req, res) {
@@ -73,94 +31,56 @@ export default async function handler(req, res) {
       throw new Error("PayU verification credentials are not configured");
     }
 
-    if (payload.key !== merchantKey || !verifyPayuHash(payload, salt)) {
+    const keyMatches = payload.key === merchantKey;
+    const hashMatches = keyMatches && verifyPayuHash(payload, salt);
+
+    // The webhook payload's own hash is the fast path. PayU's Payment
+    // Links product doesn't always populate udf/productinfo/firstname the
+    // same way a merchant-initiated hosted checkout would, so a genuine
+    // successful payment can still fail this check. Rather than reject it,
+    // fall back to asking PayU directly (server-to-server) whether this
+    // txnid really was a successful payment for our merchant account.
+    // That answer can't be forged by whoever is calling our webhook.
+    let verified = hashMatches;
+    let source = payload;
+
+    if (!verified) {
+      const txnid = payload.txnid || payload.mihpayid;
+      const confirmed = await payuVerifyPayment({ txnid, key: merchantKey, salt });
+
+      if (confirmed) {
+        verified = true;
+        source = confirmed;
+      }
+    }
+
+    if (!verified) {
       return res.status(401).json({ error: "Invalid PayU signature" });
     }
 
-    const successful =
-      String(payload.status).toLowerCase() === "success" &&
-      ["captured", "success"].includes(
-        String(payload.unmappedstatus || "success").toLowerCase()
-      );
-
-    if (!successful) {
+    const status = source.status;
+    const unmappedstatus = source.unmappedstatus;
+    if (!isSuccessStatus(status, unmappedstatus)) {
       return res.status(200).json({ received: true, activated: false });
     }
 
-    if (Number(payload.amount) !== 20) {
-      return res.status(200).json({ received: true, activated: false });
-    }
-
-    const paymentId = String(payload.mihpayid || payload.txnid || "")
-      .replace(/[^a-zA-Z0-9_-]/g, "");
+    const paymentId = String(source.mihpayid || source.txnid || "").replace(
+      /[^a-zA-Z0-9_-]/g,
+      ""
+    );
 
     if (!paymentId) {
       return res.status(400).json({ error: "Missing payment reference" });
     }
 
-    const email = String(payload.email || "").trim().toLowerCase();
     const db = adminDb();
-    const paymentRef = db.collection("payuPayments").doc(paymentId);
-
-    const users = email
-      ? await db.collection("users").where("email", "==", email).limit(1).get()
-      : null;
-
-    let result = "unmatched";
-
-    await db.runTransaction(async (transaction) => {
-      const existingPayment = await transaction.get(paymentRef);
-
-      if (existingPayment.exists) {
-        result = "duplicate";
-        return;
-      }
-
-      const paymentRecord = {
-        provider: "payu",
-        paymentId,
-        txnid: String(payload.txnid || ""),
-        amount: Number(payload.amount),
-        email,
-        status: "success",
-        receivedAt: FieldValue.serverTimestamp(),
-      };
-
-      if (!users || users.empty) {
-        transaction.set(paymentRef, {
-          ...paymentRecord,
-          membershipApplied: false,
-        });
-        return;
-      }
-
-      const userRef = users.docs[0].ref;
-      const userSnapshot = await transaction.get(userRef);
-      const profile = userSnapshot.data() || {};
-      const now = Date.now();
-      const oldExpiry = profile.membershipExpiresAt?.toMillis?.() || 0;
-      const base = Math.max(now, oldExpiry);
-      const expiresAt = Timestamp.fromMillis(base + 28 * 24 * 60 * 60 * 1000);
-
-      transaction.set(
-        userRef,
-        {
-          membershipStatus: "active",
-          membershipStartedAt: FieldValue.serverTimestamp(),
-          membershipExpiresAt: expiresAt,
-          lastPayuPaymentId: paymentId,
-        },
-        { merge: true }
-      );
-
-      transaction.set(paymentRef, {
-        ...paymentRecord,
-        membershipApplied: true,
-        userId: userRef.id,
-        membershipExpiresAt: expiresAt,
-      });
-
-      result = "activated";
+    const { result } = await applyMembershipForPayment({
+      db,
+      provider: "payu",
+      paymentId,
+      txnid: source.txnid,
+      amount: source.amount ?? source.amt,
+      email: source.email,
     });
 
     return res.status(200).json({ received: true, result });
