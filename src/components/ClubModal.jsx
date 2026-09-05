@@ -1,10 +1,10 @@
 import React from "react";
 
 export default function ClubModal({ onClose, lang = "en" }) {
-  const PAYU_HANDLE_URL = "https://u.payu.in/mJaClJYNymH5";
+  const PAYU_LINK = "https://u.payu.in/PAYUMN/BrSLkzWRrctK";
 
   const handleCheckout = () => {
-    window.location.href = PAYU_HANDLE_URL;
+    window.location.href = PAYU_LINK;
   };
 
   const isHindi = lang === "hi";
