@@ -52,7 +52,7 @@ const pages = {
       intro: 'Cinema Club is an optional viewer membership operated by Equal Tales Entertainment Pvt Ltd.',
       sections: [
         ['Price and billing', [
-          'The introductory membership price is ₹5 per week. The recurring amount and frequency are displayed again on Razorpay before authorisation.',
+          'The introductory membership price is ₹5 per week. The recurring amount and frequency are displayed again on authorised payment partners before authorisation.',
           'Payments support SHORTSinSHORT’s original editorial curation and community programme. They do not buy, unlock or license access to any YouTube film.',
         ]],
         ['Member programme', [
@@ -70,7 +70,7 @@ const pages = {
       intro: `Cinema Club दर्शकों की वैकल्पिक सदस्यता है, जिसे ${COMPANY} संचालित करता है।`,
       sections: [
         ['क़ीमत और billing', [
-          'शुरुआती सदस्यता ₹5 प्रति सप्ताह है। Razorpay पर अनुमति देने से पहले recurring amount और उसकी अवधि फिर से दिखाई जाएगी।',
+          'शुरुआती सदस्यता ₹5 प्रति सप्ताह है। authorised payment partners पर अनुमति देने से पहले recurring amount और उसकी अवधि फिर से दिखाई जाएगी।',
           'भुगतान SHORTSinSHORT की मूल editorial curation और community programme के लिए है। इससे किसी YouTube फ़िल्म का access ख़रीदा, खोला या license नहीं किया जाता।',
         ]],
         ['Members को मिलने वाला programme', [
@@ -90,7 +90,7 @@ const pages = {
       intro: 'This policy applies to SHORTSinSHORT Cinema Club recurring membership payments.',
       sections: [
         ['Cancellation', [
-          `Members may request cancellation at any time by emailing ${EMAIL} from the email used for payment, with the Razorpay payment or subscription ID.`,
+          `Members may request cancellation at any time by emailing ${EMAIL} from the email used for payment, with the authorised payment partners payment or subscription ID.`,
           'Cancellation stops future renewals. Access to already-issued member material may continue until the end of the paid billing period.',
         ]],
         ['Refunds', [
@@ -105,7 +105,7 @@ const pages = {
       intro: 'यह नीति SHORTSinSHORT Cinema Club की recurring membership payments पर लागू होती है।',
       sections: [
         ['Cancellation', [
-          `Member कभी भी payment वाले email से ${EMAIL} पर Razorpay payment या subscription ID भेजकर cancellation मांग सकते हैं।`,
+          `Member कभी भी payment वाले email से ${EMAIL} पर authorised payment partners payment या subscription ID भेजकर cancellation मांग सकते हैं।`,
           'Cancellation से आगे की renewal रुक जाएगी। पहले से जारी member material का access paid billing period ख़त्म होने तक रह सकता है।',
         ]],
         ['Refund', [
@@ -122,8 +122,8 @@ const pages = {
       intro: 'We collect only the information reasonably needed to operate SHORTSinSHORT and Cinema Club.',
       sections: [
         ['Information and purpose', [
-          'We may receive your name, email, support correspondence, membership status and Razorpay transaction or subscription reference. This is used to provide member services, resolve payments, prevent abuse and send essential service communication.',
-          'Payment credentials such as full card or UPI details are processed by Razorpay and are not stored by SHORTSinSHORT.',
+          'We may receive your name, email, support correspondence, membership status and authorised payment partners transaction or subscription reference. This is used to provide member services, resolve payments, prevent abuse and send essential service communication.',
+          'Payment credentials such as full card or UPI details are processed by authorised payment partners and are not stored by SHORTSinSHORT.',
         ]],
         ['Storage and sharing', [
           'We do not sell personal information. It may be shared with service providers only as needed for hosting, authentication, payment processing, communication, security or legal compliance.',
@@ -136,8 +136,8 @@ const pages = {
       intro: 'हम केवल उतनी जानकारी लेते हैं, जितनी SHORTSinSHORT और Cinema Club चलाने के लिए ज़रूरी है।',
       sections: [
         ['जानकारी और उसका इस्तेमाल', [
-          'हमें आपका नाम, email, support correspondence, membership status और Razorpay transaction या subscription reference मिल सकता है। इसका इस्तेमाल member service देने, payment समस्या सुलझाने, ग़लत इस्तेमाल रोकने और ज़रूरी service communication के लिए होता है।',
-          'पूरे card या UPI details जैसी payment credentials Razorpay process करता है। SHORTSinSHORT इन्हें store नहीं करता।',
+          'हमें आपका नाम, email, support correspondence, membership status और authorised payment partners transaction या subscription reference मिल सकता है। इसका इस्तेमाल member service देने, payment समस्या सुलझाने, ग़लत इस्तेमाल रोकने और ज़रूरी service communication के लिए होता है।',
+          'पूरे card या UPI details जैसी payment credentials authorised payment partners process करता है। SHORTSinSHORT इन्हें store नहीं करता।',
         ]],
         ['Storage और sharing', [
           'हम निजी जानकारी बेचते नहीं हैं। Hosting, authentication, payment processing, communication, security या क़ानूनी ज़िम्मेदारी के लिए ज़रूरत भर service providers से साझा की जा सकती है।',
