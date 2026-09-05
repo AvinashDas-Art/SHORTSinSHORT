@@ -8,28 +8,37 @@ export default function ClubModal({ onClose, lang = "en" }) {
     const amount = "20.00";
     const productinfo = "CinemaClub";
     const firstname = "Member";
-    const email = "member@shortsinshort.com";
-    const phone = "9999999999";
-    const surl = window.location.origin + "/?payment=success";
-    const furl = window.location.origin + "/?payment=failed";
-    const udf1 = "";
-    const udf2 = "";
-    const udf3 = "";
-    const udf4 = "";
-    const udf5 = "";
+    const email = "contact@shortsinshort.com";
+    const phone = "9876543210";
+    const surl = "https://shortsinshort.com/?payment=success";
+    const furl = "https://shortsinshort.com/?payment=failed";
 
-    const hashString = `${key}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|${udf1}|${udf2}|${udf3}|${udf4}|${udf5}||||||${salt}`;
+    // Standard PayU formula with exactly 11 pipes between email and salt:
+    // sha512(key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5||||||SALT)
+    const hashString = `${key}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|||||||||||${salt}`;
 
     const enc = new TextEncoder();
-    const hashBuf = await crypto.subtle.digest("SHA-512", enc.encode(hashString));
-    const hashArr = Array.from(new Uint8Array(hashBuf));
-    const hash = hashArr.map(b => b.toString(16).padStart(2, "0")).join("").toLowerCase();
+    const hashBuffer = await crypto.subtle.digest("SHA-512", enc.encode(hashString));
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hash = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("").toLowerCase();
 
     const form = document.createElement("form");
     form.method = "POST";
     form.action = "https://secure.payu.in/_payment";
 
-    const fields = { key, txnid, amount, productinfo, firstname, email, phone, surl, furl, hash, udf1, udf2, udf3, udf4, udf5 };
+    const fields = {
+      key,
+      txnid,
+      amount,
+      productinfo,
+      firstname,
+      email,
+      phone,
+      surl,
+      furl,
+      hash
+    };
+
     Object.entries(fields).forEach(([k, v]) => {
       const input = document.createElement("input");
       input.type = "hidden";
