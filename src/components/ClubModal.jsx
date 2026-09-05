@@ -53,7 +53,7 @@ export default function ClubModal({ onClose, lang }) {
   const { currentUser, isConfigured } = useAuth();
 
   const handleSubscribe = () => {
-    const checkout = window.open(SUBSCRIPTION_LINK, '_blank', 'noopener,noreferrer');
+    const checkout = handlePayUCheckout();
     if (checkout) checkout.opener = null;
   };
 
