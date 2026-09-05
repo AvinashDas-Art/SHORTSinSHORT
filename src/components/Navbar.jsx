@@ -51,7 +51,7 @@ export default function Navbar({
           <button className="sis3-icon-button" type="button" onClick={() => setSearchOpen((value) => !value)} aria-label="Search"><SearchIcon /></button>
           <button className="sis3-text-action sis3-desktop-action" type="button" onClick={onSurpriseMe}>{lang === 'hi' ? 'कोई शानदार फ़िल्म चलाइए' : 'Play me a great film'}</button>
           <button className="sis3-text-action sis3-desktop-action" type="button" onClick={onOpenArchive} aria-pressed={isArchiveView}>{lang === 'hi' ? 'मेरा सिनेमा' : 'My Cinema'}</button>
-          <button className="sis3-club-action" type="button" onClick={onOpenClub} aria-pressed={isClubView}>Club ₹5</button>
+          <button className="sis3-club-action" type="button" onClick={onOpenClub} aria-pressed={isClubView}>Club ₹20</button>
           <button className="sis3-profile-action" type="button" onClick={onOpenProfile} aria-label={currentUser ? 'Open profile' : 'Create profile'}>
             {currentUser?.photoURL ? <img src={currentUser.photoURL} alt="" referrerPolicy="no-referrer" /> : <span aria-hidden="true">{currentUser ? (currentUser.displayName || currentUser.email || 'S').charAt(0).toUpperCase() : '◯'}</span>}
           </button>
@@ -77,7 +77,7 @@ export default function Navbar({
         <InstallPwa lang={lang} />
         <button type="button" onClick={onOpenArchive}><span className="sis3-dock-icon"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 5v14M16 5v14M4 10h4M16 10h4M4 14h4M16 14h4"/></svg></span>{lang === 'hi' ? 'मेरा सिनेमा' : 'My Cinema'}</button>
         <InstallPwa lang={lang} />
-        <button type="button" onClick={onOpenClub} aria-pressed={isClubView}><span className="sis3-dock-icon"><svg viewBox="0 0 24 24"><path d="m12 3 2.2 4.7 5.1.7-3.7 3.6.9 5.1-4.5-2.4-4.5 2.4.9-5.1-3.7-3.6 5.1-.7z"/></svg></span>{lang === 'hi' ? 'क्लब ₹5' : 'Club ₹5'}</button>
+        <button type="button" onClick={onOpenClub} aria-pressed={isClubView}><span className="sis3-dock-icon"><svg viewBox="0 0 24 24"><path d="m12 3 2.2 4.7 5.1.7-3.7 3.6.9 5.1-4.5-2.4-4.5 2.4.9-5.1-3.7-3.6 5.1-.7z"/></svg></span>{lang === 'hi' ? 'क्लब ₹20' : 'Club ₹20'}</button>
       </nav>
 
       {activeWorld && <DiscoveryWorlds world={activeWorld} films={films} lang={lang} onClose={() => setActiveWorld(null)} onSelectFilm={onSelectFilm} />}
