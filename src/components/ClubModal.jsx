@@ -1,40 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 
 export default function ClubModal({ onClose, lang = "en" }) {
-  const [loading, setLoading] = useState(false);
+  const PAYU_HANDLE_URL = "https://u.payu.in/mJaClJYNymH5";
 
-  const handlePayUCheckout = async () => {
-    try {
-      setLoading(true);
-      const res = await fetch("/api/payu-initiate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" }
-      });
-      const data = await res.json();
-
-      if (!data.action || !data.params) {
-        throw new Error("Invalid response from server");
-      }
-
-      const form = document.createElement("form");
-      form.method = "POST";
-      form.action = data.action;
-
-      Object.entries(data.params).forEach(([k, v]) => {
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = k;
-        input.value = v;
-        form.appendChild(input);
-      });
-
-      document.body.appendChild(form);
-      form.submit();
-    } catch (err) {
-      console.error(err);
-      setLoading(false);
-      alert("Payment gateway could not be loaded. Please try again.");
-    }
+  const handleCheckout = () => {
+    window.location.href = PAYU_HANDLE_URL;
   };
 
   const isHindi = lang === "hi";
@@ -72,15 +42,15 @@ export default function ClubModal({ onClose, lang = "en" }) {
             <ul className="text-xs text-zinc-400 space-y-2.5">
               <li className="flex items-start space-x-2">
                 <span className="text-red-500 font-bold">✓</span>
-                <span>{isHindi ? "क्यूरेटर का साप्ताहिक स्पेशल प्रोग्राम और मूल नोट्स" : "Curator’s Five, every week — A fresh five-film programme with an original curator note."}</span>
+                <span>{isHindi ? "क्यूरेटर का साप्ताहिक स्पेशल प्रोग्राम और मूल नोट्स" : "Curator’s Five, every week - A fresh five-film programme with an original curator note."}</span>
               </li>
               <li className="flex items-start space-x-2">
                 <span className="text-red-500 font-bold">✓</span>
-                <span>{isHindi ? "मासिक ऑनलाइन सिनेमा रूम और सिने-चर्चा" : "Monthly Cinema Room — Members-only online conversation about short cinema and craft."}</span>
+                <span>{isHindi ? "मासिक ऑनलाइन सिनेमा रूम और सिने-चर्चा" : "Monthly Cinema Room - Members-only online conversation about short cinema and craft."}</span>
               </li>
               <li className="flex items-start space-x-2">
                 <span className="text-red-500 font-bold">✓</span>
-                <span>{isHindi ? "मेंबर जूरी — अगले थीम और स्पॉटलाइट पर वोट देने का अधिकार" : "Member Jury — Vote on the next theme, spotlight and community programme."}</span>
+                <span>{isHindi ? "मेंबर जूरी — अगले थीम और स्पॉटलाइट पर वोट देने का अधिकार" : "Member Jury - Vote on the next theme, spotlight and community programme."}</span>
               </li>
             </ul>
           </div>
@@ -93,11 +63,10 @@ export default function ClubModal({ onClose, lang = "en" }) {
           </div>
 
           <button
-            onClick={handlePayUCheckout}
-            disabled={loading}
-            className="w-full py-4 px-6 rounded-xl bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white font-bold text-sm tracking-wide transition shadow-lg cursor-pointer flex items-center justify-center space-x-2"
+            onClick={handleCheckout}
+            className="w-full py-4 px-6 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-sm tracking-wide transition shadow-lg cursor-pointer flex items-center justify-center space-x-2"
           >
-            <span>{loading ? (isHindi ? "कृपया प्रतीक्षा करें..." : "Connecting to PayU...") : (isHindi ? "सिनेमा क्लब से जुड़ें — ₹5/सप्ताह" : "Join Cinema Club — ₹5/week")}</span>
+            <span>{isHindi ? "सिनेमा क्लब से जुड़ें — ₹5/सप्ताह" : "Join Cinema Club — ₹5/week"}</span>
           </button>
 
           <div className="space-y-2 text-[11px] text-zinc-500 text-center leading-relaxed">
