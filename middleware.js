@@ -1,5 +1,5 @@
 import { next } from '@vercel/edge';
-import films from './src/data/films.json' with { type: 'json' };
+import films from './src/data/films.json';
 
 // Runs only for /film/* URLs (see `config.matcher` below), and only takes
 // effect for the specific "link-preview" bots that WhatsApp/Telegram/
