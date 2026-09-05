@@ -4,5 +4,11 @@
     "languageHint": "Hindi",
     "countryHint": "India",
     "maxPerRun": 15
+  },
+  {
+    "handle": "pocketfilms",
+    "languageHint": "Hindi",
+    "countryHint": "India",
+    "maxPerRun": 15
   }
 ]
