@@ -49,18 +49,20 @@ const copy = {
 };
 
 
-    const handlePayUCheckout = async () => {
+      const handlePayUCheckout = async () => {
+    const key = "C93YXO";
+    const salt = "zDhUoiR5IDgshAVb40Owm0LAnvhpnwrp";
     const txnid = "TXN" + Date.now();
     const amount = "20.00";
     const productinfo = "CinemaClub";
-    const firstname = "Member";
-    const email = "club@shortsinshort.com";
-    const phone = "9876543210";
-    const key = "C93YXO";
-    const salt = "zDhUoiR5IDgshAVb40Owm0LAnvhpnwrp";
+    const firstname = "Avinash";
+    const email = "contact@shortsinshort.com";
+    const phone = "9999999999";
+    const surl = "https://shortsinshort.com/?payment=success";
+    const furl = "https://shortsinshort.com/?payment=failed";
 
-    // Standard PayU hash string: key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5||||||salt
-    const hashString = key + "|" + txnid + "|" + amount + "|" + productinfo + "|" + firstname + "|" + email + "|||||||||||" + salt;
+    // Hash sequence: sha512(key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5||||||SALT)
+    const hashString = `${key}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|||||||||||${salt}`;
 
     const enc = new TextEncoder();
     const hashBuffer = await crypto.subtle.digest("SHA-512", enc.encode(hashString));
@@ -79,10 +81,9 @@ const copy = {
       firstname,
       email,
       phone,
-      surl: "https://shortsinshort.com/?payment=success",
-      furl: "https://shortsinshort.com/?payment=failed",
-      hash,
-      service_provider: "payu_paisa"
+      surl,
+      furl,
+      hash
     };
 
     Object.entries(fields).forEach(([k, v]) => {
