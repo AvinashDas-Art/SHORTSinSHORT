@@ -6,7 +6,7 @@ const getSafeString = (val) => {
   return String(val);
 };
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, Suspense, lazy } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -14,10 +14,13 @@ import MovieRow from './components/MovieRow';
 import TimePicker from './components/TimePicker';
 import MovieCard from './components/MovieCard';
 import PlayerModal from './components/PlayerModal';
-import ClubModal from './components/ClubModal';
-import LegalPage from './components/LegalPage';
-import ArchiveView from './components/ArchiveView';
-import ProfileModal from './components/ProfileModal';
+// These four are only ever shown behind a click (club page, profile, legal
+// pages, the YouTube archive), never on first paint - loading them lazily
+// keeps them out of the initial JS bundle everyone downloads on arrival.
+const ClubModal = lazy(() => import('./components/ClubModal'));
+const LegalPage = lazy(() => import('./components/LegalPage'));
+const ArchiveView = lazy(() => import('./components/ArchiveView'));
+const ProfileModal = lazy(() => import('./components/ProfileModal'));
 import filmsData from './data/films.json';
 import { getDailyHeroFilms, getIndiaDateKey } from './utils/dailyHeroFilms';
 import { filmPath } from './utils/slug';
@@ -404,11 +407,17 @@ export default function App() {
 
       <main className="flex-1 pt-16">
         {legalView ? (
-          <LegalPage page={legalView} lang={lang} onBack={() => setLegalView(null)} />
+          <Suspense fallback={null}>
+            <LegalPage page={legalView} lang={lang} onBack={() => setLegalView(null)} />
+          </Suspense>
         ) : isClubView ? (
-          <ClubModal onClose={() => setIsClubView(false)} lang={lang} />
+          <Suspense fallback={null}>
+            <ClubModal onClose={() => setIsClubView(false)} lang={lang} />
+          </Suspense>
         ) : isArchiveView ? (
-          <ArchiveView onSelectFilm={handlePlayFilm} lang={lang} onBack={handleResetFilters} />
+          <Suspense fallback={null}>
+            <ArchiveView onSelectFilm={handlePlayFilm} lang={lang} onBack={handleResetFilters} />
+          </Suspense>
         ) : isFiltered ? (
           <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
             <div className="flex items-center justify-between mb-6">
@@ -476,7 +485,11 @@ export default function App() {
         />
       )}
 
-      {profileOpen && <ProfileModal lang={lang} onClose={() => setProfileOpen(false)} />}
+      {profileOpen && (
+        <Suspense fallback={null}>
+          <ProfileModal lang={lang} onClose={() => setProfileOpen(false)} />
+        </Suspense>
+      )}
 
       <footer className="border-t border-zinc-800/60 px-4 py-8 text-center text-xs text-zinc-500">
         <p>© 2026 SHORTSinSHORT. An Equal Tales Entertainment Pvt Ltd initiative.</p>
