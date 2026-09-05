@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { payuVerifyPayment } from "./_lib/payu.js";
+import { payuVerifyPaymentRaw } from "./_lib/payu.js";
 import { adminDb, applyMembershipForPayment } from "./_lib/membership.js";
 
 function secureEqual(received, expected) {
@@ -57,10 +57,33 @@ export default async function handler(req, res) {
       throw new Error("PayU verification credentials are not configured");
     }
 
-    const detail = await payuVerifyPayment({ txnid, key: merchantKey, salt });
+    const raw = await payuVerifyPaymentRaw({ txnid, key: merchantKey, salt });
+
+    if (!raw.ok) {
+      return res.status(502).json({
+        error: "PayU verify_payment call failed",
+        apiBase: raw.apiBase,
+        httpStatus: raw.httpStatus,
+        networkError: raw.networkError,
+        rawBody: raw.rawBody,
+      });
+    }
+
+    if (!raw.data || Number(raw.data.status) !== 1 || !raw.data.result) {
+      return res.status(404).json({
+        error: "PayU did not return a successful verify_payment result",
+        apiBase: raw.apiBase,
+        payuResponse: raw.data,
+      });
+    }
+
+    const detail = raw.data.result[txnid] || Object.values(raw.data.result)[0];
 
     if (!detail) {
-      return res.status(404).json({ error: "PayU has no record of this txnid" });
+      return res.status(404).json({
+        error: "PayU response had no transaction detail for this txnid",
+        payuResponse: raw.data,
+      });
     }
 
     const status = String(detail.status || "").toLowerCase();

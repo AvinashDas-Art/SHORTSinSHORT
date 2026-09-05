@@ -86,3 +86,49 @@ export async function payuVerifyPayment({ txnid, key, salt }) {
 
   return detail;
 }
+
+/**
+ * Same call as payuVerifyPayment(), but never collapses a failure into
+ * `null` — it returns exactly what PayU's server said back (HTTP status,
+ * parsed JSON if it parsed, raw body text otherwise), so a caller that
+ * needs to diagnose *why* a lookup failed (wrong txnid vs wrong
+ * key/salt vs wrong PAYU_ENV host vs a network/API error) can see it.
+ * Never include `key`/`salt` themselves in anything derived from this.
+ */
+export async function payuVerifyPaymentRaw({ txnid, key, salt }) {
+  const command = "verify_payment";
+  const hash = crypto
+    .createHash("sha512")
+    .update(`${key}|${command}|${txnid}|${salt}`)
+    .digest("hex");
+
+  const body = new URLSearchParams({ key, command, var1: txnid, hash });
+  const apiBase = verifyApiBase();
+
+  let response;
+  try {
+    response = await fetch(apiBase, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: body.toString(),
+    });
+  } catch (error) {
+    return { apiBase, ok: false, networkError: error.message };
+  }
+
+  const text = await response.text();
+  let data = null;
+  try {
+    data = JSON.parse(text);
+  } catch (_error) {
+    // Not JSON — fall through, rawBody below carries what PayU actually sent.
+  }
+
+  return {
+    apiBase,
+    ok: response.ok,
+    httpStatus: response.status,
+    data,
+    rawBody: data ? undefined : text.slice(0, 800),
+  };
+}
