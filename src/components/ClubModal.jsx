@@ -49,31 +49,43 @@ const copy = {
 };
 
 
-  const handlePayUCheckout = async () => {
-    const txnid = "TXN_" + Date.now();
+    const handlePayUCheckout = async () => {
+    const txnid = "TXN" + Date.now();
     const amount = "20.00";
-    const productinfo = "SHORTSinSHORT Cinema Club Membership";
-    const firstname = "Cinema Member";
-    const email = "member@shortsinshort.com";
-    const phone = "9999999999";
+    const productinfo = "CinemaClub";
+    const firstname = "Member";
+    const email = "club@shortsinshort.com";
+    const phone = "9876543210";
     const key = "C93YXO";
     const salt = "zDhUoiR5IDgshAVb40Owm0LAnvhpnwrp";
 
-    const hashString = `${key}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|||||||||||${salt}`;
-    const msgBuffer = new TextEncoder().encode(hashString);
-    const hashBuffer = await crypto.subtle.digest("SHA-512", msgBuffer);
+    // Standard PayU hash string: key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5||||||salt
+    const hashString = key + "|" + txnid + "|" + amount + "|" + productinfo + "|" + firstname + "|" + email + "|||||||||||" + salt;
+
+    const enc = new TextEncoder();
+    const hashBuffer = await crypto.subtle.digest("SHA-512", enc.encode(hashString));
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const hash = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
-
-    const surl = window.location.origin + "/?payment=success";
-    const furl = window.location.origin + "/?payment=failed";
 
     const form = document.createElement("form");
     form.method = "POST";
     form.action = "https://secure.payu.in/_payment";
 
-    const params = { key, txnid, amount, productinfo, firstname, email, phone, surl, furl, hash };
-    Object.entries(params).forEach(([k, v]) => {
+    const fields = {
+      key,
+      txnid,
+      amount,
+      productinfo,
+      firstname,
+      email,
+      phone,
+      surl: "https://shortsinshort.com/?payment=success",
+      furl: "https://shortsinshort.com/?payment=failed",
+      hash,
+      service_provider: "payu_paisa"
+    };
+
+    Object.entries(fields).forEach(([k, v]) => {
       const input = document.createElement("input");
       input.type = "hidden";
       input.name = k;
