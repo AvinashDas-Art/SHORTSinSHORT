@@ -36,7 +36,7 @@ const copy = {
     payment: 'Secure 256-bit encrypted checkout via PayU. UPI, Cards & NetBanking accepted.',
     delivery: 'During launch, your welcome note and Club updates will be sent to the email provided at checkout.',
     profileOptional: 'A profile is optional. To link membership later, use the same email at checkout.',
-    signedIn: 'Use this profile email at checkout as well:',
+    signedIn: '',
     included: 'What members receive',
     benefits: [
       ['Curator’s Five, every week', 'A fresh five-film programme with a considered viewing order and an original SHORTSinSHORT curator note.'],
@@ -47,6 +47,43 @@ const copy = {
     promise: 'The public catalogue, discovery tools and every embedded film remain free for every viewer.',
   },
 };
+
+
+  const handlePayUCheckout = async () => {
+    const txnid = "TXN_" + Date.now();
+    const amount = "20.00";
+    const productinfo = "SHORTSinSHORT Cinema Club Membership";
+    const firstname = "Cinema Member";
+    const email = "member@shortsinshort.com";
+    const phone = "9999999999";
+    const key = "C93YXO";
+    const salt = "zDhUoiR5IDgshAVb40Owm0LAnvhpnwrp";
+
+    const hashString = `${key}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|||||||||||${salt}`;
+    const msgBuffer = new TextEncoder().encode(hashString);
+    const hashBuffer = await crypto.subtle.digest("SHA-512", msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hash = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+
+    const surl = window.location.origin + "/?payment=success";
+    const furl = window.location.origin + "/?payment=failed";
+
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "https://secure.payu.in/_payment";
+
+    const params = { key, txnid, amount, productinfo, firstname, email, phone, surl, furl, hash };
+    Object.entries(params).forEach(([k, v]) => {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = k;
+      input.value = v;
+      form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+    form.submit();
+  };
 
 export default function ClubModal({ onClose, lang }) {
   const text = copy[lang === 'hi' ? 'hi' : 'en'];
