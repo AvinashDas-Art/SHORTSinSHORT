@@ -1,66 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function ClubModal({ onClose, lang = "en" }) {
+  const [loading, setLoading] = useState(false);
+
   const handlePayUCheckout = async () => {
-    const key = "C93YXO";
-    const salt = "zDhUoiR5IDgshAVb40Owm0LAnvhpnwrp";
-    const txnid = "TXN" + Date.now();
-    const amount = "20.00";
-    const productinfo = "CinemaClub";
-    const firstname = "Avinash";
-    const email = "contact@shortsinshort.com";
-    const phone = "9876543210";
-    const surl = "https://shortsinshort.com/?payment=success";
-    const furl = "https://shortsinshort.com/?payment=failed";
-    const service_provider = "payu_paisa";
-    const udf1 = "";
-    const udf2 = "";
-    const udf3 = "";
-    const udf4 = "";
-    const udf5 = "";
+    try {
+      setLoading(true);
+      const res = await fetch("/api/payu-initiate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" }
+      });
+      const data = await res.json();
 
-    // Exact PayU Formula:
-    // sha512(key|txnid|amount|productinfo|firstname|email|udf1|udf2|udf3|udf4|udf5||||||salt)
-    const hashString = `${key}|${txnid}|${amount}|${productinfo}|${firstname}|${email}|${udf1}|${udf2}|${udf3}|${udf4}|${udf5}||||||${salt}`;
+      if (!data.action || !data.params) {
+        throw new Error("Invalid response from server");
+      }
 
-    const enc = new TextEncoder();
-    const hashBuffer = await crypto.subtle.digest("SHA-512", enc.encode(hashString));
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hash = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("").toLowerCase();
+      const form = document.createElement("form");
+      form.method = "POST";
+      form.action = data.action;
 
-    const form = document.createElement("form");
-    form.method = "POST";
-    form.action = "https://secure.payu.in/_payment";
+      Object.entries(data.params).forEach(([k, v]) => {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = k;
+        input.value = v;
+        form.appendChild(input);
+      });
 
-    const fields = {
-      key,
-      txnid,
-      amount,
-      productinfo,
-      firstname,
-      email,
-      phone,
-      surl,
-      furl,
-      service_provider,
-      hash,
-      udf1,
-      udf2,
-      udf3,
-      udf4,
-      udf5
-    };
-
-    Object.entries(fields).forEach(([k, v]) => {
-      const input = document.createElement("input");
-      input.type = "hidden";
-      input.name = k;
-      input.value = v;
-      form.appendChild(input);
-    });
-
-    document.body.appendChild(form);
-    form.submit();
+      document.body.appendChild(form);
+      form.submit();
+    } catch (err) {
+      console.error(err);
+      setLoading(false);
+      alert("Payment gateway could not be loaded. Please try again.");
+    }
   };
 
   const isHindi = lang === "hi";
@@ -120,9 +94,10 @@ export default function ClubModal({ onClose, lang = "en" }) {
 
           <button
             onClick={handlePayUCheckout}
-            className="w-full py-4 px-6 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-sm tracking-wide transition shadow-lg cursor-pointer flex items-center justify-center space-x-2"
+            disabled={loading}
+            className="w-full py-4 px-6 rounded-xl bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white font-bold text-sm tracking-wide transition shadow-lg cursor-pointer flex items-center justify-center space-x-2"
           >
-            <span>{isHindi ? "सिनेमा क्लब से जुड़ें — ₹5/सप्ताह" : "Join Cinema Club — ₹5/week"}</span>
+            <span>{loading ? (isHindi ? "कृपया प्रतीक्षा करें..." : "Connecting to PayU...") : (isHindi ? "सिनेमा क्लब से जुड़ें — ₹5/सप्ताह" : "Join Cinema Club — ₹5/week")}</span>
           </button>
 
           <div className="space-y-2 text-[11px] text-zinc-500 text-center leading-relaxed">
