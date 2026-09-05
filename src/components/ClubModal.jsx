@@ -33,7 +33,7 @@ const copy = {
     price: '₹5',
     cadence: 'per week',
     join: 'Join Cinema Club — ₹5/week',
-    payment: 'Secure checkout is completed on Razorpay. Cancel anytime.',
+    payment: 'Secure 256-bit encrypted checkout via PayU. UPI, Cards & NetBanking accepted.',
     delivery: 'During launch, your welcome note and Club updates will be sent to the email provided at checkout.',
     profileOptional: 'A profile is optional. To link membership later, use the same email at checkout.',
     signedIn: 'Use this profile email at checkout as well:',
