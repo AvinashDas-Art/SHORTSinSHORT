@@ -75,6 +75,13 @@ export default function App() {
 
   const allFilms = useMemo(() => filmsData || [], []);
 
+  // New films are appended at the end of films.json, so this reversed view
+  // shows the latest additions first (position #1) in the homepage rows and
+  // in search/filter results, with older films sliding further back.
+  // (dailyHeroFilms.js does its own reversal internally, so the Hero keeps
+  // using `allFilms` in its original order — do not swap that one.)
+  const newestFirstFilms = useMemo(() => [...allFilms].reverse(), [allFilms]);
+
   // Distinct Languages & Genres
   const { genres, languages } = useMemo(() => {
     const gSet = new Set();
@@ -167,14 +174,14 @@ export default function App() {
     const list = [
       {
         title: lang === 'hi' ? 'पुरस्कृत और बहुप्रशंसित (Award Winners & Festival Favourites)' : 'Award Winners & Festival Favourites',
-        films: allFilms.filter(f => {
+        films: newestFirstFilms.filter(f => {
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
           return gList.some(g => g.toLowerCase().includes('award'));
         })
       },
       {
         title: lang === 'hi' ? '🌍 वर्ल्ड सिनेमा (World Cinema Showcase)' : 'World Cinema, In Short',
-        films: allFilms.filter(f => {
+        films: newestFirstFilms.filter(f => {
           const l = safeText(f.language, 'en').toLowerCase();
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
           const isWorldGenre = gList.some(g => g.toLowerCase().includes('world'));
@@ -185,41 +192,41 @@ export default function App() {
       },
       {
         title: lang === 'hi' ? '🌴 मलयालम सिनेमा हब (Roots of Kerala)' : 'Roots of Kerala (Malayalam Short Films)',
-        films: allFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'malayalam')
+        films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'malayalam')
       },
       {
         title: lang === 'hi' ? '🌾 माटी की कहानियाँ: मैथिली सिनेमा' : 'Roots of Mithila (Maithili Short Films)',
-        films: allFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'maithili')
+        films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'maithili')
       },
       {
         title: lang === 'hi' ? '🚩 मराठी शॉर्ट सिनेमा (Marathi Cinema Showcase)' : 'Marathi Cinema Showcase (Marathi Shorts)',
-        films: allFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'marathi')
+        films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'marathi')
       },
       {
         title: lang === 'hi' ? '🌿 भोजपुरी माटी (Bhojpuri Cinema Showcase)' : 'Bhojpuri Soil & Cinema (Bhojpuri Shorts)',
-        films: allFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'bhojpuri')
+        films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'bhojpuri')
       },
       {
         title: lang === 'hi' ? '🎭 बांग्ला शॉर्ट सिनेमा (Bengali Masterpieces)' : 'Bangla Cinema Showcase (Bengali Shorts)',
-        films: allFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'bengali')
+        films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'bengali')
       },
       {
         title: lang === 'hi' ? 'AI सिनेमा और न्यू-एज विज़ुअल्स' : 'AI Magic & Generative Cinema',
-        films: allFilms.filter(f => {
+        films: newestFirstFilms.filter(f => {
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
           return gList.some(g => g.toLowerCase().includes('ai'));
         })
       },
       {
         title: lang === 'hi' ? 'ह्यूमन ड्रामा और संवेदनाएँ' : 'Human Drama & Emotions',
-        films: allFilms.filter(f => {
+        films: newestFirstFilms.filter(f => {
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
           return gList.some(g => g.toLowerCase() === 'drama');
         })
       },
       {
         title: lang === 'hi' ? 'थ्रिलर और सस्पेंस' : 'Thrillers & Suspense',
-        films: allFilms.filter(f => {
+        films: newestFirstFilms.filter(f => {
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
           return gList.some(g => g.toLowerCase().includes('thriller') || g.toLowerCase().includes('suspense'));
         })
@@ -227,11 +234,11 @@ export default function App() {
     ];
 
     return list.filter(sec => sec.films.length > 0);
-  }, [allFilms, lang]);
+  }, [newestFirstFilms, lang]);
 
   // Combined Search & Filter View
   const filteredFilms = useMemo(() => {
-    return allFilms.filter(film => {
+    return newestFirstFilms.filter(film => {
       const matchesSearch = searchTerm === '' || 
         (film.title && getSafeString(film.title).toLowerCase().includes(searchTerm.toLowerCase())) ||
         (film.director && getSafeString(film.director).toLowerCase().includes(searchTerm.toLowerCase()));
@@ -244,7 +251,7 @@ export default function App() {
 
       return matchesSearch && matchesGenre && matchesLang;
     });
-  }, [allFilms, searchTerm, selectedGenre, selectedLangFilter]);
+  }, [newestFirstFilms, searchTerm, selectedGenre, selectedLangFilter]);
 
   const isFiltered = selectedGenre !== 'All' || selectedLangFilter !== 'All' || searchTerm !== '';
 
