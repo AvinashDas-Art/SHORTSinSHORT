@@ -43,29 +43,50 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Record curator decision
+      - name: Record, publish, verify and push (with retry on race)
         env:
           REVIEW_COMMAND: ${{ steps.command.outputs.result }}
         run: |
-          ACTION="${REVIEW_COMMAND%%|*}"
-          VIDEO_ID="${REVIEW_COMMAND#*|}"
-          npm run catalogue:review -- "$ACTION" "$VIDEO_ID"
-      - name: Publish approved films to live catalogue
-        run: npm run catalogue:publish-approved
-      - name: Verify production build
-        run: npm run build
-      - name: Save curator decision
-        env:
-          REVIEW_COMMAND: ${{ steps.command.outputs.result }}
-        run: |
+          set -e
           ACTION="${REVIEW_COMMAND%%|*}"
           VIDEO_ID="${REVIEW_COMMAND#*|}"
           git config user.name "SHORTSinSHORT Curator Bot"
           git config user.email "curator-bot@users.noreply.github.com"
-          git add src/data/discovery-queue.json src/data/discovery-approved.json src/data/discovery-rejected.json src/data/films.json
-          git commit -m "Record curator ${ACTION}: ${VIDEO_ID}"
-          git pull --rebase origin main
-          git push origin HEAD:main
+
+          # Other scheduled workflows (daily discovery, auto-hide/health-check)
+          # also commit straight to main, so by the time we reach the push
+          # below, origin/main may have moved on. Rather than rebasing
+          # already-generated JSON (which conflicts easily and used to leave
+          # this step permanently failed), each retry resets the working
+          # tree to the freshest origin/main and regenerates the same
+          # review/publish/build against that new base before pushing again.
+          for attempt in 1 2 3 4 5; do
+            npm run catalogue:review -- "$ACTION" "$VIDEO_ID"
+            npm run catalogue:publish-approved
+            npm run build
+
+            git add src/data/discovery-queue.json src/data/discovery-approved.json src/data/discovery-rejected.json src/data/films.json
+            if git diff --cached --quiet; then
+              echo "Nothing to commit - decision already applied upstream."
+              break
+            fi
+            git commit -m "Record curator ${ACTION}: ${VIDEO_ID}"
+
+            if git push origin HEAD:main; then
+              echo "Pushed successfully on attempt ${attempt}."
+              break
+            fi
+
+            if [ "$attempt" -eq 5 ]; then
+              echo "::error::Failed to push curator decision after 5 attempts (persistent race with another workflow)."
+              exit 1
+            fi
+
+            echo "Push rejected (likely a race with another workflow) - refetching origin/main and retrying (attempt ${attempt})..."
+            git fetch origin main
+            git reset --hard origin/main
+            sleep $((attempt * 5))
+          done
       - name: Confirm decision in Issue
         uses: actions/github-script@v7
         env:
