@@ -17,9 +17,9 @@ export default function ArchiveView({ onSelectFilm, lang, onBack }) {
     <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 min-h-[60vh]">
       <div className="flex items-center justify-between mb-8 pb-4 border-b border-zinc-800">
         <div>
-          <h1 className="text-2xl md:text-3xl font-black text-white tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight">
             {lang === 'hi' ? 'मेरा सिनेमा' : 'My Cinema'}
-          </h1>
+          </h2>
           <p className="text-xs text-zinc-400 mt-1">
             {lang === 'hi' ? 'हाल में देखी गई फ़िल्में' : 'Your recently watched films'}
           </p>

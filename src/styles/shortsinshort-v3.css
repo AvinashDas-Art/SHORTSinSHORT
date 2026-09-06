@@ -52,7 +52,7 @@ body { background: var(--sis3-bg) !important; color: var(--sis3-cream); padding-
 .sis3-hero-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(12,13,11,.94) 0%, rgba(12,13,11,.62) 37%, rgba(12,13,11,.08) 72%), linear-gradient(0deg, var(--sis3-bg) 0%, transparent 38%); }
 .sis3-hero-content { position: absolute; z-index: 2; left: 4.5vw; bottom: 12%; max-width: 620px; }
 .sis3-eyebrow { margin: 0 0 .65rem; color: var(--sis3-gold); font-size: .65rem; font-weight: 800; letter-spacing: .2em; }
-.sis3-hero h1 { margin: 0; color: var(--sis3-cream); font-family: Newsreader, Georgia, serif; font-size: clamp(3.6rem, 6.2vw, 6.6rem); font-weight: 400; letter-spacing: -.055em; line-height: .88; text-wrap: balance; }
+.sis3-hero h2 { margin: 0; color: var(--sis3-cream); font-family: Newsreader, Georgia, serif; font-size: clamp(3.6rem, 6.2vw, 6.6rem); font-weight: 400; letter-spacing: -.055em; line-height: .88; text-wrap: balance; }
 .sis3-hero-meta { margin: 1rem 0 0; color: #ded9cf; font-size: .78rem; font-weight: 650; }
 .sis3-hero-description { max-width: 560px; margin: 1rem 0 0; color: #d0ccc4; font-size: .96rem; line-height: 1.65; }
 .sis3-hero-actions { display: flex; gap: .65rem; margin-top: 1.35rem; }
@@ -123,7 +123,7 @@ body { background: var(--sis3-bg) !important; color: var(--sis3-cream); padding-
   .sis3-hero { min-height: 67svh; }
   .sis3-hero-shade { background: linear-gradient(0deg,var(--sis3-bg) 0%,rgba(12,13,11,.68) 48%,rgba(12,13,11,.05) 100%); }
   .sis3-hero-content { left: 18px; right: 18px; bottom: 8%; max-width: none; }
-  .sis3-hero h1 { font-size: clamp(2.55rem,12vw,4.6rem); line-height: .92; }
+  .sis3-hero h2 { font-size: clamp(2.55rem,12vw,4.6rem); line-height: .92; }
   .sis3-hero-description { display: -webkit-box; overflow: hidden; font-size: .82rem; line-height: 1.5; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
   .sis3-hero-note { display: none; }
   .sis3-secondary { display: none; }

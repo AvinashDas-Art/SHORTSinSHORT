@@ -42,7 +42,7 @@ const HeroSlide = ({ slide, onPlay, lang, stateClass }) => {
       <div className="sis3-hero-shade" />
       <div className="sis3-hero-content">
         <p className="sis3-eyebrow">SHORTSinSHORT SELECTION</p>
-        <h1>{title}</h1>
+        <h2>{title}</h2>
         <p className="sis3-hero-meta">{[country, language, film.year, duration].filter(Boolean).join(' · ')}</p>
         {description && <p className="sis3-hero-description">{description}</p>}
         <div className="sis3-hero-actions">

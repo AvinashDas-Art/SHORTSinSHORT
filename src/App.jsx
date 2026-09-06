@@ -406,6 +406,7 @@ export default function App() {
       />
 
       <main className="flex-1 pt-16">
+        <h1 className="sr-only">SHORTSinSHORT - Curated World Cinema in Short Formats</h1>
         {legalView ? (
           <Suspense fallback={null}>
             <LegalPage page={legalView} lang={lang} onBack={() => setLegalView(null)} />

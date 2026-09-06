@@ -45,6 +45,33 @@
     <meta name="apple-mobile-web-app-title" content="SHORTSinSHORT" />
     <link rel="apple-touch-icon" href="/icon-192.png" />
 
+    <!-- Organization / WebSite structured data - helps Google understand
+         SHORTSinSHORT as a distinct brand entity, separate from generic
+         "short films" or "shorts" searches. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://www.shortsinshort.com/#organization",
+            "name": "SHORTSinSHORT",
+            "url": "https://www.shortsinshort.com/",
+            "logo": "https://www.shortsinshort.com/icon-512.png"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.shortsinshort.com/#website",
+            "name": "SHORTSinSHORT",
+            "url": "https://www.shortsinshort.com/",
+            "description": "Curated world cinema in short formats - handpicked short films from India and around the world.",
+            "publisher": { "@id": "https://www.shortsinshort.com/#organization" },
+            "inLanguage": ["en", "hi"]
+          }
+        ]
+      }
+    </script>
+
   </head>
   <body class="bg-[#0d0d0f] text-white">
     <div id="root"></div>

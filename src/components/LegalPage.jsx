@@ -193,7 +193,7 @@ export default function LegalPage({ page = 'content', lang, onBack }) {
           ← {lang === 'hi' ? 'वापस' : 'Back'}
         </button>
         <p className="text-[.62rem] font-extrabold tracking-[.2em] text-[#e9b96e]">SHORTSinSHORT</p>
-        <h1 className="mt-3 font-serif text-4xl font-normal tracking-[-.035em] text-[#f7f1e7] md:text-6xl">{text.title}</h1>
+        <h2 className="mt-3 font-serif text-4xl font-normal tracking-[-.035em] text-[#f7f1e7] md:text-6xl">{text.title}</h2>
         <p className="mt-5 max-w-3xl text-base leading-7 text-zinc-300">{text.intro}</p>
         <div className="mt-10 space-y-9 border-t border-white/10 pt-9">
           {text.sections.map(([heading, paragraphs]) => (
