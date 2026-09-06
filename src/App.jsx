@@ -6,8 +6,8 @@ const getSafeString = (val) => {
   return String(val);
 };
 
-import React, { useState, useEffect, useMemo, Suspense, lazy } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useMemo, useRef, Suspense, lazy } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import MovieRow from './components/MovieRow';
@@ -28,6 +28,35 @@ import { filmPath } from './utils/slug';
 const SITE_URL = 'https://www.shortsinshort.com';
 const DEFAULT_TITLE = 'SHORTSinSHORT - Curated World Cinema in Short Formats';
 const DEFAULT_DESCRIPTION = 'Discover handpicked short films from India and around the world, presented through authorised creator and YouTube embeds., thrillers, human dramas, and groundbreaking AI cinema.';
+
+// Every non-film page gets its own address too. STATIC_PATH_VIEWS drives which
+// internal view (archive / club / a legal page / the profile modal) a given
+// path opens; PAGE_META drives that path's <title>/description (World Atlas,
+// Festival Circuit and Mood & Time live as Navbar's own overlay state, but
+// their paths are listed here too so the tab title/meta is still correct).
+const STATIC_PATH_VIEWS = {
+  '/my-cinema': { archive: true },
+  '/club': { club: true },
+  '/sign-in': { profile: true },
+  '/about': { legal: 'contact' },
+  '/content-copyright': { legal: 'content' },
+  '/membership-terms': { legal: 'membership' },
+  '/cancellation-refund': { legal: 'refunds' },
+  '/privacy': { legal: 'privacy' },
+};
+const PAGE_META = {
+  '/world-atlas': { title: 'World Atlas', description: 'Explore curated short films mapped by country and region on SHORTSinSHORT.' },
+  '/festival-circuit': { title: 'Festival Circuit', description: 'Award-winning and festival-selected short films on SHORTSinSHORT.' },
+  '/mood-time': { title: 'Mood & Time', description: 'Find a short film by mood or however much time you have, on SHORTSinSHORT.' },
+  '/my-cinema': { title: 'My Cinema', description: 'Your recently watched short films on SHORTSinSHORT.' },
+  '/club': { title: 'SHORTSinSHORT Cinema Club', description: 'Support independent curation with a small one-time contribution.' },
+  '/sign-in': { title: 'Sign in', description: 'Sign in to SHORTSinSHORT.' },
+  '/about': { title: 'About & Contact', description: 'About SHORTSinSHORT and how to reach us.' },
+  '/content-copyright': { title: 'Content & Copyright', description: 'How SHORTSinSHORT sources and licenses the films it features.' },
+  '/membership-terms': { title: 'Membership Terms', description: 'Terms for SHORTSinSHORT Cinema Club membership.' },
+  '/cancellation-refund': { title: 'Cancellation & Refund', description: 'Cancellation and refund policy for SHORTSinSHORT.' },
+  '/privacy': { title: 'Privacy Policy', description: 'How SHORTSinSHORT handles your data.' },
+};
 
 const setMetaTag = (attr, key, content) => {
   if (!content) return;
@@ -75,6 +104,10 @@ const safeText = (val, lang = 'en') => {
 export default function App() {
   const { filmId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  // Remembers which page a film was opened from, so closing the player
+  // returns there (e.g. My Cinema, Club) instead of always landing on '/'.
+  const cameFromRef = useRef('/');
   const [lang, setLang] = useState('en');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedGenre, setSelectedGenre] = useState('All');
@@ -101,6 +134,7 @@ export default function App() {
   }, []);
 
   const handlePlayFilm = (film) => {
+    cameFromRef.current = location.pathname;
     setActiveFilm(film);
     navigate(filmPath(film));
     try {
@@ -114,7 +148,7 @@ export default function App() {
 
   const handleClosePlayer = () => {
     setActiveFilm(null);
-    if (filmId) navigate('/');
+    if (filmId) navigate(cameFromRef.current || '/');
   };
 
   const handleResetFilters = () => {
@@ -124,6 +158,7 @@ export default function App() {
     setIsClubView(false);
     setIsArchiveView(false);
     setLegalView(null);
+    navigate('/');
   };
 
   const allFilms = useMemo(() => filmsData || [], []);
@@ -167,6 +202,21 @@ export default function App() {
     }
   }, [filmId, filmsById, navigate]);
 
+  // Every other page (My Cinema, Club, sign-in, the legal pages) also gets
+  // its own address now - this is the single place that opens/closes those
+  // views based on the current URL, so a direct link, a bookmark, or the
+  // browser Back/Forward buttons all work the same as clicking the nav
+  // links. Skipped entirely while a film's URL is open, so whatever page a
+  // film was opened from (see cameFromRef above) stays mounted underneath.
+  useEffect(() => {
+    if (location.pathname.startsWith('/film/')) return;
+    const view = STATIC_PATH_VIEWS[location.pathname];
+    setIsArchiveView(!!view?.archive);
+    setIsClubView(!!view?.club);
+    setLegalView(view?.legal || null);
+    setProfileOpen(!!view?.profile);
+  }, [location.pathname]);
+
   // Per-film <title>/meta description/canonical/VideoObject so a shared
   // film link (and Google's JS-rendered index) carries that film's own
   // details instead of the generic homepage ones.
@@ -196,17 +246,20 @@ export default function App() {
         contentUrl: activeFilm.youtubeVideoId ? `https://www.youtube.com/watch?v=${activeFilm.youtubeVideoId}` : undefined
       });
     } else {
-      document.title = DEFAULT_TITLE;
-      setMetaTag('name', 'description', DEFAULT_DESCRIPTION);
-      setMetaTag('property', 'og:title', DEFAULT_TITLE);
-      setMetaTag('property', 'og:description', DEFAULT_DESCRIPTION);
+      const page = PAGE_META[location.pathname];
+      const pageTitle = page ? `${page.title} | SHORTSinSHORT` : DEFAULT_TITLE;
+      const description = page?.description || DEFAULT_DESCRIPTION;
+      document.title = pageTitle;
+      setMetaTag('name', 'description', description);
+      setMetaTag('property', 'og:title', pageTitle);
+      setMetaTag('property', 'og:description', description);
       setMetaTag('property', 'og:image', SITE_URL + '/og-image.png');
-      setMetaTag('name', 'twitter:title', DEFAULT_TITLE);
-      setMetaTag('name', 'twitter:description', DEFAULT_DESCRIPTION);
-      setCanonical(SITE_URL + '/');
+      setMetaTag('name', 'twitter:title', pageTitle);
+      setMetaTag('name', 'twitter:description', description);
+      setCanonical(SITE_URL + location.pathname);
       setJsonLd(null);
     }
-  }, [activeFilm, lang]);
+  }, [activeFilm, lang, location.pathname]);
 
   // Distinct Languages & Genres
   const { genres, languages } = useMemo(() => {
@@ -385,9 +438,9 @@ export default function App() {
     <div className="sis-v2 min-h-screen bg-[#221f1a] text-white flex flex-col font-sans selection:bg-red-600 selection:text-white">
       <Navbar
         isClubView={isClubView}
-        onOpenClub={() => { setIsClubView(true); setIsArchiveView(false); setLegalView(null); }}
+        onOpenClub={() => navigate('/club')}
         isArchiveView={isArchiveView}
-        onOpenArchive={() => { setIsArchiveView(true); setIsClubView(false); setLegalView(null); }}
+        onOpenArchive={() => navigate('/my-cinema')}
         onSurpriseMe={handleSurpriseMe}
         lang={lang}
         setLang={setLang}
@@ -402,18 +455,18 @@ export default function App() {
         onResetFilters={handleResetFilters}
         films={allFilms}
         onSelectFilm={handlePlayFilm}
-        onOpenProfile={() => setProfileOpen(true)}
+        onOpenProfile={() => navigate('/sign-in')}
       />
 
       <main className="flex-1 pt-16">
         <h1 className="sr-only">SHORTSinSHORT - Curated World Cinema in Short Formats</h1>
         {legalView ? (
           <Suspense fallback={null}>
-            <LegalPage page={legalView} lang={lang} onBack={() => setLegalView(null)} />
+            <LegalPage page={legalView} lang={lang} onBack={() => navigate('/')} />
           </Suspense>
         ) : isClubView ? (
           <Suspense fallback={null}>
-            <ClubModal onClose={() => setIsClubView(false)} lang={lang} />
+            <ClubModal onClose={() => navigate('/')} lang={lang} />
           </Suspense>
         ) : isArchiveView ? (
           <Suspense fallback={null}>
@@ -488,18 +541,18 @@ export default function App() {
 
       {profileOpen && (
         <Suspense fallback={null}>
-          <ProfileModal lang={lang} onClose={() => setProfileOpen(false)} />
+          <ProfileModal lang={lang} onClose={() => navigate('/')} />
         </Suspense>
       )}
 
       <footer className="border-t border-zinc-800/60 px-4 py-8 text-center text-xs text-zinc-500">
         <p>© 2026 SHORTSinSHORT. An Equal Tales Entertainment Pvt Ltd initiative.</p>
         <nav className="mx-auto mt-4 flex max-w-4xl flex-wrap justify-center gap-x-5 gap-y-3" aria-label="Legal and support">
-          <button type="button" onClick={() => { setLegalView('contact'); setIsClubView(false); setIsArchiveView(false); window.scrollTo(0, 0); }} className="border-0 bg-transparent hover:text-white">{lang === 'hi' ? 'हमारे बारे में और संपर्क' : 'About & Contact'}</button>
-          <button type="button" onClick={() => { setLegalView('content'); setIsClubView(false); setIsArchiveView(false); window.scrollTo(0, 0); }} className="border-0 bg-transparent hover:text-white">{lang === 'hi' ? 'कंटेंट और कॉपीराइट' : 'Content & Copyright'}</button>
-          <button type="button" onClick={() => { setLegalView('membership'); setIsClubView(false); setIsArchiveView(false); window.scrollTo(0, 0); }} className="border-0 bg-transparent hover:text-white">{lang === 'hi' ? 'सदस्यता की शर्तें' : 'Membership Terms'}</button>
-          <button type="button" onClick={() => { setLegalView('refunds'); setIsClubView(false); setIsArchiveView(false); window.scrollTo(0, 0); }} className="border-0 bg-transparent hover:text-white">{lang === 'hi' ? 'Cancellation और Refund' : 'Cancellation & Refund'}</button>
-          <button type="button" onClick={() => { setLegalView('privacy'); setIsClubView(false); setIsArchiveView(false); window.scrollTo(0, 0); }} className="border-0 bg-transparent hover:text-white">Privacy</button>
+          <button type="button" onClick={() => { navigate('/about'); window.scrollTo(0, 0); }} className="border-0 bg-transparent hover:text-white">{lang === 'hi' ? 'हमारे बारे में और संपर्क' : 'About & Contact'}</button>
+          <button type="button" onClick={() => { navigate('/content-copyright'); window.scrollTo(0, 0); }} className="border-0 bg-transparent hover:text-white">{lang === 'hi' ? 'कंटेंट और कॉपीराइट' : 'Content & Copyright'}</button>
+          <button type="button" onClick={() => { navigate('/membership-terms'); window.scrollTo(0, 0); }} className="border-0 bg-transparent hover:text-white">{lang === 'hi' ? 'सदस्यता की शर्तें' : 'Membership Terms'}</button>
+          <button type="button" onClick={() => { navigate('/cancellation-refund'); window.scrollTo(0, 0); }} className="border-0 bg-transparent hover:text-white">{lang === 'hi' ? 'Cancellation और Refund' : 'Cancellation & Refund'}</button>
+          <button type="button" onClick={() => { navigate('/privacy'); window.scrollTo(0, 0); }} className="border-0 bg-transparent hover:text-white">Privacy</button>
         </nav>
       </footer>
     </div>

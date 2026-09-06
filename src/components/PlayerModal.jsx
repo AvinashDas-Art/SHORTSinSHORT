@@ -1,4 +1,8 @@
 import React, { useEffect, useRef } from 'react';
+import ShareButton from './ShareButton';
+import { filmPath } from '../utils/slug';
+
+const SITE_URL = 'https://www.shortsinshort.com';
 
 const safeText = (value, lang = 'en') => {
   if (!value) return '';
@@ -57,6 +61,12 @@ export default function PlayerModal({ film, onClose, lang }) {
         <button type="button" onClick={onClose} aria-label="Close player">←</button>
         <span>SHORTSinSHORT</span>
         <button type="button" onClick={() => shell.current?.requestFullscreen?.()} aria-label="Fullscreen">⛶</button>
+        <ShareButton
+          lang={lang}
+          url={SITE_URL + filmPath(film)}
+          title={`${title} | SHORTSinSHORT`}
+          text={lang === 'hi' ? `SHORTSinSHORT पर देखिए: ${title}` : `Watch "${title}" on SHORTSinSHORT`}
+        />
       </header>
 
       <div className="sis3-player-stage">

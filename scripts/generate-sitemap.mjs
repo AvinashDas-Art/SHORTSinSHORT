@@ -27,8 +27,18 @@ const slugify = (text) => {
 
 const today = new Date().toISOString().slice(0, 10);
 
+// Every other page now has its own address too (see STATIC_PATH_VIEWS /
+// PAGE_META in src/App.jsx) - list them here so Google can find and index
+// them, not just the homepage and the films.
+const STATIC_PAGES = [
+  '/world-atlas', '/festival-circuit', '/mood-time',
+  '/club', '/about', '/content-copyright', '/membership-terms',
+  '/cancellation-refund', '/privacy',
+];
+
 const urls = [
   { loc: `${SITE_URL}/`, changefreq: 'daily', priority: '1.0' },
+  ...STATIC_PAGES.map((p) => ({ loc: `${SITE_URL}${p}`, changefreq: 'monthly', priority: '0.4' })),
   ...films
     .filter((f) => f.availability !== 'unavailable' && (f.id || f.youtubeVideoId))
     .map((f) => {

@@ -1,5 +1,7 @@
 import InstallPwa from "./InstallPwa";
+import ShareButton from "./ShareButton";
 import React, { useState, Suspense, lazy } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 // Only rendered after clicking World Atlas/Festival Circuit/Mood & Time, so
@@ -17,6 +19,12 @@ const SearchIcon = () => (
   <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/></svg>
 );
 
+// World Atlas/Festival Circuit/Mood & Time each get their own address too -
+// activeWorld is derived from the URL (not its own useState) so the
+// overlay, the URL, and the tab title (see PAGE_META in App.jsx) never
+// disagree with each other.
+const WORLD_PATHS = { atlas: '/world-atlas', festival: '/festival-circuit', mood: '/mood-time' };
+
 export default function Navbar({
   isClubView, onOpenClub, isArchiveView, onOpenArchive, onSurpriseMe,
   lang, setLang, searchTerm, setSearchTerm, selectedGenre, setSelectedGenre,
@@ -24,20 +32,23 @@ export default function Navbar({
   onResetFilters, films = [], onSelectFilm, onOpenProfile
 }) {
   const [searchOpen, setSearchOpen] = useState(false);
-  const [activeWorld, setActiveWorld] = useState(null);
   const { currentUser } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const activeWorld = Object.keys(WORLD_PATHS).find((key) => WORLD_PATHS[key] === location.pathname) || null;
 
   const goHome = () => {
     setSearchOpen(false);
-    setActiveWorld(null);
     onResetFilters?.();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const openWorld = (world) => {
     setSearchOpen(false);
-    setActiveWorld(world);
+    navigate(WORLD_PATHS[world]);
   };
+
+  const closeWorld = () => navigate('/');
 
   return (
     <>
@@ -53,6 +64,7 @@ export default function Navbar({
         </nav>
         <div className="sis3-nav-actions">
           <button className="sis3-icon-button" type="button" onClick={() => setSearchOpen((value) => !value)} aria-label="Search"><SearchIcon /></button>
+          <ShareButton className="sis3-icon-button" lang={lang} title="SHORTSinSHORT" />
           <button className="sis3-text-action sis3-desktop-action" type="button" onClick={onSurpriseMe}>{lang === 'hi' ? 'कोई शानदार फ़िल्म चलाइए' : 'Play me a great film'}</button>
           <button className="sis3-text-action sis3-desktop-action" type="button" onClick={onOpenArchive} aria-pressed={isArchiveView}>{lang === 'hi' ? 'मेरा सिनेमा' : 'My Cinema'}</button>
           <button className="sis3-club-action" type="button" onClick={onOpenClub} aria-pressed={isClubView}>Club ₹5</button>
@@ -86,7 +98,7 @@ export default function Navbar({
 
       {activeWorld && (
         <Suspense fallback={null}>
-          <DiscoveryWorlds world={activeWorld} films={films} lang={lang} onClose={() => setActiveWorld(null)} onSelectFilm={onSelectFilm} />
+          <DiscoveryWorlds world={activeWorld} films={films} lang={lang} onClose={closeWorld} onSelectFilm={onSelectFilm} />
         </Suspense>
       )}
     </>
