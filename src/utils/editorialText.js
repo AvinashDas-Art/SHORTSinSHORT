@@ -29,7 +29,7 @@ const safeText = (value, lang = 'en') => {
 // matching, so a title is left untouched the moment a trailing segment
 // looks like genuine title text.
 const JUNK_TAIL_WORDS = 5;
-const JUNK_TAIL_PATTERN = /\b(short\s*film|shortfilm|cortometraje|court[\s-]?m[ée]trage|kurzfilm|award[- ]?winning|award\s*winner(?:s)?|official(?:\s*trailer)?|animat(?:ed|ion)|documentary|festival|subscribe|full\s*movie|new\s*release|must\s*watch|trailer|remaster|starring|nominated|hindi|english|malayalam|tamil|telugu|bengali|marathi|punjabi|urdu|bhojpuri|maithili|kannada|gujarati|odia|oriya|assamese|nepali|spanish|french|german|iranian|korean|italian)\b/i;
+const JUNK_TAIL_PATTERN = /\b(short\s*film|shortfilm|short\s*movie|shortmovie|cortometraje|court[\s-]?m[ée]trage|kurzfilm|award[- ]?winning|award\s*winner(?:s)?|official(?:\s*trailer)?|animat(?:ed|ion)|documentary|festival|subscribe|full\s*movie|new\s*release|must\s*watch|trailer|remaster|starring|featuring|nominated|hindi|english|malayalam|tamil|telugu|bengali|marathi|punjabi|urdu|bhojpuri|maithili|kannada|gujarati|odia|oriya|assamese|nepali|spanish|french|german|iranian|korean|italian)\b/i;
 const YEAR_ONLY = /^\(?\d{4}\)?$/;
 
 function isJunkTailSegment(segment) {

@@ -1,4 +1,6 @@
 import React, { useMemo, useState } from 'react';
+import { getDailyFilmForDuration, getIndiaDateKey } from '../utils/dailyHeroFilms';
+import { cleanFilmTitle } from '../utils/editorialText';
 
 const text = (value, lang = 'en') => {
   if (!value) return '';
@@ -7,28 +9,21 @@ const text = (value, lang = 'en') => {
   return String(value);
 };
 
-const runtime = (film) => {
-  const raw = text(film?.duration, 'en') || text(film?.runtime, 'en');
-  const match = String(raw).match(/(\d{1,3})/);
-  return match ? Number(match[1]) : null;
-};
-
 export default function TimePicker({ films = [], onSelectFilm, lang = 'en' }) {
   const [minutes, setMinutes] = useState(10);
 
-  const matches = useMemo(() => films
-    .filter((film) => {
-      const value = runtime(film);
-      return value !== null && value <= minutes;
-    })
-    .sort((a, b) => (runtime(b) || 0) - (runtime(a) || 0)), [films, minutes]);
-
-  const featured = matches[0] || films[0];
+  // Rotates daily per duration bucket (like the homepage hero) instead of
+  // always featuring the same single longest film under that cutoff.
+  const featured = useMemo(
+    () => getDailyFilmForDuration(films, minutes, getIndiaDateKey()) || films[0],
+    [films, minutes]
+  );
   if (!featured) return null;
 
-  const title = lang === 'hi' && featured.titleHi
-    ? featured.titleHi
-    : text(featured.title, lang);
+  const title = cleanFilmTitle(
+    lang === 'hi' && featured.titleHi ? featured.titleHi : featured.title,
+    lang
+  );
   const language = text(featured.language, lang);
   const length = text(featured.duration, lang) || text(featured.runtime, lang);
   const videoId = featured.youtubeVideoId || featured.id;
