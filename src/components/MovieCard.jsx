@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { filmPath } from '../utils/slug';
+import { cleanFilmTitle } from '../utils/editorialText';
 
 const safeText = (value, lang = 'en') => {
   if (!value) return '';
@@ -13,7 +14,8 @@ export default function MovieCard({ film, onSelect, lang }) {
   const fallback = videoId ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg` : '';
   const [image, setImage] = useState(film?.thumbnail || fallback);
   if (!film) return null;
-  const title = lang === 'hi' && film.titleHi ? film.titleHi : safeText(film.title, lang);
+  const rawTitle = lang === 'hi' && film.titleHi ? film.titleHi : safeText(film.title, lang);
+  const title = cleanFilmTitle(rawTitle, lang);
   const director = lang === 'hi' && film.directorHi ? film.directorHi : safeText(film.director, lang);
   const language = safeText(film.language, lang);
   const duration = safeText(film.duration, lang) || safeText(film.runtime, lang);

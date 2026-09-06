@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import ShareButton from './ShareButton';
 import { filmPath } from '../utils/slug';
+import { cleanFilmTitle, cleanEditorialText } from '../utils/editorialText';
 
 const SITE_URL = 'https://www.shortsinshort.com';
 
@@ -9,21 +10,6 @@ const safeText = (value, lang = 'en') => {
   if (typeof value === 'string') return value;
   if (typeof value === 'object') return value[lang] || value.en || Object.values(value)[0] || '';
   return String(value);
-};
-const cleanEditorialText = (value, lang = 'en') => {
-  const raw = safeText(value, lang)
-    .replace(/(^|\s)#[\p{L}\p{N}_-]+/gu, ' ')
-    .replace(/\s+/g, ' ')
-    .replace(/^[\s'"“”‘’,:;-]+/, '')
-    .trim();
-  if (!raw) return '';
-  const sentences = raw.match(/[^.!?]+[.!?]+/g);
-  if (sentences?.length) return sentences.slice(0, 2).join(' ').trim();
-  const clauses = raw.split(',').map((part) => part.trim()).filter(Boolean);
-  if (clauses.length > 2) return `${clauses.slice(0, 2).join(', ')}.`;
-  if (!/[.!?][”’'"]?$/.test(raw)) return '';
-  if (raw.length <= 190) return raw;
-  return `${raw.slice(0, 187).replace(/\s+\S*$/, '')}…`;
 };
 
 
@@ -49,7 +35,8 @@ export default function PlayerModal({ film, onClose, lang }) {
 
   if (!film) return null;
   const videoId = film.youtubeVideoId || film.id;
-  const title = lang === 'hi' && film.titleHi ? film.titleHi : safeText(film.title, lang);
+  const rawTitle = lang === 'hi' && film.titleHi ? film.titleHi : safeText(film.title, lang);
+  const title = cleanFilmTitle(rawTitle, lang);
   const director = lang === 'hi' && film.directorHi ? film.directorHi : safeText(film.director, lang);
   const rawDescription = lang === 'hi' && film.descriptionHi ? film.descriptionHi : film.description;
   const description = cleanEditorialText(rawDescription, lang);

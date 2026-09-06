@@ -1,6 +1,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { getFilmVideoId, loadBestHeroArtwork } from '../utils/heroArtwork';
+import { cleanFilmTitle, cleanEditorialText } from '../utils/editorialText';
 
 const safeText = (value, lang = 'en') => {
   if (!value) return '';
@@ -8,26 +9,12 @@ const safeText = (value, lang = 'en') => {
   if (typeof value === 'object') return value[lang] || value.en || Object.values(value)[0] || '';
   return String(value);
 };
-const cleanEditorialText = (value, lang = 'en') => {
-  const raw = safeText(value, lang)
-    .replace(/(^|\s)#[\p{L}\p{N}_-]+/gu, ' ')
-    .replace(/\s+/g, ' ')
-    .replace(/^[\s'"“”‘’,:;-]+/, '')
-    .trim();
-  if (!raw) return '';
-  const sentences = raw.match(/[^.!?]+[.!?]+/g);
-  if (sentences?.length) return sentences.slice(0, 2).join(' ').trim();
-  const clauses = raw.split(',').map((part) => part.trim()).filter(Boolean);
-  if (clauses.length > 2) return `${clauses.slice(0, 2).join(', ')}.`;
-  if (!/[.!?][”’'"]?$/.test(raw)) return '';
-  if (raw.length <= 190) return raw;
-  return `${raw.slice(0, 187).replace(/\s+\S*$/, '')}…`;
-};
 
 
 const HeroSlide = ({ slide, onPlay, lang, stateClass }) => {
   const { film, artwork } = slide;
-  const title = lang === 'hi' && film.titleHi ? film.titleHi : safeText(film.title, lang);
+  const rawTitle = lang === 'hi' && film.titleHi ? film.titleHi : safeText(film.title, lang);
+  const title = cleanFilmTitle(rawTitle, lang);
   const rawDescription = lang === 'hi' && film.descriptionHi ? film.descriptionHi : film.description;
   const cleanedDescription = cleanEditorialText(rawDescription, lang);
   const description = cleanedDescription || (lang === 'hi'

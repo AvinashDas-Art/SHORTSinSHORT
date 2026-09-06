@@ -25,6 +25,7 @@ const ProfileModal = lazy(() => import('./components/ProfileModal'));
 import filmsData from './data/films.json';
 import { getDailyHeroFilms, getIndiaDateKey } from './utils/dailyHeroFilms';
 import { filmPath } from './utils/slug';
+import { cleanFilmTitle, cleanEditorialText } from './utils/editorialText';
 
 const SITE_URL = 'https://www.shortsinshort.com';
 const DEFAULT_TITLE = 'SHORTSinSHORT - Curated World Cinema in Short Formats';
@@ -226,8 +227,8 @@ export default function App() {
   // details instead of the generic homepage ones.
   useEffect(() => {
     if (activeFilm) {
-      const title = safeText(activeFilm.title, lang) || DEFAULT_TITLE;
-      const description = safeText(activeFilm.descriptionHi || activeFilm.description, lang) || DEFAULT_DESCRIPTION;
+      const title = cleanFilmTitle(activeFilm.title, lang) || DEFAULT_TITLE;
+      const description = cleanEditorialText(activeFilm.descriptionHi || activeFilm.description, lang) || DEFAULT_DESCRIPTION;
       const pageTitle = `${title} | SHORTSinSHORT`;
       document.title = pageTitle;
       setMetaTag('name', 'description', description);
