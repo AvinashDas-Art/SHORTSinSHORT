@@ -299,3 +299,27 @@ body { background: var(--sis3-bg) !important; color: var(--sis3-cream); padding-
   .sis4-programme-results { padding: 1.5rem 18px 6rem; }
   .sis4-mood-console { padding: 1.4rem 18px; grid-template-columns: 1fr; gap: 1.6rem; }
 }
+
+/* Silent opening flourish, shown once per fresh page load - see
+   IntroAnimation.jsx. Fixed above everything, then fades itself out. */
+.sis3-intro {
+  position: fixed; inset: 0; z-index: 999;
+  display: grid; place-items: center;
+  background: #0d0d0f;
+  animation: sis3-intro-fade 1.4s ease forwards;
+}
+.sis3-intro-mark {
+  width: 96px; height: 96px; border-radius: 50%;
+  animation: sis3-intro-mark 1.4s cubic-bezier(.2,.8,.2,1) forwards;
+}
+@keyframes sis3-intro-mark {
+  0% { transform: scale(.55); opacity: 0; }
+  35% { transform: scale(1.06); opacity: 1; }
+  50% { transform: scale(1); opacity: 1; }
+  78% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.12); opacity: 0; }
+}
+@keyframes sis3-intro-fade {
+  0%, 72% { opacity: 1; visibility: visible; }
+  100% { opacity: 0; visibility: hidden; pointer-events: none; }
+}

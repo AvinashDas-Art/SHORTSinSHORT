@@ -14,6 +14,7 @@ import MovieRow from './components/MovieRow';
 import TimePicker from './components/TimePicker';
 import MovieCard from './components/MovieCard';
 import PlayerModal from './components/PlayerModal';
+import IntroAnimation from './components/IntroAnimation';
 // These four are only ever shown behind a click (club page, profile, legal
 // pages, the YouTube archive), never on first paint - loading them lazily
 // keeps them out of the initial JS bundle everyone downloads on arrival.
@@ -123,6 +124,9 @@ export default function App() {
   const [unavailableHeroIds, setUnavailableHeroIds] = useState(() => new Set());
   const [isHeroHovered, setIsHeroHovered] = useState(false);
   const [watchHistory, setWatchHistory] = useState([]);
+  // Brief silent logo flourish on every fresh page load (not on client-side
+  // route changes within the app - only a real load/reload of the page).
+  const [showIntro, setShowIntro] = useState(true);
 
   useEffect(() => {
     try {
@@ -436,6 +440,7 @@ export default function App() {
 
   return (
     <div className="sis-v2 min-h-screen bg-[#221f1a] text-white flex flex-col font-sans selection:bg-red-600 selection:text-white">
+      {showIntro && <IntroAnimation onDone={() => setShowIntro(false)} />}
       <Navbar
         isClubView={isClubView}
         onOpenClub={() => navigate('/club')}
