@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
 import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { auth, db, googleProvider, isFirebaseConfigured } from '../firebase';
@@ -70,6 +70,23 @@ export function AuthProvider({ children }) {
     });
   }, []);
 
+  // Re-fetches this user's own profile doc on demand (no auth-state change
+  // needed) - used after a PayU payment, so a tab that never navigated away
+  // can notice the moment the webhook activates membership, just by
+  // re-checking Firestore instead of waiting for a reload or re-login.
+  const refreshProfile = useCallback(async () => {
+    if (!db || !currentUser) return null;
+    try {
+      const snapshot = await getDoc(doc(db, 'users', currentUser.uid));
+      const data = snapshot.exists() ? snapshot.data() : null;
+      setProfile(data);
+      return data;
+    } catch (error) {
+      console.error('Profile refresh failed:', error);
+      return null;
+    }
+  }, [currentUser]);
+
   const loginWithGoogle = async () => {
     if (!auth || !googleProvider) {
       throw new Error('Profile sign-in is not configured yet.');
@@ -90,12 +107,13 @@ export function AuthProvider({ children }) {
     authError,
     loginWithGoogle,
     logout,
+    refreshProfile,
     isConfigured: isFirebaseConfigured,
     isMember:
       currentUser?.email?.toLowerCase() === 'equaltales@gmail.com' ||
       (profile?.membershipStatus === 'active' &&
         profile?.membershipExpiresAt?.toMillis?.() > membershipClock),
-  }), [currentUser, profile, loading, authError, membershipClock]);
+  }), [currentUser, profile, loading, authError, membershipClock, refreshProfile]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

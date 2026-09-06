@@ -1,35 +1,120 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 
 const PAYU_LINK = "https://u.payu.in/PAYUMN/BrSLkzWRrctK";
+const POLL_INTERVAL_MS = 5000;
+const POLL_TIMEOUT_MS = 2 * 60 * 1000;
+
+function formatExpiry(expiresAt, lang) {
+  const millis = expiresAt?.toMillis?.();
+  if (!millis) return "";
+  try {
+    return new Intl.DateTimeFormat(lang === "hi" ? "hi-IN" : "en-IN", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }).format(new Date(millis));
+  } catch (e) {
+    return "";
+  }
+}
 
 export default function ClubModal({ onClose, lang = "en" }) {
-  const { currentUser, loginWithGoogle } = useAuth();
+  const { currentUser, profile, isMember, loginWithGoogle, refreshProfile } = useAuth();
   const isHindi = lang === "hi";
+  const [signingIn, setSigningIn] = useState(false);
+  const [awaitingPayment, setAwaitingPayment] = useState(false);
+  const [paymentConfirmed, setPaymentConfirmed] = useState(false);
 
-  const handleCheckout = async () => {
+  // Always call the latest refreshProfile without making it an effect
+  // dependency - refreshProfile's identity changes whenever AuthProvider's
+  // own state ticks (e.g. its once-a-minute membership clock), and if the
+  // poll effect below depended on it directly, each such change would tear
+  // down and restart the interval/timeout, same class of bug as the intro
+  // animation's timer resetting on unrelated re-renders.
+  const refreshRef = useRef(refreshProfile);
+  useEffect(() => {
+    refreshRef.current = refreshProfile;
+  }, [refreshProfile]);
+
+  // While a payment tab is open, quietly re-check membership whenever this
+  // tab regains focus (or every few seconds as a fallback) - so the moment
+  // PayU's webhook activates it server-side, this tab notices on its own.
+  // No redirect back from PayU is needed: the SHORTSinSHORT tab never left
+  // in the first place, it just stopped being the active tab for a minute.
+  useEffect(() => {
+    if (!awaitingPayment) return undefined;
+
+    const check = () => { refreshRef.current?.(); };
+    const onVisible = () => {
+      if (document.visibilityState === "visible") check();
+    };
+
+    document.addEventListener("visibilitychange", onVisible);
+    window.addEventListener("focus", check);
+    const interval = window.setInterval(check, POLL_INTERVAL_MS);
+    const timeout = window.setTimeout(() => setAwaitingPayment(false), POLL_TIMEOUT_MS);
+
+    return () => {
+      document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("focus", check);
+      window.clearInterval(interval);
+      window.clearTimeout(timeout);
+    };
+  }, [awaitingPayment]);
+
+  useEffect(() => {
+    if (awaitingPayment && isMember) {
+      setAwaitingPayment(false);
+      setPaymentConfirmed(true);
+    }
+  }, [awaitingPayment, isMember]);
+
+  const handleSignIn = async () => {
+    setSigningIn(true);
     try {
-      const user = currentUser || await loginWithGoogle();
-      const email = user?.email?.trim().toLowerCase();
-
-      if (!email) {
-        throw new Error("Google account email unavailable");
-      }
-
-      const message = isHindi
-        ? `PayU पर भुगतान करते समय यही email लिखें:\n\n${email}\n\nअलग email लिखने पर membership अपने-आप activate नहीं होगी।`
-        : `Use this exact email during PayU checkout:\n\n${email}\n\nMembership cannot activate automatically with a different email.`;
-
-      if (!window.confirm(message)) return;
-      window.location.href = PAYU_LINK;
+      await loginWithGoogle();
     } catch (error) {
       window.alert(
         isHindi
-          ? "भुगतान से पहले Google login पूरा नहीं हो सका। फिर कोशिश कीजिए।"
+          ? "Google login पूरा नहीं हो सका। फिर कोशिश कीजिए।"
           : "Google sign-in could not be completed. Please try again."
       );
+    } finally {
+      setSigningIn(false);
     }
   };
+
+  const handleCheckout = () => {
+    const email = currentUser?.email?.trim().toLowerCase();
+    if (!email) return;
+
+    const message = isHindi
+      ? `PayU पर भुगतान करते समय यही email लिखें:\n\n${email}\n\nअलग email लिखने पर membership अपने-आप activate नहीं होगी।`
+      : `Use this exact email during PayU checkout:\n\n${email}\n\nMembership cannot activate automatically with a different email.`;
+
+    if (!window.confirm(message)) return;
+
+    // Open PayU in its own tab so this SHORTSinSHORT tab stays open and can
+    // notice the moment membership activates, instead of navigating away and
+    // depending on PayU redirecting back (its Payment Links product has no
+    // merchant-configurable return URL to point back at our site).
+    const paymentTab = window.open(PAYU_LINK, "_blank", "noopener,noreferrer");
+    setPaymentConfirmed(false);
+    setAwaitingPayment(true);
+
+    if (!paymentTab) {
+      // Popup blocked, or an in-app browser that can't open new tabs -
+      // fall back to plain same-tab navigation so checkout still works.
+      window.location.href = PAYU_LINK;
+    }
+  };
+
+  const handleCheckNow = () => {
+    refreshRef.current?.();
+  };
+
+  const expiryText = formatExpiry(profile?.membershipExpiresAt, lang);
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 text-white">
@@ -84,12 +169,61 @@ export default function ClubModal({ onClose, lang = "en" }) {
             <div className="text-xs uppercase tracking-widest text-zinc-400 font-bold">{isHindi ? "4 सप्ताह का सहयोग" : "4-WEEK PATRON CONTRIBUTION"}</div>
           </div>
 
-          <button
-            onClick={handleCheckout}
-            className="w-full py-4 px-6 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-sm tracking-wide transition shadow-lg cursor-pointer flex items-center justify-center space-x-2"
-          >
-            <span>{isHindi ? "क्लब को सपोर्ट करें — ₹20" : "Support the Club — ₹20"}</span>
-          </button>
+          {isMember && (
+            <div className="rounded-xl bg-green-950/40 border border-green-800/60 px-4 py-3 text-xs text-green-300 leading-relaxed">
+              {isHindi
+                ? `आपकी सदस्यता सक्रिय है${expiryText ? ` - ${expiryText} तक मान्य` : ""}।`
+                : `Your membership is active${expiryText ? ` - valid through ${expiryText}` : ""}.`}
+            </div>
+          )}
+
+          {paymentConfirmed && (
+            <div className="rounded-xl bg-green-950/40 border border-green-800/60 px-4 py-3 text-xs text-green-300 leading-relaxed">
+              {isHindi ? "भुगतान मिल गया - सदस्यता सक्रिय कर दी गयी है। धन्यवाद 🙏" : "Payment received - membership activated. Thank you!"}
+            </div>
+          )}
+
+          {awaitingPayment ? (
+            <div className="space-y-3">
+              <div className="rounded-xl bg-zinc-800/60 border border-zinc-700 px-4 py-3 text-xs text-zinc-300 leading-relaxed">
+                {isHindi
+                  ? "भुगतान वाला टैब एक नयी विंडो में खुल गया है। भुगतान पूरा करने के बाद इसी टैब पर वापस आ जाइए - सदस्यता अपने-आप सक्रिय हो जाएगी।"
+                  : "Payment opened in a new tab. Once you're done there, just come back to this tab - membership activates automatically."}
+              </div>
+              <button
+                onClick={handleCheckNow}
+                className="w-full py-3 px-6 rounded-xl bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 text-white font-bold text-xs tracking-wide transition cursor-pointer"
+              >
+                {isHindi ? "मैंने भुगतान कर दिया है — अभी जांचें" : "I've paid — check now"}
+              </button>
+            </div>
+          ) : !currentUser ? (
+            <button
+              onClick={handleSignIn}
+              disabled={signingIn}
+              className="w-full py-4 px-6 rounded-xl bg-red-600 hover:bg-red-700 disabled:opacity-60 text-white font-bold text-sm tracking-wide transition shadow-lg cursor-pointer"
+            >
+              {signingIn
+                ? (isHindi ? "साइन-इन हो रहा है..." : "Signing in...")
+                : (isHindi ? "Google से साइन-इन करें" : "Sign in with Google")}
+            </button>
+          ) : (
+            <div className="space-y-2">
+              <button
+                onClick={handleCheckout}
+                className="w-full py-4 px-6 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-sm tracking-wide transition shadow-lg cursor-pointer flex items-center justify-center space-x-2"
+              >
+                <span>
+                  {isMember
+                    ? (isHindi ? "सदस्यता आगे बढ़ाएँ — ₹20" : "Extend membership — ₹20")
+                    : (isHindi ? "क्लब को सपोर्ट करें — ₹20" : "Support the Club — ₹20")}
+                </span>
+              </button>
+              <p className="text-[11px] text-zinc-500 text-center">
+                {isHindi ? `साइन-इन: ${currentUser.email}` : `Signed in as ${currentUser.email}`}
+              </p>
+            </div>
+          )}
 
           <div className="space-y-2 text-[11px] text-zinc-500 text-center leading-relaxed">
             <p>
