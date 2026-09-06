@@ -43,6 +43,7 @@ export default function Navbar({
     <>
       <header className="sis3-nav">
         <button className="sis3-brand" type="button" onClick={goHome} aria-label="SHORTSinSHORT home">
+          <img src="/icon-192.png" alt="" aria-hidden="true" className="sis3-brand-mark" />
           <span>SHORTS</span><i>in</i><strong>SHORT</strong><b aria-hidden="true" />
         </button>
         <nav className="sis3-primary-links" aria-label="Primary navigation">
