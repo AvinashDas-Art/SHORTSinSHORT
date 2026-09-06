@@ -28,8 +28,8 @@ import { filmPath } from './utils/slug';
 import { cleanFilmTitle, cleanEditorialText } from './utils/editorialText';
 
 const SITE_URL = 'https://www.shortsinshort.com';
-const DEFAULT_TITLE = 'SHORTSinSHORT - Curated World Cinema in Short Formats';
-const DEFAULT_DESCRIPTION = 'Discover handpicked short films from India and around the world, presented through authorised creator and YouTube embeds., thrillers, human dramas, and groundbreaking AI cinema.';
+const DEFAULT_TITLE = 'Watch Hindi & World Short Films Online | SHORTSinSHORT';
+const DEFAULT_DESCRIPTION = 'Watch curated short films online - Hindi, English and world cinema shorts, thrillers, human dramas, award-winning festival picks, and AI cinema, handpicked by SHORTSinSHORT.';
 
 // Every non-film page gets its own address too. STATIC_PATH_VIEWS drives which
 // internal view (archive / club / a legal page / the profile modal) a given
@@ -47,9 +47,9 @@ const STATIC_PATH_VIEWS = {
   '/privacy': { legal: 'privacy' },
 };
 const PAGE_META = {
-  '/world-atlas': { title: 'World Atlas', description: 'Explore curated short films mapped by country and region on SHORTSinSHORT.' },
-  '/festival-circuit': { title: 'Festival Circuit', description: 'Award-winning and festival-selected short films on SHORTSinSHORT.' },
-  '/mood-time': { title: 'Mood & Time', description: 'Find a short film by mood or however much time you have, on SHORTSinSHORT.' },
+  '/world-atlas': { title: 'World Atlas - Short Films by Country', description: 'Explore short films by country and region - Hindi and world cinema, handpicked on SHORTSinSHORT.' },
+  '/festival-circuit': { title: 'Festival Circuit - Award-Winning Short Films', description: 'Watch award-winning and festival-selected short films online, handpicked from India and around the world on SHORTSinSHORT.' },
+  '/mood-time': { title: 'Mood & Time - Short Films by Duration', description: 'Find the perfect short film by mood or however much time you have - from a quick 3-minute short to a 30-minute watch, on SHORTSinSHORT.' },
   '/my-cinema': { title: 'My Cinema', description: 'Your recently watched short films on SHORTSinSHORT.' },
   '/club': { title: 'SHORTSinSHORT Cinema Club', description: 'Support independent curation with a small one-time contribution.' },
   '/sign-in': { title: 'Sign in', description: 'Sign in to SHORTSinSHORT.' },
@@ -229,14 +229,25 @@ export default function App() {
     if (activeFilm) {
       const title = cleanFilmTitle(activeFilm.title, lang) || DEFAULT_TITLE;
       const description = cleanEditorialText(activeFilm.descriptionHi || activeFilm.description, lang) || DEFAULT_DESCRIPTION;
-      const pageTitle = `${title} | SHORTSinSHORT`;
+      // Folding the film's language into its own title/description - e.g.
+      // "Aplam Chaplam - Hindi Short Film | SHORTSinSHORT" - is what actually
+      // lets a specific film surface for long-tail searches like "hindi
+      // short film [name]" or "[language] short films online", rather than
+      // competing on bare, YouTube/Netflix-dominated terms like "short film".
+      const filmLanguage = typeof activeFilm.language === 'string' ? activeFilm.language.trim() : '';
+      const pageTitle = filmLanguage
+        ? `${title} - ${filmLanguage} Short Film | SHORTSinSHORT`
+        : `${title} - Short Film | SHORTSinSHORT`;
+      const seoDescription = filmLanguage
+        ? `Watch "${title}", a ${filmLanguage} short film, on SHORTSinSHORT. ${description}`
+        : description;
       document.title = pageTitle;
-      setMetaTag('name', 'description', description);
+      setMetaTag('name', 'description', seoDescription);
       setMetaTag('property', 'og:title', pageTitle);
-      setMetaTag('property', 'og:description', description);
+      setMetaTag('property', 'og:description', seoDescription);
       if (activeFilm.thumbnail) setMetaTag('property', 'og:image', activeFilm.thumbnail);
       setMetaTag('name', 'twitter:title', pageTitle);
-      setMetaTag('name', 'twitter:description', description);
+      setMetaTag('name', 'twitter:description', seoDescription);
       const canonicalUrl = SITE_URL + filmPath(activeFilm);
       setCanonical(canonicalUrl);
       setJsonLd({
