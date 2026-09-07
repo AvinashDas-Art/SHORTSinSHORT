@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { getFilmVideoId, loadBestHeroArtwork } from '../utils/heroArtwork';
 import { cleanFilmTitle, cleanEditorialText } from '../utils/editorialText';
@@ -10,11 +9,10 @@ const safeText = (value, lang = 'en') => {
   return String(value);
 };
 
-
 const HeroSlide = ({ slide, onPlay, lang, stateClass }) => {
   const { film, artwork } = slide;
-  const rawTitle = lang === 'hi' && film.titleHi ? film.titleHi : safeText(film.title, lang);
-  const title = cleanFilmTitle(rawTitle, lang);
+  const rawTitle = safeText(film.title, 'en').replace(/\s*\(.*?\)\s*/g, '').trim();
+  const title = cleanFilmTitle(rawTitle, 'en');
   const rawDescription = lang === 'hi' && film.descriptionHi ? film.descriptionHi : film.description;
   const cleanedDescription = cleanEditorialText(rawDescription, lang);
   const description = cleanedDescription || (lang === 'hi'
@@ -29,7 +27,7 @@ const HeroSlide = ({ slide, onPlay, lang, stateClass }) => {
       <div className="sis3-hero-shade" />
       <div className="sis3-hero-content">
         <p className="sis3-eyebrow">SHORTSinSHORT SELECTION</p>
-        <h2>{title}</h2>
+        <h2 style={{ lineHeight: '1.2', paddingTop: '0.1em' }}>{title}</h2>
         <p className="sis3-hero-meta">{[country, language, film.year, duration].filter(Boolean).join(' · ')}</p>
         {description && <p className="sis3-hero-description">{description}</p>}
         <div className="sis3-hero-actions">
@@ -95,9 +93,6 @@ export default function Hero({
 
   useEffect(() => {
     if (!nextFilm) return undefined;
-    // Warm the browser cache during the current slide's 7-second window.
-    // A failed preload is handled when that film is actually requested, so
-    // the slide currently on screen never jumps unexpectedly.
     loadBestHeroArtwork(nextFilm).catch(() => {});
     return undefined;
   }, [nextFilm]);
