@@ -526,5 +526,34 @@
       "madeForKids": false
     },
     "removedAt": "2026-09-02T20:33:22.041Z"
+  },
+  {
+    "id": "mai-cw0",
+    "youtubeVideoId": "cW0K2QpgwIc",
+    "title": "Sama Chakewa (सामा चकेवा)",
+    "titleHi": "सामा चकेवा",
+    "director": "Dibiya Films",
+    "language": "Maithili",
+    "genre": [
+      "Roots",
+      "Drama",
+      "Culture"
+    ],
+    "duration": "14 min",
+    "thumbnail": "https://img.youtube.com/vi/cW0K2QpgwIc/hqdefault.jpg",
+    "description": "Celebration of sibling bonds and Mithila folk festivity.",
+    "descriptionHi": "भाई-बहन के पावन स्नेह और लोक पर्व पर आधारित खूबसूरत मैथिली कहानी।",
+    "durationSeconds": 1151,
+    "availability": "removed_or_private",
+    "youtubeHealth": {
+      "available": false,
+      "reason": "removed_or_private",
+      "checkedAt": "2026-09-07T08:25:58.363Z",
+      "embeddable": false,
+      "privacyStatus": "unavailable",
+      "madeForKids": null
+    },
+    "isPublished": false,
+    "removedAt": "2026-09-07T08:25:58.363Z"
   }
 ]
