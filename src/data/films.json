@@ -5242,5 +5242,32 @@
       "privacyStatus": "public",
       "madeForKids": false
     }
+  },
+  {
+    "id": "yt-onlybookshindi-phEF6wGRiDc",
+    "title": "The Monkey’s Paw | Part 3 – The Return 🐾 | Only Books #aifilm #hindihorror #hindishortfilm",
+    "titleHi": "The Monkey’s Paw | Part 3 – The Return 🐾 | Only Books #aifilm #hindihorror #hindishortfilm",
+    "director": "Only Books",
+    "genre": [
+      "AI Magic"
+    ],
+    "language": "Hindi",
+    "duration": "2 min",
+    "durationSeconds": 90,
+    "year": "2026",
+    "youtubeVideoId": "phEF6wGRiDc",
+    "thumbnail": "https://i.ytimg.com/vi/phEF6wGRiDc/maxresdefault.jpg",
+    "description": "The wish has come true… but something is terribly wrong.\n\nW. W. Jacobs की classic horror story The Monkey’s Paw का तीसरा हिस्सा।\n\nएक इच्छा पूरी हो चुकी है।\nलेकिन उसके साथ जो वापस आया है…\nक्या वह वही है जिसकी उम्मीद थी?\n\n🐾 कहानी अब एक ऐसे मोड़ पर पहुँचती है जहाँ डर सिर्फ बाहर नही",
+    "descriptionHi": "The wish has come true… but something is terribly wrong.\n\nW. W. Jacobs की classic horror story The Monkey’s Paw का तीसरा हिस्सा।\n\nएक इच्छा पूरी हो चुकी है।\nलेकिन उसके साथ जो वापस आया है…\nक्या वह वही है जिसकी उम्मीद थी?\n\n🐾 कहानी अब एक ऐसे मोड़ पर पहुँचती है जहाँ डर सिर्फ बाहर नही",
+    "country": "India",
+    "availability": "available",
+    "youtubeHealth": {
+      "available": true,
+      "reason": null,
+      "checkedAt": "2026-09-08T16:39:35.257Z",
+      "embeddable": true,
+      "privacyStatus": "public",
+      "madeForKids": false
+    }
   }
 ]
