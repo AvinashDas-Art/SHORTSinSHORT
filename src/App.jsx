@@ -382,21 +382,11 @@ export default function App() {
         films: newestFirstFilms.slice(0, 24)
       },
       {
-        title: lang === 'hi' ? 'पुरस्कृत और फेस्टिवल पसंद' : 'Award Winners & Festival Favourites',
-        films: (() => {
-          const seen = new Set(newestFirstFilms.slice(0, 24).map(f => f.id));
-          const list = newestFirstFilms.filter(f => {
-            if (seen.has(f.id)) return false;
-            const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
-            const titleMatch = /award|winner|festival|oscar|cannes|national/i.test(f.title || "");
-            const genreMatch = gList.some(g => /award|festival/i.test(g));
-            return genreMatch || titleMatch;
-          });
-          return list.length >= 6 ? list : newestFirstFilms.filter(f => {
-            const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
-            return gList.some(g => /award|festival/i.test(g));
-          }).reverse();
-        })(),
+        title: lang === 'hi' ? 'पुरस्कृत और फ़ेस्टिवल पसंद' : 'Award Winners & Festival Favourites',
+        films: newestFirstFilms.filter(f => {
+          const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
+          return gList.some(g => g.toLowerCase().includes('award'));
+        })
       },
       {
         title: lang === 'hi' ? 'सरहदों के पार' : 'Across Borders',
