@@ -40,9 +40,31 @@ function isJunkTailSegment(segment) {
 }
 
 export function cleanFilmTitle(value, lang = 'en') {
-  const title = safeText(value, lang).trim();
+  let title = safeText(value, lang)
+    .replace(/(^|\s)#[\p{L}\p{N}_-]+/gu, ' ')
+    .replace(/[🎬🏆🐾🔥✨🌟🎥]+/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  const metadataTail = title.match(/\s+(?:(?:award[- ]?winning|festival[- ]?selected|official)\s+)?(?:(?:hindi|english|malayalam|tamil|telugu|bengali|bangla|marathi|punjabi|urdu|bhojpuri|maithili|kannada|gujarati|odia)\s*)?(?:short\s*(?:film|movie)|shortfilm)\b/i);
+  if (metadataTail?.index > 1) title = title.slice(0, metadataTail.index).trim();
+  title = title
+    .replace(/\s+(?:bengali|bangla|malayalam|hindi|tamil|telugu|marathi|kannada)?awardwinning(?:short)?\s*film.*$/i, '')
+    .replace(/[\s|:;,.!\-–—]+$/g, '')
+    .trim();
+  if ((title.match(/\(/g) || []).length > (title.match(/\)/g) || []).length) {
+    title = title.slice(0, title.lastIndexOf('(')).replace(/[\s|:;,.!\-–—]+$/g, '').trim();
+  }
+
   const segments = title.split(/\s+[-–—|]\s+/).map((part) => part.trim()).filter(Boolean);
   if (segments.length <= 1) return title;
+
+  // A pipe in YouTube metadata nearly always separates the real title from
+  // language, cast, channel or promotional copy. Keep the film name clean.
+  if (title.includes('|')) return segments[0] || title;
+
+  if (segments.slice(1).some(isJunkTailSegment)) return segments[0] || title;
+
   let end = segments.length;
   while (end > 1 && isJunkTailSegment(segments[end - 1])) end -= 1;
   const name = segments.slice(0, end).join(' - ').trim();

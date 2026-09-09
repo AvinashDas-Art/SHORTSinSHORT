@@ -112,16 +112,20 @@ const requestJson = async (url, label) => {
   return response.json();
 };
 
-const resolveUploadsPlaylistId = async (handle) => {
-  const params = new URLSearchParams({ part: 'contentDetails', forHandle: handle, key: apiKey });
+const resolveUploadsPlaylistId = async (channel) => {
+  const handle = String(channel.handle || '').replace(/^@/, '').trim();
+  const channelId = String(channel.channelId || '').trim();
+  const params = new URLSearchParams({ part: 'contentDetails', key: apiKey });
+  if (channelId) params.set('id', channelId);
+  else params.set('forHandle', handle);
   const payload = await requestJson(
     'https://www.googleapis.com/youtube/v3/channels?' + params,
-    'YouTube Channels (@' + handle + ')'
+    'YouTube Channels (' + (handle ? '@' + handle : channelId) + ')'
   );
   const item = payload.items?.[0];
   const uploadsId = item?.contentDetails?.relatedPlaylists?.uploads;
   if (!uploadsId) {
-    console.error('ERROR: @' + handle + ' के लिए uploads playlist नहीं मिली।');
+    console.error('ERROR: ' + (handle ? '@' + handle : channelId) + ' के लिए uploads playlist नहीं मिली।');
     process.exit(1);
   }
   return uploadsId;
@@ -166,15 +170,17 @@ const automaticRejects = [];
 
 for (const channel of channels) {
   const handle = String(channel.handle || '').replace(/^@/, '').trim();
-  if (!handle) continue;
+  const channelId = String(channel.channelId || '').trim();
+  if (!handle && !channelId) continue;
+  const sourceName = handle ? '@' + handle : channel.name || channelId;
   const maxPerRun = Math.min(Number(channel.maxPerRun) || 15, 30);
 
-  console.log('CHANNEL @' + handle + ': स्कैन शुरू (अधिकतम ' + scanCapPerChannel + ' वीडियो जांचेंगे)।');
-  const uploadsPlaylistId = await resolveUploadsPlaylistId(handle);
+  console.log('CHANNEL ' + sourceName + ': स्कैन शुरू (अधिकतम ' + scanCapPerChannel + ' वीडियो जांचेंगे)।');
+  const uploadsPlaylistId = await resolveUploadsPlaylistId(channel);
   const scannedIds = await fetchUploadIds(uploadsPlaylistId, scanCapPerChannel);
   const unknownIds = scannedIds.filter((id) => !knownIds.has(id));
 
-  console.log('CHANNEL @' + handle + ': कुल स्कैन ' + scannedIds.length + ', पहले से अनजान ' + unknownIds.length + '।');
+  console.log('CHANNEL ' + sourceName + ': कुल स्कैन ' + scannedIds.length + ', पहले से अनजान ' + unknownIds.length + '।');
   if (!unknownIds.length) continue;
 
   const details = await fetchVideoDetails(unknownIds);
@@ -223,7 +229,7 @@ for (const channel of channels) {
       watchUrl: 'https://www.youtube.com/watch?v=' + videoId,
       embedUrl: 'https://www.youtube.com/embed/' + videoId,
       viewCount: views,
-      discoveryQuery: '@' + handle + ' channel upload',
+      discoveryQuery: sourceName + ' channel upload',
       discoveryScore: Number(Math.min(Math.log10(Math.max(views, 1)), 7).toFixed(3)),
       status: 'pending',
       discoveredAt: nowIso,
@@ -237,7 +243,7 @@ for (const channel of channels) {
   const selected = channelCandidates.slice(0, maxPerRun);
   allSelected.push(...selected);
 
-  console.log('CHANNEL @' + handle + ': योग्य ' + channelCandidates.length + ', इस बार queue में जाएंगी ' + selected.length + '।');
+  console.log('CHANNEL ' + sourceName + ': योग्य ' + channelCandidates.length + ', इस बार queue में जाएंगी ' + selected.length + '।');
   for (const item of selected) {
     console.log('QUEUE ' + item.youtubeVideoId + ' | ' + item.durationSeconds + 's | ' + item.title);
   }

@@ -103,6 +103,16 @@ const safeText = (val, lang = 'en') => {
   return String(val);
 };
 
+const uniqueByTitle = (films) => {
+  const seen = new Set();
+  return films.filter((film) => {
+    const key = cleanFilmTitle(film.title).toLocaleLowerCase().replace(/[^\p{L}\p{N}]+/gu, '');
+    if (!key || seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+};
+
 export default function App() {
   const { filmId } = useParams();
   const navigate = useNavigate();
@@ -368,14 +378,18 @@ export default function App() {
   const categorizedSections = useMemo(() => {
     const list = [
       {
-        title: lang === 'hi' ? 'पुरस्कृत और बहुप्रशंसित (Award Winners & Festival Favourites)' : 'Award Winners & Festival Favourites',
+        title: lang === 'hi' ? 'सिनेमाथेक में नया' : 'New in the Cinematheque',
+        films: newestFirstFilms.slice(0, 24)
+      },
+      {
+        title: lang === 'hi' ? 'पुरस्कृत और फ़ेस्टिवल पसंद' : 'Award Winners & Festival Favourites',
         films: newestFirstFilms.filter(f => {
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
           return gList.some(g => g.toLowerCase().includes('award'));
         })
       },
       {
-        title: lang === 'hi' ? '🌍 वर्ल्ड सिनेमा (World Cinema Showcase)' : 'World Cinema, In Short',
+        title: lang === 'hi' ? 'सरहदों के पार' : 'Across Borders',
         films: newestFirstFilms.filter(f => {
           const l = safeText(f.language, 'en').toLowerCase();
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
@@ -386,30 +400,46 @@ export default function App() {
         })
       },
       {
-        title: lang === 'hi' ? '🌴 मलयालम सिनेमा हब (Roots of Kerala)' : 'Roots of Kerala (Malayalam Short Films)',
+        title: lang === 'hi' ? 'मलयालम स्पॉटलाइट' : 'Malayalam Spotlight',
         films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'malayalam')
       },
       {
-        title: lang === 'hi' ? '🌾 माटी की कहानियाँ: मैथिली सिनेमा' : 'Roots of Mithila (Maithili Short Films)',
+        title: lang === 'hi' ? 'मैथिली आवाज़ें' : 'Maithili Voices',
         films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'maithili')
       },
       {
-        title: lang === 'hi' ? '🚩 मराठी शॉर्ट सिनेमा (Marathi Cinema Showcase)' : 'Marathi Cinema Showcase (Marathi Shorts)',
+        title: lang === 'hi' ? 'मराठी स्पॉटलाइट' : 'Marathi Spotlight',
         films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'marathi')
       },
       {
-        title: lang === 'hi' ? '🌿 भोजपुरी माटी (Bhojpuri Cinema Showcase)' : 'Bhojpuri Soil & Cinema (Bhojpuri Shorts)',
+        title: lang === 'hi' ? 'भोजपुरी कहानियां' : 'Bhojpuri Stories',
         films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'bhojpuri')
       },
       {
-        title: lang === 'hi' ? '🎭 बांग्ला शॉर्ट सिनेमा (Bengali Masterpieces)' : 'Bangla Cinema Showcase (Bengali Shorts)',
+        title: lang === 'hi' ? 'बांग्ला स्पॉटलाइट' : 'Bangla Spotlight',
         films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'bengali')
       },
       {
-        title: lang === 'hi' ? 'AI सिनेमा और न्यू-एज विज़ुअल्स' : 'AI Magic & Generative Cinema',
+        title: lang === 'hi' ? 'तमिल स्पॉटलाइट' : 'Tamil Spotlight',
+        films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'tamil')
+      },
+      {
+        title: lang === 'hi' ? 'तेलुगु स्पॉटलाइट' : 'Telugu Spotlight',
+        films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'telugu')
+      },
+      {
+        title: lang === 'hi' ? 'कन्नड़ स्पॉटलाइट' : 'Kannada Spotlight',
+        films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'kannada')
+      },
+      {
+        title: lang === 'hi' ? '10 मिनट से कम' : 'Under 10 Minutes',
+        films: newestFirstFilms.filter(f => Number(f.durationSeconds) > 0 && Number(f.durationSeconds) <= 600)
+      },
+      {
+        title: lang === 'hi' ? 'नये रूप - AI और एनीमेशन' : 'New Forms - AI & Animation',
         films: newestFirstFilms.filter(f => {
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
-          return gList.some(g => g.toLowerCase().includes('ai'));
+          return gList.some(g => g.toLowerCase().includes('ai') || g.toLowerCase().includes('animation'));
         })
       },
       {
@@ -428,7 +458,9 @@ export default function App() {
       }
     ];
 
-    return list.filter(sec => sec.films.length > 0);
+    return list
+      .map((section) => ({ ...section, films: uniqueByTitle(section.films) }))
+      .filter(sec => sec.films.length > 0);
   }, [newestFirstFilms, lang]);
 
   // Combined Search & Filter View

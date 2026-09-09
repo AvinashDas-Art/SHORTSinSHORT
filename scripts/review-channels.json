@@ -10,5 +10,47 @@
     "languageHint": "Hindi",
     "countryHint": "India",
     "maxPerRun": 15
+  },
+  {
+    "name": "Bongflix",
+    "channelId": "UCiB6raQ0J6jSSP0WMXwacDA",
+    "languageHint": "Bengali",
+    "countryHint": "India",
+    "maxPerRun": 5
+  },
+  {
+    "name": "Hook Films",
+    "channelId": "UCmCV59KtGn5TgwCb-mdylYQ",
+    "languageHint": "Bengali",
+    "countryHint": "India",
+    "maxPerRun": 5
+  },
+  {
+    "name": "Golden Frame Talkies",
+    "channelId": "UCVU13qo7AxJzkGss9AvY-vg",
+    "languageHint": "Bengali",
+    "countryHint": "India",
+    "maxPerRun": 5
+  },
+  {
+    "name": "RAPO",
+    "channelId": "UCXYjscWcOyAn9CyZCZASgQg",
+    "languageHint": "Malayalam",
+    "countryHint": "India",
+    "maxPerRun": 5
+  },
+  {
+    "name": "Pendulum Films",
+    "channelId": "UCn5MyJsBw7NZ5NFVEpCe4_Q",
+    "languageHint": "Malayalam",
+    "countryHint": "India",
+    "maxPerRun": 5
+  },
+  {
+    "name": "Credox Talkies",
+    "channelId": "UCuHfrA-vizJoIC-8VbWidCA",
+    "languageHint": "Malayalam",
+    "countryHint": "India",
+    "maxPerRun": 5
   }
 ]

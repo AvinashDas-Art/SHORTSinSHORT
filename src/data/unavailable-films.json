@@ -555,5 +555,89 @@
     },
     "isPublished": false,
     "removedAt": "2026-09-07T08:25:58.363Z"
+  },
+  {
+    "id": "yt-onlybookshindi-GRaIFlzX0AA",
+    "title": "The Monkey’s Paw",
+    "titleHi": "The Monkey’s Paw",
+    "director": "Only Books",
+    "genre": [
+      "AI Magic"
+    ],
+    "language": "Hindi",
+    "duration": "2 min",
+    "durationSeconds": 106,
+    "year": "2026",
+    "youtubeVideoId": "GRaIFlzX0AA",
+    "thumbnail": "https://i.ytimg.com/vi/GRaIFlzX0AA/maxresdefault.jpg",
+    "description": "three wishes.  One cursed paw.",
+    "descriptionHi": "three wishes.  One cursed paw.",
+    "country": "India",
+    "availability": "editorial_duplicate_series_part",
+    "youtubeHealth": {
+      "available": true,
+      "reason": null,
+      "checkedAt": "2026-09-09T08:14:23.396Z",
+      "embeddable": true,
+      "privacyStatus": "public",
+      "madeForKids": false
+    },
+    "isPublished": false
+  },
+  {
+    "id": "yt-onlybookshindi-Es53EH12c_I",
+    "title": "The Monkey’s Paw",
+    "titleHi": "The Monkey’s Paw",
+    "director": "Only Books",
+    "genre": [
+      "AI Magic"
+    ],
+    "language": "Hindi",
+    "duration": "2 min",
+    "durationSeconds": 104,
+    "year": "2026",
+    "youtubeVideoId": "Es53EH12c_I",
+    "thumbnail": "https://i.ytimg.com/vi/Es53EH12c_I/maxresdefault.jpg",
+    "description": "The first wish has been made… but what happens next?  W.",
+    "descriptionHi": "The first wish has been made… but what happens next?  W.",
+    "country": "India",
+    "availability": "editorial_duplicate_series_part",
+    "youtubeHealth": {
+      "available": true,
+      "reason": null,
+      "checkedAt": "2026-09-09T08:14:23.396Z",
+      "embeddable": true,
+      "privacyStatus": "public",
+      "madeForKids": false
+    },
+    "isPublished": false
+  },
+  {
+    "id": "yt-onlybookshindi-phEF6wGRiDc",
+    "title": "The Monkey’s Paw",
+    "titleHi": "The Monkey’s Paw",
+    "director": "Only Books",
+    "genre": [
+      "AI Magic"
+    ],
+    "language": "Hindi",
+    "duration": "2 min",
+    "durationSeconds": 90,
+    "year": "2026",
+    "youtubeVideoId": "phEF6wGRiDc",
+    "thumbnail": "https://i.ytimg.com/vi/phEF6wGRiDc/maxresdefault.jpg",
+    "description": "The wish has come true… but something is terribly wrong.  W.",
+    "descriptionHi": "The wish has come true… but something is terribly wrong.  W.",
+    "country": "India",
+    "availability": "editorial_duplicate_series_part",
+    "youtubeHealth": {
+      "available": true,
+      "reason": null,
+      "checkedAt": "2026-09-09T08:14:23.396Z",
+      "embeddable": true,
+      "privacyStatus": "public",
+      "madeForKids": false
+    },
+    "isPublished": false
   }
 ]

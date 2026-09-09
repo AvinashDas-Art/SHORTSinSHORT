@@ -9,7 +9,7 @@ permissions:
   issues: write
 
 concurrency:
-  group: shortsinshort-curator-approval
+  group: shortsinshort-catalogue-main
   cancel-in-progress: false
 
 jobs:
@@ -76,9 +76,10 @@ jobs:
               }
             '
             npm run catalogue:publish-approved
+            npm run catalogue:curate
             npm run build
 
-            git add src/data/discovery-queue.json src/data/discovery-approved.json src/data/discovery-rejected.json src/data/films.json
+            git add src/data public/sitemap.xml
             if git diff --cached --quiet; then
               echo "Nothing to commit - decision already applied upstream."
               break
