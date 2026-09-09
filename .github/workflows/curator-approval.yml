@@ -18,50 +18,63 @@ jobs:
       github.event.issue.pull_request == null &&
       github.event.issue.title == 'SHORTSinSHORT - Films Awaiting Approval' &&
       github.actor == 'AvinashDas-Art' &&
-      (startsWith(github.event.comment.body, '/approve ') || startsWith(github.event.comment.body, '/reject '))
+      (contains(github.event.comment.body, '/approve ') || contains(github.event.comment.body, '/reject '))
     runs-on: ubuntu-latest
     steps:
-      - name: Parse owner command
-        id: command
+      - name: Parse owner commands
+        id: commands
         uses: actions/github-script@v7
         with:
-          result-encoding: string
           script: |
-            const text = context.payload.comment.body.trim();
-            const match = text.match(/^\/(approve|reject)\s+([A-Za-z0-9_-]{11})$/);
-            if (!match) core.setFailed('Command must be /approve VIDEO_ID or /reject VIDEO_ID');
-            return `${match[1]}|${match[2]}`;
+            const text = context.payload.comment.body;
+            const lines = text.split('\n');
+            const parsed = [];
+
+            for (const line of lines) {
+              const match = line.trim().match(/^\/(approve|reject)\s+([A-Za-z0-9_-]{11})$/);
+              if (match) {
+                parsed.push({ action: match[1], videoId: match[2] });
+              }
+            }
+
+            if (parsed.length === 0) {
+              core.setFailed('No valid /approve VIDEO_ID or /reject VIDEO_ID commands found.');
+            }
+
+            return JSON.stringify(parsed);
+
       - name: Checkout main catalogue
         uses: actions/checkout@v4
         with:
           ref: main
           fetch-depth: 0
+
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
+
       - name: Install dependencies
         run: npm ci
+
       - name: Record, publish, verify and push (with retry on race)
         env:
-          REVIEW_COMMAND: ${{ steps.command.outputs.result }}
+          COMMANDS_JSON: ${{ steps.commands.outputs.result }}
         run: |
           set -e
-          ACTION="${REVIEW_COMMAND%%|*}"
-          VIDEO_ID="${REVIEW_COMMAND#*|}"
           git config user.name "SHORTSinSHORT Curator Bot"
           git config user.email "curator-bot@users.noreply.github.com"
 
-          # Other scheduled workflows (daily discovery, auto-hide/health-check)
-          # also commit straight to main, so by the time we reach the push
-          # below, origin/main may have moved on. Rather than rebasing
-          # already-generated JSON (which conflicts easily and used to leave
-          # this step permanently failed), each retry resets the working
-          # tree to the freshest origin/main and regenerates the same
-          # review/publish/build against that new base before pushing again.
           for attempt in 1 2 3 4 5; do
-            npm run catalogue:review -- "$ACTION" "$VIDEO_ID"
+            node -e '
+              const commands = JSON.parse(process.env.COMMANDS_JSON);
+              const { execSync } = require("child_process");
+              for (const cmd of commands) {
+                console.log(`Processing: ${cmd.action} ${cmd.videoId}`);
+                execSync(`npm run catalogue:review -- "${cmd.action}" "${cmd.videoId}"`, { stdio: "inherit" });
+              }
+            '
             npm run catalogue:publish-approved
             npm run build
 
@@ -70,7 +83,7 @@ jobs:
               echo "Nothing to commit - decision already applied upstream."
               break
             fi
-            git commit -m "Record curator ${ACTION}: ${VIDEO_ID}"
+            git commit -m "Record curator bulk actions"
 
             if git push origin HEAD:main; then
               echo "Pushed successfully on attempt ${attempt}."
@@ -87,20 +100,26 @@ jobs:
             git reset --hard origin/main
             sleep $((attempt * 5))
           done
-      - name: Confirm decision in Issue
+
+      - name: Confirm decisions in Issue
         uses: actions/github-script@v7
         env:
-          REVIEW_COMMAND: ${{ steps.command.outputs.result }}
+          COMMANDS_JSON: ${{ steps.commands.outputs.result }}
         with:
           script: |
-            const [action, videoId] = process.env.REVIEW_COMMAND.split('|');
-            const word = action === 'approve' ? 'APPROVED' : 'REJECTED';
-            const note = action === 'approve'
-              ? 'यह फ़िल्म अब live catalogue में जुड़ गयी है।'
-              : 'Live catalogue नहीं बदला है।';
+            const commands = JSON.parse(process.env.COMMANDS_JSON);
+            let summaryText = '### Curator Decisions Applied:\n\n';
+
+            for (const cmd of commands) {
+              const word = cmd.action === 'approve' ? 'APPROVED' : 'REJECTED';
+              summaryText += `- ✅ **${word}**: \`${cmd.videoId}\`\n`;
+            }
+
+            summaryText += '\nलाइव कैटलॉग अपडेट हो गया है।';
+
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: `✅ ${word}: \`${videoId}\`\n\n${note}`
+              body: summaryText
             });
