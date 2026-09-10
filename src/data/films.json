@@ -8015,7 +8015,6 @@
     "director": "'s Statement: \"Auntie Issues is a project born from the need to tell different s",
     "genre": [
       "Award Winning",
-      "Animation",
       "Horror"
     ],
     "language": "Various",
@@ -8044,7 +8043,6 @@
     "director": "RAPO",
     "genre": [
       "Award Winning",
-      "Animation",
       "Comedy"
     ],
     "language": "Malayalam",
@@ -8209,7 +8207,8 @@
     "director": "TeluguOne Originals",
     "genre": [
       "Award Winning",
-      "Animation"
+      "Drama",
+      "Family"
     ],
     "language": "Telugu",
     "duration": "11 min",
@@ -8456,7 +8455,7 @@
     "director": "Santhosh HJ",
     "genre": [
       "Award Winning",
-      "Animation"
+      "Drama"
     ],
     "language": "Kannada",
     "duration": "22 min",
@@ -8620,7 +8619,7 @@
     "director": "Writer : Marwan Tarek",
     "genre": [
       "Award Winning",
-      "Animation"
+      "Drama"
     ],
     "language": "Arabic",
     "duration": "16 min",
@@ -8758,7 +8757,7 @@
     "director": "Barr Pictures Media",
     "genre": [
       "Award Winning",
-      "Animation"
+      "Drama"
     ],
     "language": "Persian",
     "duration": "2 min",
@@ -10268,7 +10267,7 @@
     "category": "Cinema Collection",
     "genre": [
       "Award Winning",
-      "Animation"
+      "Drama"
     ],
     "language": "Tamil",
     "country": "India",
@@ -10916,7 +10915,8 @@
     "duration": "23 min",
     "category": "Cinema Collection",
     "genre": [
-      "Animation"
+      "Comedy",
+      "Drama"
     ],
     "language": "Kannada",
     "country": "India",
@@ -11129,7 +11129,7 @@
     "duration": "21 min",
     "category": "Cinema Collection",
     "genre": [
-      "Animation"
+      "Drama"
     ],
     "language": "Kannada",
     "country": "India",
@@ -11585,7 +11585,6 @@
     "duration": "23 min",
     "category": "Cinema Collection",
     "genre": [
-      "Animation",
       "Comedy"
     ],
     "language": "Malayalam",
@@ -11613,7 +11612,7 @@
     "duration": "24 min",
     "category": "Cinema Collection",
     "genre": [
-      "Animation",
+      "Fantasy",
       "Thriller"
     ],
     "language": "Malayalam",
@@ -12981,7 +12980,7 @@
     "category": "Cinema Collection",
     "genre": [
       "Award Winning",
-      "Animation",
+      "Comedy",
       "Romance"
     ],
     "language": "English",

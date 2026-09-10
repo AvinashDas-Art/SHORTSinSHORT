@@ -141,9 +141,14 @@ const inferLanguage = (item, channel) => {
 const genresFor = (item, channel) => {
   const configured = Array.isArray(channel.genre) ? channel.genre : [String(channel.genre || 'Drama')];
   if (!channel.inferGenre) return configured;
-  const source = cleanText(`${item.snippet?.title || ''}\n${item.snippet?.description || ''}`);
+  const title = cleanText(item.snippet?.title || '');
+  const description = cleanText(item.snippet?.description || '');
+  const source = `${title}\n${description}`;
   if (/\b(?:non[- ]?fiction|documentary)\b/i.test(source)) return ['Documentary', 'Student Film'];
-  if (/\b(?:animation|animated|stop[- ]?motion)\b/i.test(source)) return ['Animation', 'Student Film'];
+  const explicitlyAnimated = /\b(?:animated|animation|stop[- ]?motion)\s+(?:student\s+|diploma\s+)?(?:short\s+)?film\b/i.test(source)
+    || /\b(?:student\s+|diploma\s+|short\s+)?film\s+(?:in\s+)?(?:animation|stop[- ]?motion)\b/i.test(source)
+    || /\b(?:CGI|2D|3D)\s+animated\b/i.test(title);
+  if (explicitlyAnimated) return ['Animation', 'Student Film'];
   return configured;
 };
 
