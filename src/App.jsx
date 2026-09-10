@@ -113,6 +113,13 @@ const uniqueByTitle = (films) => {
   });
 };
 
+const filmLanguages = (film) => [...new Set([
+  safeText(film.language, 'en'),
+  ...(Array.isArray(film.languages) ? film.languages.map((item) => safeText(item, 'en')) : [])
+].filter(Boolean))];
+
+const hasLanguage = (film, language) => filmLanguages(film).some((item) => item.toLowerCase() === language.toLowerCase());
+
 export default function App() {
   const { filmId } = useParams();
   const navigate = useNavigate();
@@ -295,8 +302,7 @@ export default function App() {
       if (Array.isArray(f.genre)) f.genre.forEach(g => gSet.add(g));
       else if (typeof f.genre === 'string') gSet.add(f.genre);
 
-      const l = safeText(f.language, 'en');
-      if (l) lSet.add(l);
+      filmLanguages(f).forEach((language) => lSet.add(language));
     });
     return { 
       genres: Array.from(gSet), 
@@ -389,47 +395,60 @@ export default function App() {
         })
       },
       {
+        title: 'FTII Students Shorts',
+        films: newestFirstFilms.filter(f => Array.isArray(f.collections) && f.collections.includes('FTII Students Shorts'))
+      },
+      {
+        title: 'Shorts in Oscar',
+        films: newestFirstFilms.filter(f => Array.isArray(f.collections) && f.collections.includes('Shorts in Oscar'))
+      },
+      {
         title: lang === 'hi' ? 'सरहदों के पार' : 'Across Borders',
         films: newestFirstFilms.filter(f => {
-          const l = safeText(f.language, 'en').toLowerCase();
+          const filmLanguageValues = filmLanguages(f).map((item) => item.toLowerCase());
           const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
           const isWorldGenre = gList.some(g => g.toLowerCase().includes('world'));
-          const isInternationalLang = ['french', 'iranian', 'spanish', 'german', 'korean', 'japanese'].includes(l);
-          const isSilentClassic = l === 'silent' && isWorldGenre;
-          return isInternationalLang || isSilentClassic || (isWorldGenre && l !== 'malayalam' && l !== 'tamil' && l !== 'telugu' && l !== 'kannada' && l !== 'hindi' && l !== 'bhojpuri' && l !== 'maithili' && l !== 'marathi' && l !== 'bengali');
+          const isInternationalLang = filmLanguageValues.some((item) => ['french', 'iranian', 'spanish', 'german', 'korean', 'japanese', 'hungarian', 'danish'].includes(item));
+          const isSilentClassic = filmLanguageValues.includes('silent') && isWorldGenre;
+          const isIndianLanguage = filmLanguageValues.some((item) => ['malayalam', 'tamil', 'telugu', 'kannada', 'hindi', 'bhojpuri', 'maithili', 'marathi', 'bengali', 'gujarati', 'urdu'].includes(item));
+          return isInternationalLang || isSilentClassic || (isWorldGenre && !isIndianLanguage);
         })
       },
       {
+        title: lang === 'hi' ? 'हिंदी स्पॉटलाइट' : 'Hindi Spotlight',
+        films: newestFirstFilms.filter(f => hasLanguage(f, 'Hindi'))
+      },
+      {
         title: lang === 'hi' ? 'मलयालम स्पॉटलाइट' : 'Malayalam Spotlight',
-        films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'malayalam')
+        films: newestFirstFilms.filter(f => hasLanguage(f, 'Malayalam'))
       },
       {
         title: lang === 'hi' ? 'मैथिली आवाज़ें' : 'Maithili Voices',
-        films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'maithili')
+        films: newestFirstFilms.filter(f => hasLanguage(f, 'Maithili'))
       },
       {
         title: lang === 'hi' ? 'मराठी स्पॉटलाइट' : 'Marathi Spotlight',
-        films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'marathi')
+        films: newestFirstFilms.filter(f => hasLanguage(f, 'Marathi'))
       },
       {
         title: lang === 'hi' ? 'भोजपुरी कहानियां' : 'Bhojpuri Stories',
-        films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'bhojpuri')
+        films: newestFirstFilms.filter(f => hasLanguage(f, 'Bhojpuri'))
       },
       {
         title: lang === 'hi' ? 'बांग्ला स्पॉटलाइट' : 'Bangla Spotlight',
-        films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'bengali')
+        films: newestFirstFilms.filter(f => hasLanguage(f, 'Bengali'))
       },
       {
         title: lang === 'hi' ? 'तमिल स्पॉटलाइट' : 'Tamil Spotlight',
-        films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'tamil')
+        films: newestFirstFilms.filter(f => hasLanguage(f, 'Tamil'))
       },
       {
         title: lang === 'hi' ? 'तेलुगु स्पॉटलाइट' : 'Telugu Spotlight',
-        films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'telugu')
+        films: newestFirstFilms.filter(f => hasLanguage(f, 'Telugu'))
       },
       {
         title: lang === 'hi' ? 'कन्नड़ स्पॉटलाइट' : 'Kannada Spotlight',
-        films: newestFirstFilms.filter(f => safeText(f.language, 'en').toLowerCase() === 'kannada')
+        films: newestFirstFilms.filter(f => hasLanguage(f, 'Kannada'))
       },
       {
         title: lang === 'hi' ? '10 मिनट से कम' : 'Under 10 Minutes',
@@ -473,8 +492,7 @@ export default function App() {
       const gList = Array.isArray(film.genre) ? film.genre : [film.genre];
       const matchesGenre = selectedGenre === 'All' || gList.some(g => typeof g === 'string' && g.toLowerCase() === selectedGenre.toLowerCase());
       
-      const filmLang = safeText(film.language, 'en');
-      const matchesLang = selectedLangFilter === 'All' || (filmLang && filmLang.toLowerCase() === selectedLangFilter.toLowerCase());
+      const matchesLang = selectedLangFilter === 'All' || hasLanguage(film, selectedLangFilter);
 
       return matchesSearch && matchesGenre && matchesLang;
     });
