@@ -9,7 +9,7 @@ import path from 'node:path';
 const root = process.cwd();
 const apiKey = process.env.YOUTUBE_API_KEY?.trim();
 const apply = process.argv.includes('--apply');
-const maxDurationSeconds = 40 * 60; // टीज़र-प्रोमो जैसी बहुत छोटी क्लिप और भूल-चूक से आयी बहुत लंबी वीडियो, दोनों को छोड़ने के लिए एक सुरक्षित ऊपरी सीमा
+const defaultMaxDurationSeconds = 40 * 60;
 
 if (!apiKey) {
   console.error('ERROR: YOUTUBE_API_KEY environment variable नहीं मिली।');
@@ -54,6 +54,13 @@ const videoIdFrom = (item) => {
 
 const knownIds = new Set([...films, ...unavailable].map(videoIdFrom).filter(Boolean));
 
+const titleKey = (value) => cleanText(value)
+  .toLowerCase()
+  .replace(/\b(remastered|4k|full film|with eng(?:lish)? subtitles?)\b/g, '')
+  .replace(/\(\s*\)/g, '')
+  .replace(/[^a-z0-9]+/g, ' ')
+  .trim();
+
 const durationSeconds = (iso) => {
   const match = String(iso || '').match(/^P(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?)?$/);
   if (!match) return null;
@@ -70,6 +77,75 @@ const cleanText = (value) => String(value || '')
   .replace(/&lt;/g, '<')
   .replace(/&gt;/g, '>')
   .trim();
+
+const knownTitleKeys = new Set(films.map((film) => titleKey(film.title)).filter(Boolean));
+
+const patternsFrom = (values) => (Array.isArray(values) ? values : [])
+  .map((value) => {
+    try {
+      return new RegExp(String(value), 'i');
+    } catch {
+      console.error('ERROR: ग़लत regular expression: ' + value);
+      process.exit(1);
+    }
+  });
+
+const cleanCatalogueTitle = (value, style) => {
+  const title = cleanText(value);
+  if (style !== 'ftii') return title;
+  return title
+    .replace(/\s*(?:\||-)?\s*FTII\s+Student\s+Films?.*$/i, '')
+    .replace(/\s+Acting\s+Diploma\s+Film.*$/i, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+};
+
+const directorFromTitle = (value, fallback) => {
+  const title = cleanText(value);
+  const match = title.match(/(?:directed\s+by|dir\.?\s*(?:&\s*script\s*)?by|direction\s+by|student\s+films?\s+by|diploma\s+film\s+directed\s+by)\s+([^|]+)/i);
+  if (!match) return fallback;
+  const director = match[1]
+    .replace(/\s+ft\..*$/i, '')
+    .replace(/\s+with\s+.*$/i, '')
+    .trim();
+  return director || fallback;
+};
+
+const LANGUAGE_CODES = new Map([
+  ['as', 'Assamese'], ['bn', 'Bengali'], ['bho', 'Bhojpuri'], ['en', 'English'],
+  ['gu', 'Gujarati'], ['hi', 'Hindi'], ['kn', 'Kannada'], ['mai', 'Maithili'],
+  ['ml', 'Malayalam'], ['mr', 'Marathi'], ['ne', 'Nepali'], ['or', 'Odia'],
+  ['pa', 'Punjabi'], ['sa', 'Sanskrit'], ['ta', 'Tamil'], ['te', 'Telugu'], ['ur', 'Urdu']
+]);
+
+const inferLanguage = (item, channel) => {
+  if (!channel.inferLanguage) return channel.language || 'Various';
+  const rawCode = cleanText(item.snippet?.defaultAudioLanguage || item.snippet?.defaultLanguage).toLowerCase();
+  const baseCode = rawCode.split(/[-_]/)[0];
+  if (LANGUAGE_CODES.has(baseCode)) return LANGUAGE_CODES.get(baseCode);
+
+  const source = cleanText(`${item.snippet?.title || ''}\n${item.snippet?.description || ''}`);
+  const names = [
+    ['Assamese', /\bassamese\b/i], ['Bengali', /\b(?:bengali|bangla)\b/i],
+    ['Bhojpuri', /\bbhojpuri\b/i], ['Gujarati', /\bgujarati\b/i],
+    ['Hindi', /\bhindi\b/i], ['Kannada', /\bkannada\b/i],
+    ['Maithili', /\bmaithili\b/i], ['Malayalam', /\bmalayalam\b/i],
+    ['Marathi', /\bmarathi\b/i], ['Nepali', /\bnepali\b/i],
+    ['Odia', /\b(?:odia|oriya)\b/i], ['Punjabi', /\bpunjabi\b/i],
+    ['Sanskrit', /\bsanskrit\b/i], ['Tamil', /\btamil\b/i],
+    ['Telugu', /\btelugu\b/i], ['Urdu', /\burdu\b/i]
+  ];
+  return names.find(([, pattern]) => pattern.test(source))?.[0] || channel.language || 'Various';
+};
+
+const genresFor = (item, channel) => {
+  const configured = Array.isArray(channel.genre) ? channel.genre : [String(channel.genre || 'Drama')];
+  if (!channel.inferGenre) return configured;
+  const source = cleanText(`${item.snippet?.title || ''}\n${item.snippet?.description || ''}`);
+  if (/\b(?:non[- ]?fiction|documentary)\b/i.test(source)) return ['Documentary', 'Student Film'];
+  if (/\b(?:animation|animated|stop[- ]?motion)\b/i.test(source)) return ['Animation', 'Student Film'];
+  return configured;
+};
 
 const requestJson = async (url, label) => {
   const response = await fetch(url);
@@ -141,10 +217,14 @@ for (const channel of channels) {
   const handle = String(channel.handle || '').replace(/^@/, '').trim();
   if (!handle) continue;
   const minDuration = Number(channel.minDurationSeconds) || 90;
+  const maxDuration = Number(channel.maxDurationSeconds) || defaultMaxDurationSeconds;
+  const scanLimit = Number(channel.scanLimit) || 200;
+  const includeTitlePatterns = patternsFrom(channel.includeTitlePatterns);
+  const excludeTitlePatterns = patternsFrom(channel.excludeTitlePatterns);
 
   console.log('CHANNEL @' + handle + ': जांच शुरू।');
   const uploadsPlaylistId = await resolveUploadsPlaylistId(handle);
-  const uploadIds = await fetchAllUploadIds(uploadsPlaylistId);
+  const uploadIds = await fetchAllUploadIds(uploadsPlaylistId, scanLimit);
   const newIds = uploadIds.filter((id) => !knownIds.has(id));
 
   if (!newIds.length) {
@@ -158,8 +238,18 @@ for (const channel of channels) {
     if (!item) continue;
 
     const seconds = durationSeconds(item.contentDetails?.duration);
-    const title = cleanText(item.snippet?.title);
+    const rawTitle = cleanText(item.snippet?.title);
+    const title = cleanCatalogueTitle(rawTitle, channel.titleStyle);
     const description = cleanText(item.snippet?.description).slice(0, 280);
+
+    if (excludeTitlePatterns.some((pattern) => pattern.test(rawTitle))) {
+      console.log('SKIP ' + videoId + ' (' + rawTitle + '): lecture/interview/promo filter।');
+      continue;
+    }
+    if (includeTitlePatterns.length && !includeTitlePatterns.some((pattern) => pattern.test(rawTitle))) {
+      console.log('SKIP ' + videoId + ' (' + rawTitle + '): पूरी student film के रूप में चिह्नित नहीं।');
+      continue;
+    }
 
     if (item.status?.privacyStatus !== 'public') {
       console.log('SKIP ' + videoId + ' (' + title + '): private/unlisted।');
@@ -173,8 +263,14 @@ for (const channel of channels) {
       console.log('SKIP ' + videoId + ' (' + title + '): ' + (seconds ?? '?') + 's, यह टीज़र/प्रोमो लग रहा है, पूरी फ़िल्म नहीं।');
       continue;
     }
-    if (seconds > maxDurationSeconds) {
+    if (seconds > maxDuration) {
       console.log('SKIP ' + videoId + ' (' + title + '): ' + seconds + 's, ऊपरी सीमा से ज़्यादा लंबी।');
+      continue;
+    }
+
+    const key = titleKey(title);
+    if (key && knownTitleKeys.has(key)) {
+      console.log('SKIP ' + videoId + ' (' + title + '): यही फ़िल्म catalogue में पहले से है।');
       continue;
     }
 
@@ -184,15 +280,17 @@ for (const channel of channels) {
       || 'https://i.ytimg.com/vi/' + videoId + '/hqdefault.jpg';
 
     const nowIso = new Date().toISOString();
-    const year = String(new Date(item.snippet?.publishedAt || Date.now()).getFullYear());
+    const titleYear = rawTitle.match(/\b(19|20)\d{2}\b/)?.[0];
+    const year = titleYear || String(new Date(item.snippet?.publishedAt || Date.now()).getFullYear());
+    const fallbackDirector = cleanText(item.snippet?.channelTitle) || handle;
 
     additions.push({
       id: 'yt-' + handle.toLowerCase() + '-' + videoId,
       title,
       titleHi: title,
-      director: cleanText(item.snippet?.channelTitle) || handle,
-      genre: Array.isArray(channel.genre) ? channel.genre : [String(channel.genre || 'Drama')],
-      language: channel.language || 'Hindi',
+      director: directorFromTitle(rawTitle, fallbackDirector),
+      genre: genresFor(item, channel),
+      language: inferLanguage(item, channel),
       duration: Math.ceil(seconds / 60) + ' min',
       durationSeconds: seconds,
       year,
@@ -201,6 +299,7 @@ for (const channel of channels) {
       description,
       descriptionHi: description,
       country: channel.country || 'India',
+      collections: Array.isArray(channel.collections) ? channel.collections : [],
       availability: 'available',
       youtubeHealth: {
         available: true,
@@ -211,6 +310,7 @@ for (const channel of channels) {
         madeForKids: Boolean(item.status?.madeForKids)
       }
     });
+    knownTitleKeys.add(key);
     console.log('ADD ' + videoId + ': ' + title + ' (' + Math.ceil(seconds / 60) + ' min)');
   }
 }

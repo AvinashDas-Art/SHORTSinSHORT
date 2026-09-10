@@ -5,5 +5,36 @@
     "language": "Hindi",
     "country": "India",
     "minDurationSeconds": 90
+  },
+  {
+    "handle": "FTIIOfficial",
+    "genre": ["Drama", "Student Film"],
+    "language": "Various",
+    "country": "India",
+    "collections": ["FTII Students Shorts"],
+    "minDurationSeconds": 120,
+    "maxDurationSeconds": 3600,
+    "scanLimit": 500,
+    "includeTitlePatterns": [
+      "\\bFTII\\s+Student\\s+Films?\\b",
+      "\\bActing\\s+Diploma\\s+Film\\b"
+    ],
+    "excludeTitlePatterns": [
+      "\\bIn Conversation\\b",
+      "\\bThought Series\\b",
+      "\\bPodcast\\b",
+      "\\bPromo\\b",
+      "\\bTrailer\\b",
+      "\\bLecture\\b",
+      "\\bMasterclass\\b",
+      "\\bWorkshop\\b",
+      "\\bInterview\\b",
+      "\\bOrientation\\b",
+      "\\bWebinar\\b",
+      "\\bConvocation\\b"
+    ],
+    "titleStyle": "ftii",
+    "inferLanguage": true,
+    "inferGenre": true
   }
 ]

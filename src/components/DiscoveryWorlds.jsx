@@ -130,10 +130,19 @@ function FestivalCircuit({ films, onSelectFilm, lang }) {
         films: films.filter((film) => !/india/.test(country(film).toLowerCase()) && !indianLanguages.test(text(film.language).toLowerCase()))
       },
       {
-        id: 'newforms',
-        title: lang === 'hi' ? 'सिनेमा के नये रूप' : 'New Forms',
-        note: lang === 'hi' ? 'एनीमेशन, प्रयोग और AI cinema' : 'Animation, experiments and AI cinema',
-        films: films.filter((film) => /ai|animation|experimental|magic/.test(field(film)))
+        id: 'animation',
+        title: lang === 'hi' ? 'एनिमेशन' : 'Animation',
+        note: lang === 'hi' ? 'हाथ से बने, stop-motion और digital animation shorts' : 'Hand-drawn, stop-motion and digital animation shorts',
+        films: films.filter((film) => {
+          const value = field(film);
+          return !/\bai\b|ai cinema|ai magic|generative/.test(value) && /animation|animated|stop.motion/.test(value);
+        })
+      },
+      {
+        id: 'ai-cinema',
+        title: lang === 'hi' ? 'AI सिनेमा' : 'AI Cinema',
+        note: lang === 'hi' ? 'Generative tools से रचा गया नया सिनेमा' : 'New cinema created with generative tools',
+        films: films.filter((film) => /\bai\b|ai cinema|ai magic|generative/.test(field(film)))
       }
     ];
     return data.map((item) => ({ ...item, films: dedupe(item.films).slice(0, 24) })).filter((item) => item.films.length);

@@ -1,0 +1,59 @@
+name: FTII Trusted Channel Sync
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - scripts/trusted-channels.json
+      - scripts/sync-trusted-channels.mjs
+      - .github/workflows/trusted-channel-sync.yml
+  schedule:
+    - cron: '11 */6 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: shortsinshort-catalogue-main
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout catalogue
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Import trusted channel films
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+        run: npm run catalogue:trusted-sync -- --apply
+
+      - name: Validate catalogue
+        run: npm run build
+
+      - name: Publish catalogue update
+        run: |
+          git add src/data/films.json public/sitemap.xml
+          if git diff --cached --quiet; then
+            echo "Trusted channels are already current."
+            exit 0
+          fi
+          git config user.name "SHORTSinSHORT Catalogue Bot"
+          git config user.email "catalogue-bot@users.noreply.github.com"
+          git commit -m "Sync FTII student films"
+          git pull --rebase origin main
+          git push origin HEAD:main

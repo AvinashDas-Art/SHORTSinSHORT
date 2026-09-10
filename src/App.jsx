@@ -455,10 +455,18 @@ export default function App() {
         films: newestFirstFilms.filter(f => Number(f.durationSeconds) > 0 && Number(f.durationSeconds) <= 600)
       },
       {
-        title: lang === 'hi' ? 'नये रूप - AI और एनीमेशन' : 'New Forms - AI & Animation',
+        title: lang === 'hi' ? 'एनिमेशन शॉर्ट्स' : 'Animation Shorts',
         films: newestFirstFilms.filter(f => {
-          const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(String);
-          return gList.some(g => g.toLowerCase().includes('ai') || g.toLowerCase().includes('animation'));
+          const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(g => String(g).toLowerCase());
+          const isAi = gList.some(g => g.includes('ai') || g.includes('generative'));
+          return !isAi && gList.some(g => g.includes('animation'));
+        })
+      },
+      {
+        title: lang === 'hi' ? 'AI सिनेमा' : 'AI Cinema',
+        films: newestFirstFilms.filter(f => {
+          const gList = (Array.isArray(f.genre) ? f.genre : [f.genre]).map(g => String(g).toLowerCase());
+          return gList.some(g => g.includes('ai') || g.includes('generative'));
         })
       },
       {
