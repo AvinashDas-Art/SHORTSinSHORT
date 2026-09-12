@@ -16873,5 +16873,33 @@
       "privacyStatus": "public",
       "madeForKids": false
     }
+  },
+  {
+    "id": "yt-onlybookshindi-ap6rJSI5gWI",
+    "title": "The Yellow wallpaper | दीवार से आती आवाज़ें",
+    "titleHi": "The Yellow wallpaper | दीवार से आती आवाज़ें",
+    "director": "Only Books",
+    "genre": [
+      "AI Magic"
+    ],
+    "language": "Hindi",
+    "duration": "10 min",
+    "durationSeconds": 560,
+    "year": "2026",
+    "youtubeVideoId": "ap6rJSI5gWI",
+    "thumbnail": "https://i.ytimg.com/vi/ap6rJSI5gWI/maxresdefault.jpg",
+    "description": "The Yellow Wallpaper एक psychological horror / mystery short film है, जहाँ एक लेखिका का लिखना बंद कर दिया जाता है, उसे एक कमरे में कैद-सी ज़िंदगी जीने को मजबूर किया जाता है। लेकिन उस कमरे की पीली दीवार पर बनी रहस्यमयी आकृतियाँ धीरे-धीरे उससे बात करने लगती हैं। क्या वह सचमुच पागल ",
+    "descriptionHi": "The Yellow Wallpaper एक psychological horror / mystery short film है, जहाँ एक लेखिका का लिखना बंद कर दिया जाता है, उसे एक कमरे में कैद-सी ज़िंदगी जीने को मजबूर किया जाता है। लेकिन उस कमरे की पीली दीवार पर बनी रहस्यमयी आकृतियाँ धीरे-धीरे उससे बात करने लगती हैं। क्या वह सचमुच पागल ",
+    "country": "India",
+    "collections": [],
+    "availability": "available",
+    "youtubeHealth": {
+      "available": true,
+      "reason": null,
+      "checkedAt": "2026-09-12T15:27:44.376Z",
+      "embeddable": true,
+      "privacyStatus": "public",
+      "madeForKids": false
+    }
   }
 ]
