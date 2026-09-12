@@ -7838,5 +7838,40 @@
     "title": "एक और बार फोन देखा तो...– Ignored on your special day? | Pyaar Kab Karoge? | Reel 4",
     "rejectedAt": "2026-09-11T07:29:38.343Z",
     "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "iJj7mnmxfZM",
+    "reason": "weak_short_film_signal",
+    "title": "How to Get Into Film Festivals (Why They’re Still Important)",
+    "rejectedAt": "2026-09-12T07:21:20.951Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "VJeMB3WOLvk",
+    "reason": "weak_short_film_signal",
+    "title": "this is the process of getting into film festivals..",
+    "rejectedAt": "2026-09-12T07:21:20.951Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "2qA6toxPgOg",
+    "reason": "weak_short_film_signal",
+    "title": "How to Send Your Films to Film Festivals | Award Functions | தமிழ் | Film Psycho",
+    "rejectedAt": "2026-09-12T07:21:20.951Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "48zTdnD6nls",
+    "reason": "runtime_under_1_minute",
+    "title": "Short Film Name - In This Life ❤️",
+    "rejectedAt": "2026-09-12T07:21:20.951Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "zlwvlP-u0tc",
+    "reason": "runtime_under_90_seconds",
+    "title": "Jab Mumbai mein sasta flat mil jaye par aisi khidki ke saath! 🪟🦟 #movie#love#bollywood #film#drama",
+    "rejectedAt": "2026-09-12T07:21:24.658Z",
+    "rejectionType": "automatic"
   }
 ]
