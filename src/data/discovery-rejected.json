@@ -7873,5 +7873,68 @@
     "title": "Jab Mumbai mein sasta flat mil jaye par aisi khidki ke saath! 🪟🦟 #movie#love#bollywood #film#drama",
     "rejectedAt": "2026-09-12T07:21:24.658Z",
     "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "aNUzkC9FAI0",
+    "reason": "weak_short_film_signal",
+    "title": "Hisaab || Irrfan Khan |  Om Puri | S.M Zaheer",
+    "rejectedAt": "2026-09-13T07:39:49.053Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "mwzNlKBq_Ek",
+    "reason": "runtime_over_30_minutes",
+    "title": "Khancha | খাঁচা - Bengali Full Movie | Rituparna Sengupta | Parno Mittra | Ferdous Ahmed",
+    "rejectedAt": "2026-09-13T07:39:49.053Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "01z2_jybM_4",
+    "reason": "runtime_over_30_minutes",
+    "title": "When an Introvert meets a 'No Filter' Girl.|Tum bin jau kaha | MARATHI | HINDI| SHORT FILM | 2026|",
+    "rejectedAt": "2026-09-13T07:39:49.053Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "9MnSggO3D58",
+    "reason": "weak_short_film_signal",
+    "title": "Kalyanam Vallom Aayo | Malayalam Short Movie | Jeneesh Lal | Sanal Sivaram | Mariya Prince | Ligin T",
+    "rejectedAt": "2026-09-13T07:39:49.053Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "ZuZYgr4gdFA",
+    "reason": "weak_short_film_signal",
+    "title": "MOLANJI - Jackfruit Sap | Drama Fiction | Mahesh S.Madhu | Lijo Jose Pellissery |14m",
+    "rejectedAt": "2026-09-13T07:39:49.053Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "URFYNIW0YFA",
+    "reason": "runtime_over_30_minutes",
+    "title": "CHANNA | AWARD WINNING KANNADA SHORTFILM | VJ BALAJI PRASAD | 2025 |",
+    "rejectedAt": "2026-09-13T07:39:49.053Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "wF1s5duU8zo",
+    "reason": "runtime_over_30_minutes",
+    "title": "Soulmate Kannada 4K Short Movie | Manu N Harsha | G C Rao | Bhumika Manjunath | Akshay Nayak",
+    "rejectedAt": "2026-09-13T07:39:49.053Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "bfnEPtas0RI",
+    "reason": "runtime_under_90_seconds",
+    "title": "Hitman vs Mosquitoes: Aakhir jeet kiski hui?! 😭🦟 #movie #love #bollywood #entertainment #drama #film",
+    "rejectedAt": "2026-09-13T07:39:53.154Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "UsGafp1Cme4",
+    "reason": "runtime_under_90_seconds",
+    "title": "When you finally get a Mumbai flat with a big window...💀🪟 #movie#love#bollywood#drama  #moviereview",
+    "rejectedAt": "2026-09-13T07:39:53.154Z",
+    "rejectionType": "automatic"
   }
 ]

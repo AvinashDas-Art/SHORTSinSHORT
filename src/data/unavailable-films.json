@@ -1829,5 +1829,36 @@
     },
     "isPublished": false,
     "removedAt": "2026-09-10T07:30:56.784Z"
+  },
+  {
+    "id": "yt-fgbkid42tqk",
+    "title": "Auntie Issues",
+    "titleHi": "Auntie Issues",
+    "director": "'s Statement: \"Auntie Issues is a project born from the need to tell different s",
+    "genre": [
+      "Award Winning",
+      "Animation",
+      "Horror"
+    ],
+    "language": "Various",
+    "duration": "15 min",
+    "durationSeconds": 849,
+    "year": "2026",
+    "youtubeVideoId": "fgbkid42tqk",
+    "thumbnail": "https://i.ytimg.com/vi/fgbkid42tqk/maxresdefault.jpg",
+    "description": "🔔 Subscribe for more award-winning films!  @ShortFilmBox Lola and Veronica are psychology students, and their conversations tend to get a little therapeutic.",
+    "descriptionHi": "🔔 Subscribe for more award-winning films!  @ShortFilmBox Lola and Veronica are psychology students, and their conversations tend to get a little therapeutic.",
+    "country": "International",
+    "availability": "removed_or_private",
+    "youtubeHealth": {
+      "available": false,
+      "reason": "removed_or_private",
+      "checkedAt": "2026-09-13T07:39:46.123Z",
+      "embeddable": false,
+      "privacyStatus": "unavailable",
+      "madeForKids": null
+    },
+    "isPublished": false,
+    "removedAt": "2026-09-13T07:39:46.123Z"
   }
 ]
