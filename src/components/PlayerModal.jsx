@@ -1,5 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ShareButton from './ShareButton';
+import CinemaClubGateway from './CinemaClubGateway';
+import { useAuth } from '../context/AuthContext';
 import { filmPath } from '../utils/slug';
 import { cleanFilmTitle, cleanEditorialText } from '../utils/editorialText';
 
@@ -13,8 +15,27 @@ const safeText = (value, lang = 'en') => {
 };
 
 
-export default function PlayerModal({ film, onClose, lang }) {
+const GATEWAY_SESSION_KEY = 'shortsinshort-cinema-club-gateway-seen';
+
+export default function PlayerModal({ film, onClose, lang, setLang }) {
   const shell = useRef(null);
+  const { isMember, loading } = useAuth();
+  const [gatewaySeen, setGatewaySeen] = useState(() => {
+    try {
+      return window.sessionStorage.getItem(GATEWAY_SESSION_KEY) === '1';
+    } catch {
+      return false;
+    }
+  });
+
+  const continueToFilm = useCallback(() => {
+    try {
+      window.sessionStorage.setItem(GATEWAY_SESSION_KEY, '1');
+    } catch {
+      // Playback still works when a private browser disables storage.
+    }
+    setGatewaySeen(true);
+  }, []);
 
   useEffect(() => {
     const previous = document.body.style.overflow;
@@ -41,6 +62,8 @@ export default function PlayerModal({ film, onClose, lang }) {
   const rawDescription = lang === 'hi' && film.descriptionHi ? film.descriptionHi : film.description;
   const description = cleanEditorialText(rawDescription, lang);
   const metadata = [safeText(film.country, lang), safeText(film.language, lang), film.year, safeText(film.duration, lang)].filter(Boolean);
+  const showGateway = !loading && !isMember && !gatewaySeen;
+  const showFilm = !loading && !showGateway;
 
   return (
     <div className="sis3-player" ref={shell} role="dialog" aria-modal="true" aria-label={title}>
@@ -56,9 +79,20 @@ export default function PlayerModal({ film, onClose, lang }) {
         />
       </header>
 
+      {showGateway && (
+        <CinemaClubGateway
+          film={film}
+          lang={lang}
+          setLang={setLang}
+          onContinue={continueToFilm}
+        />
+      )}
+
       <div className="sis3-player-stage">
         <div className="sis3-video-frame">
-          {videoId ? (
+          {!showFilm ? (
+            <div className="sis3-player-wait" aria-hidden="true" />
+          ) : videoId ? (
             <iframe
               src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1&controls=1&iv_load_policy=3&cc_load_policy=0`}
               title={title}
