@@ -100,6 +100,8 @@ export default function CinemaClubGateway({ film, lang = 'en', setLang, onContin
   return (
     <section
       className="sis3-gateway"
+      lang={lang}
+      data-lang={lang}
       aria-label={text.eyebrow}
       style={artwork ? { '--gateway-art': `url("${artwork}")` } : undefined}
     >
