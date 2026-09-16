@@ -611,6 +611,7 @@ export default function App() {
           film={activeFilm}
           onClose={handleClosePlayer}
           lang={lang}
+          setLang={setLang}
         />
       )}
 
