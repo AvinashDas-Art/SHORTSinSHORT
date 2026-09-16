@@ -115,6 +115,45 @@ body { background: var(--sis3-bg) !important; color: var(--sis3-cream); padding-
 .sis3-curator-note small { color: #888; }
 .sis3-mobile-dock { display: none; }
 
+/* The Cinema Club invitation is intentionally an editorial cover, not a
+   paywall: both choices stay equally legible and the player is mounted only
+   after the visitor chooses. */
+.sis3-player-wait { width: 100%; height: 100%; background: #080908; }
+.sis3-gateway { position: fixed; z-index: 8; inset: 0; min-height: 100svh; display: grid; place-items: center; overflow: hidden; isolation: isolate; color: var(--sis3-cream); background: #10110f; }
+.sis3-gateway-art { position: absolute; z-index: -3; inset: -4%; background-image: var(--gateway-art); background-position: center; background-size: cover; filter: saturate(.72) contrast(1.04); transform: scale(1.035); }
+.sis3-gateway-scrim { position: absolute; z-index: -2; inset: 0; background: radial-gradient(circle at 76% 44%,rgba(10,11,9,.3),rgba(10,11,9,.86) 57%), linear-gradient(90deg,rgba(8,9,7,.98) 0%,rgba(8,9,7,.88) 43%,rgba(8,9,7,.38) 100%); }
+.sis3-gateway::before { content: ''; position: absolute; z-index: -1; inset: 22px; border: 1px solid rgba(247,241,231,.16); pointer-events: none; }
+.sis3-gateway::after { content: ''; position: absolute; left: 22px; top: 22px; bottom: 22px; width: 3px; background: linear-gradient(180deg,var(--sis3-coral),var(--sis3-gold)); }
+.sis3-gateway-language { position: absolute; z-index: 2; top: 82px; right: 4vw; display: flex; padding: 4px; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; background: rgba(10,11,9,.58); backdrop-filter: blur(16px); }
+.sis3-gateway-language button { min-width: 58px; height: 34px; padding: 0 .9rem; border: 0; border-radius: 999px; background: transparent; color: #b8b4ac; font-size: .63rem; font-weight: 800; letter-spacing: .08em; }
+.sis3-gateway-language button.is-active { background: var(--sis3-cream); color: #181916; }
+.sis3-gateway-card { width: min(690px,calc(100vw - 12vw)); margin-right: 29vw; padding: clamp(2rem,4vw,4.6rem); border: 1px solid rgba(247,241,231,.18); background: linear-gradient(145deg,rgba(23,24,20,.9),rgba(13,14,12,.8)); box-shadow: 0 40px 110px rgba(0,0,0,.46); backdrop-filter: blur(22px); }
+.sis3-gateway-mark { width: 50px; height: 26px; margin-bottom: 1.6rem; display: flex; align-items: flex-end; gap: 5px; }
+.sis3-gateway-mark i { display: block; width: 11px; background: var(--sis3-coral); transform: skew(-12deg); }
+.sis3-gateway-mark i:nth-child(1) { height: 14px; opacity: .58; }
+.sis3-gateway-mark i:nth-child(2) { height: 20px; opacity: .78; }
+.sis3-gateway-mark i:nth-child(3) { height: 26px; }
+.sis3-gateway-eyebrow { margin: 0 0 1rem; color: var(--sis3-gold); font-size: .64rem; font-weight: 800; letter-spacing: .22em; }
+.sis3-gateway-card h1 { max-width: 610px; margin: 0; font-family: Newsreader,Georgia,serif; font-size: clamp(3rem,5.4vw,6.1rem); font-weight: 400; letter-spacing: -.055em; line-height: .88; text-wrap: balance; }
+.sis3-gateway-body { max-width: 610px; margin: 1.6rem 0 0; color: #c7c3bb; font-family: Newsreader,Georgia,serif; font-size: clamp(1rem,1.25vw,1.25rem); line-height: 1.55; text-wrap: pretty; }
+.sis3-gateway-actions { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: .75rem; }
+.sis3-gateway-actions button { min-height: 50px; padding: 0 1.25rem; display: inline-flex; align-items: center; justify-content: center; gap: .6rem; border-radius: 999px; font-size: .72rem; font-weight: 800; letter-spacing: .015em; transition: transform .2s ease,background .2s ease,border-color .2s ease; }
+.sis3-gateway-actions button:hover { transform: translateY(-2px); }
+.sis3-gateway-actions button:focus-visible,.sis3-gateway-language button:focus-visible { outline: 2px solid var(--sis3-gold); outline-offset: 3px; }
+.sis3-gateway-support { border: 1px solid var(--sis3-coral); background: var(--sis3-coral); color: #161613; }
+.sis3-gateway-support:disabled { opacity: .65; }
+.sis3-google-g { width: 23px; height: 23px; display: grid; place-items: center; border-radius: 50%; background: white; color: #4285f4; font-family: Arial,sans-serif; font-size: .8rem; font-weight: 800; }
+.sis3-gateway-watch { border: 1px solid rgba(247,241,231,.34); background: rgba(0,0,0,.14); color: var(--sis3-cream); }
+.sis3-gateway-watch:hover { border-color: var(--sis3-cream); background: rgba(247,241,231,.08); }
+.sis3-gateway-email,.sis3-gateway-optional { margin: .9rem 0 0; color: #96938c; font-size: .62rem; line-height: 1.5; }
+.sis3-gateway-email strong { color: #c9c5bd; font-weight: 600; }
+.sis3-gateway-payment { max-width: 600px; margin-top: 1rem; padding: .85rem 1rem; border: 1px solid rgba(233,185,110,.28); background: rgba(233,185,110,.07); color: #dbd0bd; font-size: .68rem; line-height: 1.5; }
+.sis3-gateway-payment p { margin: 0; }
+.sis3-gateway-payment button { margin-top: .55rem; padding: 0; border: 0; background: none; color: var(--sis3-gold); font-size: .66rem; font-weight: 800; }
+.sis3-gateway-error { margin: .8rem 0 0; color: #ff9d94; font-size: .68rem; }
+.sis3-gateway-signature { position: absolute; right: 4vw; bottom: 38px; margin: 0; color: rgba(247,241,231,.62); font-size: .55rem; font-weight: 800; letter-spacing: .18em; }
+.sis3-gateway-signature span { color: var(--sis3-coral); }
+
 @media (max-width: 980px) {
   .sis3-nav { height: 60px; padding: 0 14px; grid-template-columns: 1fr auto; gap: .5rem; }
   .sis3-primary-links, .sis3-desktop-action { display: none; }
@@ -156,6 +195,20 @@ body { background: var(--sis3-bg) !important; color: var(--sis3-cream); padding-
   .sis3-player-info { width: auto; margin: 0 18px; padding: 1.5rem 0 5rem; grid-template-columns: 1fr; gap: 1.5rem; }
   .sis3-player-info h2 { font-size: 2.75rem; }
   .sis3-curator-note p { font-size: 1.05rem; }
+  .sis3-gateway { place-items: end stretch; overflow-y: auto; }
+  .sis3-gateway-art { inset: 0; height: 48svh; background-position: center top; transform: none; }
+  .sis3-gateway-scrim { background: linear-gradient(180deg,rgba(8,9,7,.12) 4%,rgba(8,9,7,.72) 33%,#10110f 53%); }
+  .sis3-gateway::before { inset: 10px; }
+  .sis3-gateway::after { left: 10px; top: 10px; bottom: 10px; width: 2px; }
+  .sis3-gateway-language { top: 68px; right: 18px; }
+  .sis3-gateway-card { width: auto; margin: 42svh 10px 10px; padding: 1.65rem 1.35rem 2rem; border-color: rgba(247,241,231,.14); background: rgba(16,17,15,.96); backdrop-filter: blur(20px); }
+  .sis3-gateway-mark { margin-bottom: 1rem; }
+  .sis3-gateway-eyebrow { margin-bottom: .75rem; }
+  .sis3-gateway-card h1 { font-size: clamp(2.7rem,13vw,4.2rem); line-height: .92; }
+  .sis3-gateway-body { margin-top: 1.15rem; font-size: .96rem; }
+  .sis3-gateway-actions { margin-top: 1.4rem; display: grid; }
+  .sis3-gateway-actions button { width: 100%; }
+  .sis3-gateway-signature { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
