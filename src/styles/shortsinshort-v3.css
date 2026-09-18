@@ -392,3 +392,45 @@ body { background: var(--sis3-bg) !important; color: var(--sis3-cream); padding-
   0%, 72% { opacity: 1; visibility: visible; }
   100% { opacity: 0; visibility: hidden; pointer-events: none; }
 }
+
+
+/* TV player control strip */
+.sis3-video-frame { position: relative; overflow: hidden; }
+.sis-tv-player-controls {
+  position: absolute; z-index: 4; left: 50%; bottom: 28px;
+  display: flex; align-items: center; gap: 16px;
+  padding: 12px 18px; border: 1px solid rgba(255,255,255,.22);
+  border-radius: 999px; background: rgba(5,5,5,.82);
+  transform: translateX(-50%); backdrop-filter: blur(14px);
+}
+.sis-tv-player-controls button {
+  min-width: 58px; height: 48px; padding: 0 14px;
+  border: 1px solid rgba(255,255,255,.2); border-radius: 999px;
+  background: rgba(255,255,255,.08); color: white;
+  font-size: 1rem; font-weight: 800;
+}
+.sis-tv-player-controls .sis-tv-play {
+  width: 62px; height: 62px; background: var(--sis3-coral); border-color: var(--sis3-coral);
+}
+.sis-tv-player-controls button span { font-size: .72rem; }
+
+/* Back on the TV home page opens this confirmation. */
+.sis-tv-exit {
+  position: fixed; z-index: 10000; inset: 0;
+  display: grid; place-items: center;
+  background: rgba(0,0,0,.78);
+}
+.sis-tv-exit-panel {
+  width: min(520px,80vw); padding: 38px;
+  border: 1px solid rgba(255,255,255,.2); border-radius: 18px;
+  background: #181916; color: white; text-align: center;
+  box-shadow: 0 30px 100px rgba(0,0,0,.7);
+}
+.sis-tv-exit-panel h2 { margin: 0; font-size: 2rem; }
+.sis-tv-exit-panel p { margin: 14px 0 26px; color: #bdb9b1; }
+.sis-tv-exit-actions { display: flex; justify-content: center; gap: 18px; }
+.sis-tv-exit-actions button {
+  min-width: 120px; height: 52px; border: 1px solid rgba(255,255,255,.25);
+  border-radius: 999px; background: transparent; color: white; font-weight: 800;
+}
+.sis-tv-exit-actions button:last-child { background: var(--sis3-coral); border-color: var(--sis3-coral); }
