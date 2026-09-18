@@ -1,4 +1,4 @@
-const FOCUSABLE_SELECTOR = [
+var FOCUSABLE_SELECTOR = [
   'a[href]',
   'button:not([disabled])',
   'input:not([disabled])',
@@ -7,40 +7,55 @@ const FOCUSABLE_SELECTOR = [
   '[role="button"]',
   '[role="link"]',
   '[data-tv-focusable]',
-  '[tabindex]:not([tabindex="-1"])',
+  '[tabindex]:not([tabindex="-1"])'
 ].join(',')
 
-const ARROW_KEYS = new Set(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'])
-const EDITABLE_SELECTOR = 'input, textarea, select, [contenteditable="true"]'
+var EDITABLE_SELECTOR = 'input, textarea, select, [contenteditable="true"]'
+
+function toArray(list) {
+  return Array.prototype.slice.call(list || [])
+}
+
+function getArrowKey(event) {
+  if (event.key === 'ArrowLeft' || event.keyCode === 37) return 'ArrowLeft'
+  if (event.key === 'ArrowUp' || event.keyCode === 38) return 'ArrowUp'
+  if (event.key === 'ArrowRight' || event.keyCode === 39) return 'ArrowRight'
+  if (event.key === 'ArrowDown' || event.keyCode === 40) return 'ArrowDown'
+  return ''
+}
 
 function isVisible(element) {
-  if (!(element instanceof HTMLElement)) return false
-  if (element.closest('[aria-hidden="true"], [hidden]')) return false
+  if (!element || element.nodeType !== 1) return false
+  if (element.closest && element.closest('[aria-hidden="true"], [hidden]')) return false
 
-  const style = window.getComputedStyle(element)
+  var style = window.getComputedStyle(element)
   if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) === 0) {
     return false
   }
 
-  const rect = element.getBoundingClientRect()
+  var rect = element.getBoundingClientRect()
   return rect.width > 0 && rect.height > 0
 }
 
 function getFocusableElements() {
-  return [...document.querySelectorAll(FOCUSABLE_SELECTOR)].filter(isVisible)
+  return toArray(document.querySelectorAll(FOCUSABLE_SELECTOR)).filter(isVisible)
 }
 
-function makeCustomControlsFocusable(root = document) {
-  root.querySelectorAll?.('[role="button"], [role="link"], [data-tv-focusable]').forEach((element) => {
+function makeCustomControlsFocusable(root) {
+  var scope = root || document
+  if (!scope.querySelectorAll) return
+
+  var controls = scope.querySelectorAll('[role="button"], [role="link"], [data-tv-focusable]')
+  toArray(controls).forEach(function (element) {
     if (!element.hasAttribute('tabindex')) element.setAttribute('tabindex', '0')
   })
 }
 
 function centerOf(element) {
-  const rect = element.getBoundingClientRect()
+  var rect = element.getBoundingClientRect()
   return {
     x: rect.left + rect.width / 2,
-    y: rect.top + rect.height / 2,
+    y: rect.top + rect.height / 2
   }
 }
 
@@ -52,37 +67,41 @@ function isInDirection(dx, dy, key) {
 }
 
 function findNextElement(current, key, elements) {
-  const from = centerOf(current)
+  var from = centerOf(current)
+  var bestElement = null
+  var bestScore = Infinity
 
-  return elements
-    .filter((element) => element !== current)
-    .map((element) => {
-      const to = centerOf(element)
-      const dx = to.x - from.x
-      const dy = to.y - from.y
-      if (!isInDirection(dx, dy, key)) return null
+  elements.forEach(function (element) {
+    if (element === current) return
 
-      const horizontal = key === 'ArrowLeft' || key === 'ArrowRight'
-      const forwardDistance = Math.abs(horizontal ? dx : dy)
-      const sideDistance = Math.abs(horizontal ? dy : dx)
+    var to = centerOf(element)
+    var dx = to.x - from.x
+    var dy = to.y - from.y
+    if (!isInDirection(dx, dy, key)) return
 
-      // Prefer a control in the same visual row/column, then the nearest one.
-      const score = forwardDistance + sideDistance * 2.4
-      return { element, score }
-    })
-    .filter(Boolean)
-    .sort((a, b) => a.score - b.score)[0]?.element
+    var horizontal = key === 'ArrowLeft' || key === 'ArrowRight'
+    var forwardDistance = Math.abs(horizontal ? dx : dy)
+    var sideDistance = Math.abs(horizontal ? dy : dx)
+    var score = forwardDistance + sideDistance * 2.4
+
+    if (score < bestScore) {
+      bestScore = score
+      bestElement = element
+    }
+  })
+
+  return bestElement
 }
 
 function firstElement(elements) {
-  const preferred = document.querySelector(
-    '.sis3-play:not([disabled]), [data-tv-initial-focus], main button:not([disabled]), main a[href]',
+  var preferred = document.querySelector(
+    '.sis3-play:not([disabled]), [data-tv-initial-focus], main button:not([disabled]), main a[href]'
   )
   if (preferred && isVisible(preferred)) return preferred
 
-  return [...elements].sort((a, b) => {
-    const aRect = a.getBoundingClientRect()
-    const bRect = b.getBoundingClientRect()
+  return elements.slice().sort(function (a, b) {
+    var aRect = a.getBoundingClientRect()
+    var bRect = b.getBoundingClientRect()
     return aRect.top - bRect.top || aRect.left - bRect.left
   })[0]
 }
@@ -92,48 +111,57 @@ function focusElement(element) {
 
   try {
     element.focus({ preventScroll: true })
-  } catch {
+  } catch (error) {
     element.focus()
   }
 
-  element.scrollIntoView({
-    block: 'center',
-    inline: 'center',
-    behavior: 'smooth',
-  })
+  try {
+    element.scrollIntoView({
+      block: 'center',
+      inline: 'center',
+      behavior: 'smooth'
+    })
+  } catch (error) {
+    element.scrollIntoView(false)
+  }
 }
 
 export function installTvNavigation() {
-  makeCustomControlsFocusable()
+  makeCustomControlsFocusable(document)
 
-  const observer = new MutationObserver((mutations) => {
-    mutations.forEach((mutation) => {
-      mutation.addedNodes.forEach((node) => {
-        if (node instanceof HTMLElement) {
-          if (node.matches?.('[role="button"], [role="link"], [data-tv-focusable]') &&
-              !node.hasAttribute('tabindex')) {
-            node.setAttribute('tabindex', '0')
-          }
-          makeCustomControlsFocusable(node)
+  var observer = new MutationObserver(function (mutations) {
+    mutations.forEach(function (mutation) {
+      toArray(mutation.addedNodes).forEach(function (node) {
+        if (!node || node.nodeType !== 1) return
+
+        if (
+          node.matches &&
+          node.matches('[role="button"], [role="link"], [data-tv-focusable]') &&
+          !node.hasAttribute('tabindex')
+        ) {
+          node.setAttribute('tabindex', '0')
         }
+
+        makeCustomControlsFocusable(node)
       })
     })
   })
 
   observer.observe(document.body, { childList: true, subtree: true })
 
-  const onKeyDown = (event) => {
-    const active = document.activeElement
+  function onKeyDown(event) {
+    var active = document.activeElement
+    var arrowKey = getArrowKey(event)
 
-    if (ARROW_KEYS.has(event.key)) {
-      if (active?.matches?.(EDITABLE_SELECTOR)) return
+    if (arrowKey) {
+      if (active && active.matches && active.matches(EDITABLE_SELECTOR)) return
 
-      const elements = getFocusableElements()
+      var elements = getFocusableElements()
       if (!elements.length) return
 
-      const current = elements.includes(active) ? active : null
-      const target = current
-        ? findNextElement(current, event.key, elements)
+      var current = elements.indexOf(active) !== -1 ? active : null
+      var target = current
+        ? findNextElement(current, arrowKey, elements)
         : firstElement(elements)
 
       if (!target) return
@@ -144,13 +172,15 @@ export function installTvNavigation() {
       return
     }
 
-    // Native links and buttons already handle Enter. This covers custom controls.
-    if (
-      (event.key === 'Enter' || event.keyCode === 13) &&
-      active instanceof HTMLElement &&
+    var isEnter = event.key === 'Enter' || event.keyCode === 13
+    var isCustomControl =
+      active &&
+      active.nodeType === 1 &&
+      active.matches &&
       active.matches('[role="button"], [role="link"], [data-tv-focusable]') &&
       !active.matches('a, button, input, select, textarea')
-    ) {
+
+    if (isEnter && isCustomControl) {
       event.preventDefault()
       active.click()
     }
@@ -158,7 +188,7 @@ export function installTvNavigation() {
 
   window.addEventListener('keydown', onKeyDown, true)
 
-  return () => {
+  return function () {
     observer.disconnect()
     window.removeEventListener('keydown', onKeyDown, true)
   }
