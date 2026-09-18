@@ -126,7 +126,14 @@ export default function PlayerModal({ film, onClose, lang, setLang }) {
   }, [isFullscreen]);
 
   useEffect(() => {
-    const handleShowControls = () => showControls();
+    const handleShowControls = () => {
+      showControls();
+      window.setTimeout(() => {
+        const playButton = shell.current && shell.current.querySelector('.sis-tv-play');
+        if (!playButton) return;
+        try { playButton.focus({ preventScroll: true }); } catch { playButton.focus(); }
+      }, 50);
+    };
     const handleTogglePlayback = () => togglePlayback();
     window.addEventListener('sis-tv-show-controls', handleShowControls);
     window.addEventListener('sis-tv-toggle-playback', handleTogglePlayback);
