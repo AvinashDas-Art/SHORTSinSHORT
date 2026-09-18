@@ -6,6 +6,7 @@ import { filmPath } from '../utils/slug';
 import { cleanFilmTitle, cleanEditorialText } from '../utils/editorialText';
 
 const SITE_URL = 'https://www.shortsinshort.com';
+const GATEWAY_SESSION_KEY = 'shortsinshort-cinema-club-gateway-seen';
 
 const safeText = (value, lang = 'en') => {
   if (!value) return '';
@@ -14,11 +15,12 @@ const safeText = (value, lang = 'en') => {
   return String(value);
 };
 
-
-const GATEWAY_SESSION_KEY = 'shortsinshort-cinema-club-gateway-seen';
-
 export default function PlayerModal({ film, onClose, lang, setLang }) {
   const shell = useRef(null);
+  const iframeRef = useRef(null);
+  const currentTimeRef = useRef(0);
+  const playerStateRef = useRef(-1);
+  const [isPlaying, setIsPlaying] = useState(true);
   const { isMember, loading } = useAuth();
   const [gatewaySeen, setGatewaySeen] = useState(() => {
     try {
@@ -37,6 +39,24 @@ export default function PlayerModal({ film, onClose, lang, setLang }) {
     setGatewaySeen(true);
   }, []);
 
+  const sendPlayerCommand = useCallback((func, args = []) => {
+    if (!iframeRef.current || !iframeRef.current.contentWindow) return;
+    iframeRef.current.contentWindow.postMessage(JSON.stringify({
+      event: 'command',
+      func,
+      args
+    }), '*');
+  }, []);
+
+  const seekBy = useCallback((seconds) => {
+    sendPlayerCommand('seekTo', [Math.max(0, currentTimeRef.current + seconds), true]);
+  }, [sendPlayerCommand]);
+
+  const togglePlayback = useCallback(() => {
+    if (playerStateRef.current === 1) sendPlayerCommand('pauseVideo');
+    else sendPlayerCommand('playVideo');
+  }, [sendPlayerCommand]);
+
   useEffect(() => {
     const previous = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
@@ -53,6 +73,38 @@ export default function PlayerModal({ film, onClose, lang, setLang }) {
       window.removeEventListener('keydown', keys);
     };
   }, [onClose]);
+
+  useEffect(() => {
+    const receivePlayerInfo = (event) => {
+      let data = event.data;
+      if (typeof data === 'string') {
+        try { data = JSON.parse(data); } catch { return; }
+      }
+      if (!data || data.event !== 'infoDelivery' || !data.info) return;
+      if (typeof data.info.currentTime === 'number') currentTimeRef.current = data.info.currentTime;
+      if (typeof data.info.playerState === 'number') {
+        playerStateRef.current = data.info.playerState;
+        setIsPlaying(data.info.playerState === 1);
+      }
+    };
+
+    const listen = () => {
+      if (!iframeRef.current || !iframeRef.current.contentWindow) return;
+      iframeRef.current.contentWindow.postMessage(JSON.stringify({
+        event: 'listening',
+        id: 'sis-tv-youtube'
+      }), '*');
+    };
+
+    window.addEventListener('message', receivePlayerInfo);
+    const timer = window.setInterval(listen, 1000);
+    listen();
+
+    return () => {
+      window.clearInterval(timer);
+      window.removeEventListener('message', receivePlayerInfo);
+    };
+  }, []);
 
   if (!film) return null;
   const videoId = film.youtubeVideoId || film.id;
@@ -80,12 +132,7 @@ export default function PlayerModal({ film, onClose, lang, setLang }) {
       </header>
 
       {showGateway && (
-        <CinemaClubGateway
-          film={film}
-          lang={lang}
-          setLang={setLang}
-          onContinue={continueToFilm}
-        />
+        <CinemaClubGateway film={film} lang={lang} setLang={setLang} onContinue={continueToFilm} />
       )}
 
       <div className="sis3-player-stage">
@@ -93,13 +140,25 @@ export default function PlayerModal({ film, onClose, lang, setLang }) {
           {!showFilm ? (
             <div className="sis3-player-wait" aria-hidden="true" />
           ) : videoId ? (
-            <iframe
-              src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1&controls=1&iv_load_policy=3&cc_load_policy=0`}
-              title={title}
-              tabIndex="-1"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+            <>
+              <iframe
+                ref={iframeRef}
+                id="sis-tv-youtube"
+                src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1&controls=0&enablejsapi=1&iv_load_policy=3&cc_load_policy=0`}
+                title={title}
+                tabIndex="-1"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+              <nav className="sis-tv-player-controls" aria-label="Film controls">
+                <button type="button" onClick={() => seekBy(-10)} aria-label="Rewind 10 seconds">↶ <span>10</span></button>
+                <button type="button" onClick={togglePlayback} aria-label={isPlaying ? 'Pause film' : 'Play film'} className="sis-tv-play">
+                  {isPlaying ? 'Ⅱ' : '▶'}
+                </button>
+                <button type="button" onClick={() => seekBy(10)} aria-label="Forward 10 seconds"><span>10</span> ↷</button>
+                <button type="button" onClick={() => shell.current?.requestFullscreen?.()} aria-label="Fullscreen">⛶</button>
+              </nav>
+            </>
           ) : <p>{lang === 'hi' ? 'वीडियो उपलब्ध नहीं है' : 'Video unavailable'}</p>}
         </div>
       </div>
