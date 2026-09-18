@@ -274,11 +274,9 @@ export function installTvNavigation() {
   }
 
   window.addEventListener('keydown', onKeyDown, true)
-  document.addEventListener('keydown', onKeyDown, true)
 
   return function () {
     observer.disconnect()
     window.removeEventListener('keydown', onKeyDown, true)
-    document.removeEventListener('keydown', onKeyDown, true)
   }
 }
