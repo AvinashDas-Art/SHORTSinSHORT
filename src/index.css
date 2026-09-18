@@ -26,3 +26,24 @@ body {
 button, select, [role="button"], a {
   cursor: pointer !important;
 }
+
+/* Samsung TV remote focus indicator. It appears only after an arrow key
+   is used, so mouse and touch visitors keep the existing visual design. */
+html.tv-navigation-active :is(
+  a[href],
+  button,
+  input,
+  select,
+  textarea,
+  [role="button"],
+  [role="link"],
+  [data-tv-focusable],
+  [tabindex]
+):focus {
+  outline: 4px solid #ff4f8b !important;
+  outline-offset: 5px !important;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.8), 0 0 24px rgba(255, 79, 139, 0.95) !important;
+  scroll-margin: 16vh 8vw;
+  position: relative;
+  z-index: 50;
+}
