@@ -161,6 +161,61 @@ function focusOpenDialog() {
   focusElement(firstElement(elements))
 }
 
+function showExitDialog() {
+  if (document.querySelector('.sis-tv-exit')) return
+
+  var dialog = document.createElement('div')
+  dialog.className = 'sis-tv-exit'
+  dialog.setAttribute('role', 'dialog')
+  dialog.setAttribute('aria-modal', 'true')
+  dialog.setAttribute('aria-label', 'Exit SHORTSinSHORT')
+
+  var panel = document.createElement('div')
+  panel.className = 'sis-tv-exit-panel'
+
+  var title = document.createElement('h2')
+  title.textContent = 'EXIT SHORTSinSHORT?'
+
+  var text = document.createElement('p')
+  text.textContent = 'क्या आप एप बंद करना चाहते हैं?'
+
+  var actions = document.createElement('div')
+  actions.className = 'sis-tv-exit-actions'
+
+  var noButton = document.createElement('button')
+  noButton.type = 'button'
+  noButton.textContent = 'NO'
+  noButton.setAttribute('data-tv-close', '')
+  noButton.setAttribute('data-tv-initial-focus', '')
+  noButton.addEventListener('click', function () {
+    if (dialog.parentNode) dialog.parentNode.removeChild(dialog)
+  })
+
+  var yesButton = document.createElement('button')
+  yesButton.type = 'button'
+  yesButton.textContent = 'YES'
+  yesButton.addEventListener('click', function () {
+    try {
+      if (window.tizen && window.tizen.application) {
+        window.tizen.application.getCurrentApplication().exit()
+        return
+      }
+    } catch (error) {
+      // Use window.close when the hosted page cannot access the Tizen API.
+    }
+    window.close()
+  })
+
+  actions.appendChild(noButton)
+  actions.appendChild(yesButton)
+  panel.appendChild(title)
+  panel.appendChild(text)
+  panel.appendChild(actions)
+  dialog.appendChild(panel)
+  document.body.appendChild(dialog)
+  window.setTimeout(function () { focusElement(noButton) }, 50)
+}
+
 function closeCurrentView() {
   var dialog = getActiveDialog()
 
@@ -179,16 +234,8 @@ function closeCurrentView() {
     return true
   }
 
-  try {
-    if (window.tizen && window.tizen.application) {
-      window.tizen.application.getCurrentApplication().exit()
-      return true
-    }
-  } catch (error) {
-    // Fall through to the system's own Back handling.
-  }
-
-  return false
+  showExitDialog()
+  return true
 }
 
 export function installTvNavigation() {
