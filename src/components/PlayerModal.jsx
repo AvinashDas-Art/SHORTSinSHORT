@@ -68,7 +68,7 @@ export default function PlayerModal({ film, onClose, lang, setLang }) {
   return (
     <div className="sis3-player" ref={shell} role="dialog" aria-modal="true" aria-label={title}>
       <header className="sis3-player-top">
-        <button type="button" onClick={onClose} aria-label="Close player">←</button>
+        <button type="button" onClick={onClose} aria-label="Close player" data-tv-close data-tv-initial-focus>←</button>
         <span>SHORTSinSHORT</span>
         <button type="button" onClick={() => shell.current?.requestFullscreen?.()} aria-label="Fullscreen">⛶</button>
         <ShareButton
@@ -96,6 +96,7 @@ export default function PlayerModal({ film, onClose, lang, setLang }) {
             <iframe
               src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1&controls=1&iv_load_policy=3&cc_load_policy=0`}
               title={title}
+              tabIndex="-1"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
