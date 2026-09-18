@@ -85,29 +85,33 @@ function isInDirection(dx, dy, key) {
 
 function findNextElement(current, key, elements) {
   var from = centerOf(current)
-  var bestElement = null
-  var bestScore = Infinity
+  var horizontal = key === 'ArrowLeft' || key === 'ArrowRight'
+  var candidates = []
 
   elements.forEach(function (element) {
     if (element === current) return
-
     var to = centerOf(element)
     var dx = to.x - from.x
     var dy = to.y - from.y
     if (!isInDirection(dx, dy, key)) return
 
-    var horizontal = key === 'ArrowLeft' || key === 'ArrowRight'
     var forwardDistance = Math.abs(horizontal ? dx : dy)
     var sideDistance = Math.abs(horizontal ? dy : dx)
-    var score = forwardDistance + sideDistance * 2.4
-
-    if (score < bestScore) {
-      bestScore = score
-      bestElement = element
-    }
+    candidates.push({
+      element: element,
+      forward: forwardDistance,
+      side: sideDistance,
+      inLane: sideDistance <= Math.max(72, forwardDistance * 0.55)
+    })
   })
 
-  return bestElement
+  if (!candidates.length) return null
+  var laneCandidates = candidates.filter(function (candidate) { return candidate.inLane })
+  var pool = laneCandidates.length ? laneCandidates : candidates
+  pool.sort(function (a, b) {
+    return (a.forward + a.side * 4) - (b.forward + b.side * 4)
+  })
+  return pool[0].element
 }
 
 function firstElement(elements) {
@@ -147,7 +151,7 @@ function focusElement(element) {
     element.scrollIntoView({
       block: 'center',
       inline: 'center',
-      behavior: 'smooth'
+      behavior: 'auto'
     })
   } catch (error) {
     element.scrollIntoView(false)
@@ -286,6 +290,18 @@ export function installTvNavigation() {
     }
 
     var arrowKey = getArrowKey(event)
+    var activePlayer = document.querySelector('.sis3-player[data-tv-player]')
+    var playerControls = activePlayer && activePlayer.querySelector('.sis-tv-player-controls')
+    var controlsHidden = playerControls && playerControls.classList.contains('is-hidden')
+
+    if (activePlayer && arrowKey && controlsHidden) {
+      if (arrowKey === 'ArrowUp' || arrowKey === 'ArrowDown') {
+        event.preventDefault()
+        event.stopPropagation()
+        window.dispatchEvent(new CustomEvent('sis-tv-show-controls'))
+        return
+      }
+    }
 
     if (arrowKey) {
       if (active && active.matches && active.matches(EDITABLE_SELECTOR)) return
@@ -313,6 +329,13 @@ export function installTvNavigation() {
       active.matches &&
       active.matches('[role="button"], [role="link"], [data-tv-focusable]') &&
       !active.matches('a, button, input, select, textarea')
+
+    if (isEnter && activePlayer && (controlsHidden || active === activePlayer)) {
+      event.preventDefault()
+      event.stopPropagation()
+      window.dispatchEvent(new CustomEvent('sis-tv-toggle-playback'))
+      return
+    }
 
     if (isEnter && isCustomControl) {
       event.preventDefault()
