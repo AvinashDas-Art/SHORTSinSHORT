@@ -455,3 +455,17 @@ body { background: var(--sis3-bg) !important; color: var(--sis3-cream); padding-
 }
 .sis3-player.is-tv-fullscreen .sis3-video-frame { aspect-ratio: auto; }
 .sis3-player.is-tv-fullscreen .sis-tv-player-controls { bottom: 34px; }
+
+
+/* TV controls disappear during playback and return on remote interaction. */
+.sis-tv-player-controls {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .25s ease, visibility .25s ease;
+}
+.sis-tv-player-controls.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.sis3-player.controls-hidden { cursor: none; }
