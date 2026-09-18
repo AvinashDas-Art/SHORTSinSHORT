@@ -20,8 +20,10 @@ export default function PlayerModal({ film, onClose, lang, setLang }) {
   const iframeRef = useRef(null);
   const currentTimeRef = useRef(0);
   const playerStateRef = useRef(-1);
+  const controlsTimerRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [controlsVisible, setControlsVisible] = useState(true);
   const { isMember, loading } = useAuth();
   const [gatewaySeen, setGatewaySeen] = useState(() => {
     try {
@@ -53,10 +55,36 @@ export default function PlayerModal({ film, onClose, lang, setLang }) {
     sendPlayerCommand('seekTo', [Math.max(0, currentTimeRef.current + seconds), true]);
   }, [sendPlayerCommand]);
 
-  const togglePlayback = useCallback(() => {
-    if (playerStateRef.current === 1) sendPlayerCommand('pauseVideo');
-    else sendPlayerCommand('playVideo');
+  const requestBestQuality = useCallback(() => {
+    // YouTube makes the final choice from the qualities available for each film,
+    // but highres asks for the best stream the TV and connection can sustain.
+    sendPlayerCommand('setPlaybackQuality', ['highres']);
   }, [sendPlayerCommand]);
+
+  const showControls = useCallback(() => {
+    setControlsVisible(true);
+    if (controlsTimerRef.current) window.clearTimeout(controlsTimerRef.current);
+    if (playerStateRef.current === 1) {
+      controlsTimerRef.current = window.setTimeout(() => {
+        setControlsVisible(false);
+        if (shell.current && shell.current.contains(document.activeElement)) {
+          try { shell.current.focus({ preventScroll: true }); } catch { shell.current.focus(); }
+        }
+      }, 4000);
+    }
+  }, []);
+
+  const togglePlayback = useCallback(() => {
+    if (playerStateRef.current === 1) {
+      sendPlayerCommand('pauseVideo');
+      setControlsVisible(true);
+      if (controlsTimerRef.current) window.clearTimeout(controlsTimerRef.current);
+    } else {
+      sendPlayerCommand('playVideo');
+      requestBestQuality();
+      showControls();
+    }
+  }, [requestBestQuality, sendPlayerCommand, showControls]);
 
   const toggleFullscreen = useCallback(() => {
     const target = shell.current;
@@ -98,6 +126,26 @@ export default function PlayerModal({ film, onClose, lang, setLang }) {
   }, [isFullscreen]);
 
   useEffect(() => {
+    const handleShowControls = () => showControls();
+    const handleTogglePlayback = () => togglePlayback();
+    window.addEventListener('sis-tv-show-controls', handleShowControls);
+    window.addEventListener('sis-tv-toggle-playback', handleTogglePlayback);
+    return () => {
+      window.removeEventListener('sis-tv-show-controls', handleShowControls);
+      window.removeEventListener('sis-tv-toggle-playback', handleTogglePlayback);
+      if (controlsTimerRef.current) window.clearTimeout(controlsTimerRef.current);
+    };
+  }, [showControls, togglePlayback]);
+
+  useEffect(() => {
+    if (isPlaying) showControls();
+    else {
+      setControlsVisible(true);
+      if (controlsTimerRef.current) window.clearTimeout(controlsTimerRef.current);
+    }
+  }, [isPlaying, showControls]);
+
+  useEffect(() => {
     const previous = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     const keys = (event) => {
@@ -135,6 +183,7 @@ export default function PlayerModal({ film, onClose, lang, setLang }) {
       if (typeof data.info.playerState === 'number') {
         playerStateRef.current = data.info.playerState;
         setIsPlaying(data.info.playerState === 1);
+        if (data.info.playerState === 1) requestBestQuality();
       }
     };
 
@@ -154,7 +203,7 @@ export default function PlayerModal({ film, onClose, lang, setLang }) {
       window.clearInterval(timer);
       window.removeEventListener('message', receivePlayerInfo);
     };
-  }, []);
+  }, [requestBestQuality]);
 
   if (!film) return null;
   const videoId = film.youtubeVideoId || film.id;
@@ -168,7 +217,7 @@ export default function PlayerModal({ film, onClose, lang, setLang }) {
   const showFilm = !loading && !showGateway;
 
   return (
-    <div className={`sis3-player${isFullscreen ? ' is-tv-fullscreen' : ''}`} ref={shell} role="dialog" aria-modal="true" aria-label={title}>
+    <div className={`sis3-player${isFullscreen ? ' is-tv-fullscreen' : ''}${controlsVisible ? ' controls-visible' : ' controls-hidden'}`} ref={shell} tabIndex="-1" data-tv-player role="dialog" aria-modal="true" aria-label={title}>
       <header className="sis3-player-top">
         <button type="button" onClick={onClose} aria-label="Close player" data-tv-close data-tv-initial-focus>←</button>
         <span>SHORTSinSHORT</span>
@@ -194,19 +243,23 @@ export default function PlayerModal({ film, onClose, lang, setLang }) {
               <iframe
                 ref={iframeRef}
                 id="sis-tv-youtube"
-                src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1&controls=0&enablejsapi=1&iv_load_policy=3&cc_load_policy=0`}
+                src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&playsinline=1&controls=0&enablejsapi=1&iv_load_policy=3&cc_load_policy=0&vq=hd1080`}
                 title={title}
+                onLoad={() => {
+                  window.setTimeout(requestBestQuality, 600);
+                  window.setTimeout(requestBestQuality, 1800);
+                }}
                 tabIndex="-1"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
-              <nav className="sis-tv-player-controls" aria-label="Film controls">
-                <button type="button" onClick={() => seekBy(-10)} aria-label="Rewind 10 seconds">↶ <span>10</span></button>
-                <button type="button" onClick={togglePlayback} aria-label={isPlaying ? 'Pause film' : 'Play film'} className="sis-tv-play">
+              <nav className={`sis-tv-player-controls${controlsVisible ? '' : ' is-hidden'}`} aria-label="Film controls" aria-hidden={!controlsVisible}>
+                <button type="button" tabIndex={controlsVisible ? 0 : -1} onFocus={showControls} onClick={() => { seekBy(-10); showControls(); }} aria-label="Rewind 10 seconds">↶ <span>10</span></button>
+                <button type="button" tabIndex={controlsVisible ? 0 : -1} onFocus={showControls} onClick={togglePlayback} aria-label={isPlaying ? 'Pause film' : 'Play film'} className="sis-tv-play">
                   {isPlaying ? 'Ⅱ' : '▶'}
                 </button>
-                <button type="button" onClick={() => seekBy(10)} aria-label="Forward 10 seconds"><span>10</span> ↷</button>
-                <button type="button" onClick={toggleFullscreen} aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}>{isFullscreen ? '×' : '⛶'}</button>
+                <button type="button" tabIndex={controlsVisible ? 0 : -1} onFocus={showControls} onClick={() => { seekBy(10); showControls(); }} aria-label="Forward 10 seconds"><span>10</span> ↷</button>
+                <button type="button" tabIndex={controlsVisible ? 0 : -1} onFocus={showControls} onClick={() => { toggleFullscreen(); showControls(); }} aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}>{isFullscreen ? '×' : '⛶'}</button>
               </nav>
             </>
           ) : <p>{lang === 'hi' ? 'वीडियो उपलब्ध नहीं है' : 'Video unavailable'}</p>}
