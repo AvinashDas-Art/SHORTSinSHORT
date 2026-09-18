@@ -21,6 +21,7 @@ export default function PlayerModal({ film, onClose, lang, setLang }) {
   const currentTimeRef = useRef(0);
   const playerStateRef = useRef(-1);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [isFullscreen, setIsFullscreen] = useState(false);
   const { isMember, loading } = useAuth();
   const [gatewaySeen, setGatewaySeen] = useState(() => {
     try {
@@ -57,22 +58,71 @@ export default function PlayerModal({ film, onClose, lang, setLang }) {
     else sendPlayerCommand('playVideo');
   }, [sendPlayerCommand]);
 
+  const toggleFullscreen = useCallback(() => {
+    const target = shell.current;
+    if (!target) return;
+
+    const activeNativeFullscreen = document.fullscreenElement || document.webkitFullscreenElement;
+    if (isFullscreen || activeNativeFullscreen) {
+      const exitFullscreen = document.exitFullscreen
+        || document.webkitExitFullscreen
+        || document.webkitCancelFullScreen
+        || document.msExitFullscreen;
+      if (exitFullscreen) {
+        try {
+          const result = exitFullscreen.call(document);
+          if (result && typeof result.catch === 'function') result.catch(() => {});
+        } catch {
+          // The CSS fallback below still exits fullscreen.
+        }
+      }
+      setIsFullscreen(false);
+      return;
+    }
+
+    // Samsung TV browsers do not always support the standard fullscreen API.
+    // Turn on the CSS fullscreen immediately, then use any native API available.
+    setIsFullscreen(true);
+    const requestFullscreen = target.requestFullscreen
+      || target.webkitRequestFullscreen
+      || target.webkitRequestFullScreen
+      || target.msRequestFullscreen;
+    if (requestFullscreen) {
+      try {
+        const result = requestFullscreen.call(target);
+        if (result && typeof result.catch === 'function') result.catch(() => {});
+      } catch {
+        // CSS fullscreen remains active.
+      }
+    }
+  }, [isFullscreen]);
+
   useEffect(() => {
     const previous = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     const keys = (event) => {
       if (event.key === 'Escape') onClose();
-      if ((event.key === 'f' || event.key === 'F') && shell.current) {
-        if (!document.fullscreenElement) shell.current.requestFullscreen?.();
-        else document.exitFullscreen?.();
-      }
+      if (event.key === 'f' || event.key === 'F') toggleFullscreen();
     };
     window.addEventListener('keydown', keys);
     return () => {
       document.body.style.overflow = previous;
       window.removeEventListener('keydown', keys);
     };
-  }, [onClose]);
+  }, [onClose, toggleFullscreen]);
+
+  useEffect(() => {
+    const syncFullscreen = () => {
+      const nativeFullscreen = document.fullscreenElement || document.webkitFullscreenElement;
+      if (!nativeFullscreen) setIsFullscreen(false);
+    };
+    document.addEventListener('fullscreenchange', syncFullscreen);
+    document.addEventListener('webkitfullscreenchange', syncFullscreen);
+    return () => {
+      document.removeEventListener('fullscreenchange', syncFullscreen);
+      document.removeEventListener('webkitfullscreenchange', syncFullscreen);
+    };
+  }, []);
 
   useEffect(() => {
     const receivePlayerInfo = (event) => {
@@ -118,11 +168,11 @@ export default function PlayerModal({ film, onClose, lang, setLang }) {
   const showFilm = !loading && !showGateway;
 
   return (
-    <div className="sis3-player" ref={shell} role="dialog" aria-modal="true" aria-label={title}>
+    <div className={`sis3-player${isFullscreen ? ' is-tv-fullscreen' : ''}`} ref={shell} role="dialog" aria-modal="true" aria-label={title}>
       <header className="sis3-player-top">
         <button type="button" onClick={onClose} aria-label="Close player" data-tv-close data-tv-initial-focus>←</button>
         <span>SHORTSinSHORT</span>
-        <button type="button" onClick={() => shell.current?.requestFullscreen?.()} aria-label="Fullscreen">⛶</button>
+        <button type="button" onClick={toggleFullscreen} aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}>{isFullscreen ? '×' : '⛶'}</button>
         <ShareButton
           lang={lang}
           url={SITE_URL + filmPath(film)}
@@ -156,7 +206,7 @@ export default function PlayerModal({ film, onClose, lang, setLang }) {
                   {isPlaying ? 'Ⅱ' : '▶'}
                 </button>
                 <button type="button" onClick={() => seekBy(10)} aria-label="Forward 10 seconds"><span>10</span> ↷</button>
-                <button type="button" onClick={() => shell.current?.requestFullscreen?.()} aria-label="Fullscreen">⛶</button>
+                <button type="button" onClick={toggleFullscreen} aria-label={isFullscreen ? 'Exit fullscreen' : 'Fullscreen'}>{isFullscreen ? '×' : '⛶'}</button>
               </nav>
             </>
           ) : <p>{lang === 'hi' ? 'वीडियो उपलब्ध नहीं है' : 'Video unavailable'}</p>}
