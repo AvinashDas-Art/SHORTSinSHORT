@@ -24,6 +24,13 @@ function getArrowKey(event) {
   return ''
 }
 
+function isBackKey(event) {
+  return event.keyCode === 10009 ||
+    event.which === 10009 ||
+    event.key === 'BrowserBack' ||
+    event.key === 'Back'
+}
+
 function isVisible(element) {
   if (!element || element.nodeType !== 1) return false
   if (element.closest && element.closest('[aria-hidden="true"], [hidden]')) return false
@@ -37,8 +44,18 @@ function isVisible(element) {
   return rect.width > 0 && rect.height > 0
 }
 
+function getActiveDialog() {
+  var dialogs = toArray(document.querySelectorAll('[role="dialog"][aria-modal="true"]')).filter(isVisible)
+  return dialogs.length ? dialogs[dialogs.length - 1] : null
+}
+
+function getNavigationScope() {
+  return getActiveDialog() || document
+}
+
 function getFocusableElements() {
-  return toArray(document.querySelectorAll(FOCUSABLE_SELECTOR)).filter(isVisible)
+  var scope = getNavigationScope()
+  return toArray(scope.querySelectorAll(FOCUSABLE_SELECTOR)).filter(isVisible)
 }
 
 function makeCustomControlsFocusable(root) {
@@ -94,9 +111,19 @@ function findNextElement(current, key, elements) {
 }
 
 function firstElement(elements) {
-  var preferred = document.querySelector(
-    '.sis3-play:not([disabled]), [data-tv-initial-focus], main button:not([disabled]), main a[href]'
-  )
+  var scope = getNavigationScope()
+  var preferred
+
+  if (scope !== document) {
+    preferred = scope.querySelector(
+      '[data-tv-initial-focus], [data-tv-close], button[aria-label="Close player"], button:not([disabled]), a[href]'
+    )
+  } else {
+    preferred = document.querySelector(
+      '.sis3-play:not([disabled]), [data-tv-initial-focus], main button:not([disabled]), main a[href]'
+    )
+  }
+
   if (preferred && isVisible(preferred)) return preferred
 
   return elements.slice().sort(function (a, b) {
@@ -107,6 +134,7 @@ function firstElement(elements) {
 }
 
 function focusElement(element) {
+  if (!element) return
   document.documentElement.classList.add('tv-navigation-active')
 
   try {
@@ -126,10 +154,49 @@ function focusElement(element) {
   }
 }
 
+function focusOpenDialog() {
+  var dialog = getActiveDialog()
+  if (!dialog) return
+  var elements = toArray(dialog.querySelectorAll(FOCUSABLE_SELECTOR)).filter(isVisible)
+  focusElement(firstElement(elements))
+}
+
+function closeCurrentView() {
+  var dialog = getActiveDialog()
+
+  if (dialog) {
+    var closeButton = dialog.querySelector(
+      '[data-tv-close], button[aria-label="Close player"], button[aria-label^="Close"]'
+    )
+    if (closeButton) {
+      closeButton.click()
+      return true
+    }
+  }
+
+  if (window.location.pathname !== '/') {
+    window.history.back()
+    return true
+  }
+
+  try {
+    if (window.tizen && window.tizen.application) {
+      window.tizen.application.getCurrentApplication().exit()
+      return true
+    }
+  } catch (error) {
+    // Fall through to the system's own Back handling.
+  }
+
+  return false
+}
+
 export function installTvNavigation() {
   makeCustomControlsFocusable(document)
 
   var observer = new MutationObserver(function (mutations) {
+    var dialogAdded = false
+
     mutations.forEach(function (mutation) {
       toArray(mutation.addedNodes).forEach(function (node) {
         if (!node || node.nodeType !== 1) return
@@ -143,14 +210,34 @@ export function installTvNavigation() {
         }
 
         makeCustomControlsFocusable(node)
+
+        if (
+          (node.matches && node.matches('[role="dialog"][aria-modal="true"]')) ||
+          (node.querySelector && node.querySelector('[role="dialog"][aria-modal="true"]'))
+        ) {
+          dialogAdded = true
+        }
       })
     })
+
+    if (dialogAdded) {
+      window.setTimeout(focusOpenDialog, 50)
+    }
   })
 
   observer.observe(document.body, { childList: true, subtree: true })
 
   function onKeyDown(event) {
     var active = document.activeElement
+
+    if (isBackKey(event)) {
+      if (closeCurrentView()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+      return
+    }
+
     var arrowKey = getArrowKey(event)
 
     if (arrowKey) {
