@@ -434,3 +434,24 @@ body { background: var(--sis3-bg) !important; color: var(--sis3-cream); padding-
   border-radius: 999px; background: transparent; color: white; font-weight: 800;
 }
 .sis-tv-exit-actions button:last-child { background: var(--sis3-coral); border-color: var(--sis3-coral); }
+
+
+/* Samsung TV fullscreen fallback. Native fullscreen is tried first in React;
+   this mode guarantees a full-screen player on older Tizen browsers too. */
+.sis3-player.is-tv-fullscreen {
+  position: fixed; z-index: 10001; inset: 0;
+  width: 100vw; height: 100vh; overflow: hidden;
+  background: #000;
+}
+.sis3-player.is-tv-fullscreen .sis3-player-top,
+.sis3-player.is-tv-fullscreen .sis3-player-info { display: none; }
+.sis3-player.is-tv-fullscreen .sis3-player-stage {
+  width: 100vw; height: 100vh; min-height: 100vh;
+  padding: 0; display: block;
+}
+.sis3-player.is-tv-fullscreen .sis3-video-frame,
+.sis3-player.is-tv-fullscreen .sis3-video-frame iframe {
+  width: 100vw; height: 100vh; max-width: none;
+}
+.sis3-player.is-tv-fullscreen .sis3-video-frame { aspect-ratio: auto; }
+.sis3-player.is-tv-fullscreen .sis-tv-player-controls { bottom: 34px; }
