@@ -9742,5 +9742,19 @@
     "title": "Raddi | Award Winning Short Film | Kanwaljit Singh, Nilu Kohli | Ishan Singh",
     "rejectedAt": "2026-09-22T07:57:39.319Z",
     "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "FQa3FzFzNBM",
+    "reason": "runtime_over_30_minutes",
+    "title": "(2004) Mammouth - Julie Lebreton, Robin Aubert, Louis Champagne \"court métrage Québecois\"",
+    "rejectedAt": "2026-09-23T07:58:55.481Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "h-axJKVYbmk",
+    "reason": "runtime_over_30_minutes",
+    "title": "The Last Passport: Award-Winning Feature Film",
+    "rejectedAt": "2026-09-23T07:58:55.481Z",
+    "rejectionType": "automatic"
   }
 ]
