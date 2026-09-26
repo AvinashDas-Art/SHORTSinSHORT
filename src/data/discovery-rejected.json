@@ -10211,5 +10211,40 @@
     "title": "A Lien | Oscar Nominated Short Film | Official Trailer",
     "rejectedAt": "2026-09-25T08:11:42.101Z",
     "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "8BPh9luw7ng",
+    "reason": "editorial_non_film",
+    "title": "റിട്ടയർമെന്റ് അവസാനമോ | Emotional Malayalam Short Film | Not Cliche But Cliche | EP 97",
+    "rejectedAt": "2026-09-26T08:00:16.628Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "oP7ujMbV8zo",
+    "reason": "editorial_non_film",
+    "title": "സ്വന്തം കാലിൽ നിൽക്കാൻ പഠിച്ച പെണ്ണ് | Emotional Malayalam Short Film | Not Cliche But Cliche | EP96",
+    "rejectedAt": "2026-09-26T08:00:16.628Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "5ILpgtZuFLs",
+    "reason": "weak_short_film_signal",
+    "title": "Periods നിർത്താൻ പത്തുവയസുകാരി ചെയ്തത് | Mallu Original Series | Episode 121",
+    "rejectedAt": "2026-09-26T08:00:16.628Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "W7JP2sjfaW0",
+    "reason": "runtime_over_30_minutes",
+    "title": "DATE AFTER DIVORCE | Karthika | Karmukil Vannan | Ahana Vinesh | Saina Short Films",
+    "rejectedAt": "2026-09-26T08:00:16.628Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "b39qd9UpviY",
+    "reason": "runtime_over_30_minutes",
+    "title": "Kidilampally Cinematic Universe | Malayalam Fantasy Short Film | Venkitesh VP | Jamshi K S",
+    "rejectedAt": "2026-09-26T08:00:16.628Z",
+    "rejectionType": "automatic"
   }
 ]
