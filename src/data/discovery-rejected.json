@@ -11793,5 +11793,33 @@
     "title": "Sundance Premiere | First Documentary & Last Park City Year!",
     "rejectedAt": "2026-10-04T08:49:53.291Z",
     "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "byQw3nmCAwQ",
+    "reason": "runtime_over_30_minutes",
+    "title": "TOWER | Award Winning Short Film | Jayesh Angane, Ruchita Jaywant, Deva | Short Film of the Year",
+    "rejectedAt": "2026-10-05T09:37:32.563Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "tEZ31xAVj-E",
+    "reason": "non_film_title",
+    "title": "EERIE TRAILER 2 |  Award Winning Malayalam Short Film Trailer | Nisa NP | Heyden| Rajeev Pillath",
+    "rejectedAt": "2026-10-05T09:37:32.563Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "NzGAu13kugA",
+    "reason": "runtime_under_1_minute",
+    "title": "I am The Little Princess | Suma Kanakala | Latest Telugu Shortfilm | Teluguone Originals |",
+    "rejectedAt": "2026-10-05T09:37:32.563Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "dSwPf5r6l14",
+    "reason": "non_film_title",
+    "title": "EP 1: Twenty Years of Silence | BongFlix Original #microdrama #shortdrama #shorts #newwebseries",
+    "rejectedAt": "2026-10-05T09:37:36.691Z",
+    "rejectionType": "automatic"
   }
 ]
