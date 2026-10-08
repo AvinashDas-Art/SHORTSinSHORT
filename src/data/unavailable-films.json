@@ -1860,5 +1860,46 @@
     },
     "isPublished": false,
     "removedAt": "2026-09-13T07:39:46.123Z"
+  },
+  {
+    "id": "Ene7vSejlEw",
+    "title": "God of Love",
+    "director": "KIS KIS - keep it short",
+    "duration": "19 min",
+    "category": "Cinema Collection",
+    "genre": [
+      "Award Winning",
+      "Comedy",
+      "Romance"
+    ],
+    "language": "English",
+    "country": "India",
+    "youtube_url": "https://www.youtube.com/watch?v=Ene7vSejlEw",
+    "synopsis": "Curated cinematic short film.",
+    "titleHi": "God of Love",
+    "channelTitle": "KIS KIS - keep it short",
+    "durationSeconds": 1129,
+    "year": "2010",
+    "youtubeVideoId": "Ene7vSejlEw",
+    "thumbnail": "https://i.ytimg.com/vi/Ene7vSejlEw/hqdefault.jpg",
+    "description": "God of Love is the story of a lounge-singing darts champion Raymond (Luke Matheny) who finds his prayers are answered--literally--when he receives a mysterious package of passion-inducing darts.  The catch is that the one woman he loves - Kelly (Marian Brock), a drummer in his band - is already in love with Ray's best friend Fozzie (Christopher Hirsh), the guitarist in the band.",
+    "descriptionHi": "God of Love is the story of a lounge-singing darts champion Raymond (Luke Matheny) who finds his prayers are answered--literally--when he receives a mysterious package of passion-inducing darts.  The catch is that the one woman he loves - Kelly (Marian Brock), a drummer in his band - is already in love with Ray's best friend Fozzie (Christopher Hirsh), the guitarist in the band.",
+    "collections": [
+      "Shorts in Oscar"
+    ],
+    "availability": "removed_or_private",
+    "languages": [
+      "English"
+    ],
+    "youtubeHealth": {
+      "available": false,
+      "reason": "removed_or_private",
+      "checkedAt": "2026-10-08T09:29:46.938Z",
+      "embeddable": false,
+      "privacyStatus": "unavailable",
+      "madeForKids": null
+    },
+    "isPublished": false,
+    "removedAt": "2026-10-08T09:29:46.938Z"
   }
 ]
