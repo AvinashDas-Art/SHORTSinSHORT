@@ -17029,5 +17029,36 @@
       "privacyStatus": "public",
       "madeForKids": false
     }
+  },
+  {
+    "id": "yt-ftiiofficial-iVv3y-I9o_8",
+    "title": "Traces: Stories (2018)",
+    "titleHi": "Traces: Stories (2018)",
+    "director": "Suranjay",
+    "genre": [
+      "Documentary",
+      "Student Film"
+    ],
+    "language": "Marathi",
+    "duration": "26 min",
+    "durationSeconds": 1516,
+    "year": "2018",
+    "youtubeVideoId": "iVv3y-I9o_8",
+    "thumbnail": "https://i.ytimg.com/vi/iVv3y-I9o_8/maxresdefault.jpg",
+    "description": "Name : Traces : Stories\nLanguage: Marathi (With English subtitle)\nYear: 2018\nDirector and Editor: Suranjay\nCinematographer: Rajeev Dharavath\nsound recordist n Designer: Pradyumna Chaware\n\nThe film loiters across the Konkan region of Maharashtra, India—a landscape layered with tra",
+    "descriptionHi": "Name : Traces : Stories\nLanguage: Marathi (With English subtitle)\nYear: 2018\nDirector and Editor: Suranjay\nCinematographer: Rajeev Dharavath\nsound recordist n Designer: Pradyumna Chaware\n\nThe film loiters across the Konkan region of Maharashtra, India—a landscape layered with tra",
+    "country": "India",
+    "collections": [
+      "FTII Students Shorts"
+    ],
+    "availability": "available",
+    "youtubeHealth": {
+      "available": true,
+      "reason": null,
+      "checkedAt": "2026-10-13T22:38:42.197Z",
+      "embeddable": true,
+      "privacyStatus": "public",
+      "madeForKids": false
+    }
   }
 ]
