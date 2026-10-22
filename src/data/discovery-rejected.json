@@ -14530,5 +14530,75 @@
     "title": "This woman won the cooking championship on her own merits.#movie #viralvideo #shorts",
     "rejectedAt": "2026-10-21T08:00:23.488Z",
     "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "TFzmCYliTXg",
+    "reason": "runtime_under_1_minute",
+    "title": "Attuned | 4 Star Theater | San Francisco Underground Short Film Festival Official Selection 2026",
+    "rejectedAt": "2026-10-22T07:58:29.192Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "pDLx1szthSQ",
+    "reason": "runtime_over_30_minutes",
+    "title": "How to Fund, Make & Festival Your Short Film with Bartley Taylor",
+    "rejectedAt": "2026-10-22T07:58:29.192Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "xlYQuNiN5HU",
+    "reason": "non_film_title",
+    "title": "Every Oscar Nominated Animated Short Film Ever Ranked: Number 376  #animation #oscars #film #shorts",
+    "rejectedAt": "2026-10-22T07:58:29.192Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "ztC260YH6HU",
+    "reason": "runtime_under_1_minute",
+    "title": "At the Cannes Film Festival, with 500journalists...#shorts#shortvideo#actor#news#history",
+    "rejectedAt": "2026-10-22T07:58:29.192Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "cxWAbWSmx5U",
+    "reason": "runtime_under_1_minute",
+    "title": "Tarantino on Getting Into Sundance Film Festival",
+    "rejectedAt": "2026-10-22T07:58:29.192Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "s1jDdXUqkuU",
+    "reason": "runtime_under_1_minute",
+    "title": "T’étais au courant toi ? Clermont-Ferrand abrite le plus grand festival de court-métrage au monde.",
+    "rejectedAt": "2026-10-22T07:58:29.192Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "TaP0GvMFlto",
+    "reason": "non_film_title",
+    "title": "BAFTA-winning & Oscar-nominated short film 'An Irish Goodbye' (INTERVIEW)",
+    "rejectedAt": "2026-10-22T07:58:29.192Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "v_hafSoyz_8",
+    "reason": "non_film_title",
+    "title": "A FRIEND OF DOROTHY - Official Trailer | Miriam Margolyes, Stephen Fry, Live Action Short Film",
+    "rejectedAt": "2026-10-22T07:58:29.192Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "75adU4ILe4A",
+    "reason": "weak_short_film_signal",
+    "title": "The sparks start to fly between Gerry and Sandra",
+    "rejectedAt": "2026-10-22T07:58:29.192Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "vxRJ4k7GHFM",
+    "reason": "non_film_title",
+    "title": "This Is Endometriosis // BAFTA Winning Short Film // Official Trailer",
+    "rejectedAt": "2026-10-22T07:58:29.192Z",
+    "rejectionType": "automatic"
   }
 ]
