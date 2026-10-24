@@ -14761,5 +14761,54 @@
     "title": "ਨੇ ਕਰਿਆ ਅਮਲੀ ਦੇ ਘਰਵਾਲੀ ਨਾਲ | Short Punjabi Film",
     "rejectedAt": "2026-10-23T07:57:28.597Z",
     "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "gGEPHRDe0JE",
+    "reason": "weak_short_film_signal",
+    "title": "BELLE DE NUIT | Court-Métrage d'Animation 2D | Année 3",
+    "rejectedAt": "2026-10-24T07:36:57.197Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "1Lhdh5CsPLo",
+    "reason": "weak_short_film_signal",
+    "title": "Ice Pepper - ESMA 2017",
+    "rejectedAt": "2026-10-24T07:36:57.197Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "SiV1PA_M-oI",
+    "reason": "weak_short_film_signal",
+    "title": "Sonic 2 - Sonic Drone Maison (VF) 4K Court-Métrage",
+    "rejectedAt": "2026-10-24T07:36:57.197Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "T7I2Sq9ccvE",
+    "reason": "runtime_under_1_minute",
+    "title": "Pedir ajuda #curta #curtametragem #animacao #oscar #recomendacao #ajuda #psicologia #coragem",
+    "rejectedAt": "2026-10-24T07:36:57.197Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "HB_-yD9kPGo",
+    "reason": "weak_short_film_signal",
+    "title": "2013 - MATILDE",
+    "rejectedAt": "2026-10-24T07:36:57.197Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "xn31ecCXifs",
+    "reason": "embed_disabled",
+    "title": "DON’T TELL ANYONE | Iranian Short Film | Sahar Sotoodeh",
+    "rejectedAt": "2026-10-24T07:36:57.197Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "H2hy_ZTeSCY",
+    "reason": "non_film_title",
+    "title": "The Interview - Egyptian Short Film | المقابلة - فيلم قصير مصري",
+    "rejectedAt": "2026-10-24T07:36:57.197Z",
+    "rejectionType": "automatic"
   }
 ]
