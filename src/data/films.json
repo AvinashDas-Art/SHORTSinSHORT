@@ -17144,5 +17144,36 @@
       "privacyStatus": "public",
       "madeForKids": false
     }
+  },
+  {
+    "id": "yt-ftiiofficial-lp_sG4A26xM",
+    "title": "That Rainy Day (2016)",
+    "titleHi": "That Rainy Day (2016)",
+    "director": "Akanksha Chitkara",
+    "genre": [
+      "Drama",
+      "Student Film"
+    ],
+    "language": "English",
+    "duration": "6 min",
+    "durationSeconds": 338,
+    "year": "2016",
+    "youtubeVideoId": "lp_sG4A26xM",
+    "thumbnail": "https://i.ytimg.com/vi/lp_sG4A26xM/maxresdefault.jpg",
+    "description": "Movie Title: That Rainy Day\nYear of Production: 2016\nLanguage: English\nScreenplay & Direction: Aakanksha Chitkara\nCinematography: Hilal Savad\nEditing: Shini J K \nSound: G Anand Raju\nCast: Gina Ramone, Mezz Moschino, Shanet, Ashwini\n\n\nOn a rainy day filled with romantic hopes and ",
+    "descriptionHi": "Movie Title: That Rainy Day\nYear of Production: 2016\nLanguage: English\nScreenplay & Direction: Aakanksha Chitkara\nCinematography: Hilal Savad\nEditing: Shini J K \nSound: G Anand Raju\nCast: Gina Ramone, Mezz Moschino, Shanet, Ashwini\n\n\nOn a rainy day filled with romantic hopes and ",
+    "country": "India",
+    "collections": [
+      "FTII Students Shorts"
+    ],
+    "availability": "available",
+    "youtubeHealth": {
+      "available": true,
+      "reason": null,
+      "checkedAt": "2026-10-26T22:36:22.436Z",
+      "embeddable": true,
+      "privacyStatus": "public",
+      "madeForKids": false
+    }
   }
 ]
