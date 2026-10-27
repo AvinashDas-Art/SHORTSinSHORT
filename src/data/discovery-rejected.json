@@ -15083,5 +15083,47 @@
     "title": "Best Cannes looks of #aishwarya",
     "rejectedAt": "2026-10-26T08:08:37.380Z",
     "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "yEaSbMWbTsY",
+    "reason": "runtime_under_1_minute",
+    "title": "“What No One Tells You” Takes Cannes: Short Films and the Path to Success",
+    "rejectedAt": "2026-10-27T08:24:12.498Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "XrgYB9vuoZY",
+    "reason": "runtime_under_1_minute",
+    "title": "FESTIVAL DU FILM DE CLERMONT-FERRAND | PHOTOCALL",
+    "rejectedAt": "2026-10-27T08:24:12.498Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "rZF2DZdkNb4",
+    "reason": "runtime_under_1_minute",
+    "title": "Some duties can't be ignored",
+    "rejectedAt": "2026-10-27T08:24:12.498Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "m0zqiNkIvWw",
+    "reason": "runtime_over_30_minutes",
+    "title": "Solapur To San Jose | सातासमुद्रापार एक वेगळं घर | #MarathiShortFilm | #NRILife |  [4K Ultra HD]",
+    "rejectedAt": "2026-10-27T08:24:12.498Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "8XVpLX1VMSo",
+    "reason": "weak_short_film_signal",
+    "title": "Village Girl | Mynanandhini | Yogi | Loveactiondrama",
+    "rejectedAt": "2026-10-27T08:24:12.498Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "xCkn_B5qZyI",
+    "reason": "weak_short_film_signal",
+    "title": "Elevator Woman | Short Horror Film",
+    "rejectedAt": "2026-10-27T08:24:12.498Z",
+    "rejectionType": "automatic"
   }
 ]
