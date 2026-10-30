@@ -17206,5 +17206,36 @@
       "privacyStatus": "public",
       "madeForKids": false
     }
+  },
+  {
+    "id": "yt-ftiiofficial-bhVpE8SMgqY",
+    "title": "Saaye Mein Dhoop (2018)",
+    "titleHi": "Saaye Mein Dhoop (2018)",
+    "director": "Rohit Kumar",
+    "genre": [
+      "Drama",
+      "Student Film"
+    ],
+    "language": "Hindi",
+    "duration": "11 min",
+    "durationSeconds": 608,
+    "year": "2018",
+    "youtubeVideoId": "bhVpE8SMgqY",
+    "thumbnail": "https://i.ytimg.com/vi/bhVpE8SMgqY/maxresdefault.jpg",
+    "description": "Movie Title: Saaye Mein Dhoop\nYear of Production: 2018\nLanguage: Hindi\nScreenplay & Direction: Rohit Kumar\nCinematography: Saurabh Gupta\nEditing: Manendra Bharadwaj\nSound: Rahul Tiwari\nCast: Durgesh Kumar, Nutan Sinha, Prem, Sewa Chauhan, Shailesh\n\n\nA family in a village goes abo",
+    "descriptionHi": "Movie Title: Saaye Mein Dhoop\nYear of Production: 2018\nLanguage: Hindi\nScreenplay & Direction: Rohit Kumar\nCinematography: Saurabh Gupta\nEditing: Manendra Bharadwaj\nSound: Rahul Tiwari\nCast: Durgesh Kumar, Nutan Sinha, Prem, Sewa Chauhan, Shailesh\n\n\nA family in a village goes abo",
+    "country": "India",
+    "collections": [
+      "FTII Students Shorts"
+    ],
+    "availability": "available",
+    "youtubeHealth": {
+      "available": true,
+      "reason": null,
+      "checkedAt": "2026-10-30T22:13:56.452Z",
+      "embeddable": true,
+      "privacyStatus": "public",
+      "madeForKids": false
+    }
   }
 ]
