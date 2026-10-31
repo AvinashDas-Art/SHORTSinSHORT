@@ -15615,5 +15615,26 @@
     "title": "Quack ! - ESMA 2024",
     "rejectedAt": "2026-10-30T09:01:44.433Z",
     "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "C5UqRE2XGZs",
+    "reason": "runtime_under_1_minute",
+    "title": "Official Teaser - THE MELTDOWN directed by Manuela Martelli - Cannes 2026 Official Selection",
+    "rejectedAt": "2026-10-31T08:54:35.239Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "NuJuZn7crRE",
+    "reason": "runtime_under_1_minute",
+    "title": "এটা গল্প হলেও পারতো | Bengali Short Film | Bangla Natok 2025 | Diidaa Production",
+    "rejectedAt": "2026-10-31T08:54:35.239Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "uh7hH5VN7P0",
+    "reason": "runtime_under_90_seconds",
+    "title": "Ek chor tha...usne ek phone churaya...uspe ek maa ka call aya...aur shuru hui ek anokhi kahaani",
+    "rejectedAt": "2026-10-31T08:54:38.786Z",
+    "rejectionType": "automatic"
   }
 ]
