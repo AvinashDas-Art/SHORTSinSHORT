@@ -17327,5 +17327,36 @@
       "privacyStatus": "public",
       "madeForKids": false
     }
+  },
+  {
+    "id": "yt-ftiiofficial-1Uv0oKK8eOA",
+    "title": "Kalsubai (2020)",
+    "titleHi": "Kalsubai (2020)",
+    "director": "Yudhajit Basu",
+    "genre": [
+      "Drama",
+      "Student Film"
+    ],
+    "language": "Hindi",
+    "duration": "20 min",
+    "durationSeconds": 1200,
+    "year": "2020",
+    "youtubeVideoId": "1Uv0oKK8eOA",
+    "thumbnail": "https://i.ytimg.com/vi/1Uv0oKK8eOA/sddefault.jpg",
+    "description": "Movie Title: Kalsubai\nYear of Production: 2020\nLanguage: Marathi\nScreenplay & Direction: Yudhajit Basu\nCinematography: Rachit Pandey\nEditing: Gourab Kumar Mullick\nSound: Utsav Ghosh\n\n\nIt's a short ethnographic diary film exploring the legend of a Mahadeo Koli Goddess Kalsu Bai wh",
+    "descriptionHi": "Movie Title: Kalsubai\nYear of Production: 2020\nLanguage: Marathi\nScreenplay & Direction: Yudhajit Basu\nCinematography: Rachit Pandey\nEditing: Gourab Kumar Mullick\nSound: Utsav Ghosh\n\n\nIt's a short ethnographic diary film exploring the legend of a Mahadeo Koli Goddess Kalsu Bai wh",
+    "country": "India",
+    "collections": [
+      "FTII Students Shorts"
+    ],
+    "availability": "available",
+    "youtubeHealth": {
+      "available": true,
+      "reason": null,
+      "checkedAt": "2026-11-04T23:35:18.638Z",
+      "embeddable": true,
+      "privacyStatus": "public",
+      "madeForKids": false
+    }
   }
 ]
