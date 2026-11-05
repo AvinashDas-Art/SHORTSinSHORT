@@ -16252,5 +16252,26 @@
     "title": "Ether // Cannes LA CINÉF Short Film // Official Trailer",
     "rejectedAt": "2026-11-04T09:53:25.853Z",
     "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "3HAWcRe2eRM",
+    "reason": "weak_short_film_signal",
+    "title": "A secret act of kindness is finally revealed",
+    "rejectedAt": "2026-11-05T09:51:59.015Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "TvPC354Y2DQ",
+    "reason": "runtime_under_90_seconds",
+    "title": "The Ultimate Cab Ride Audition! 🎭😂 | Next Take #shortfilm #love #hindishortfilm#bollywood",
+    "rejectedAt": "2026-11-05T09:52:02.805Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "6PT6-bjt9T0",
+    "reason": "runtime_under_90_seconds",
+    "title": "Is kahaani ko short mai samjhana mushkil nahi namumkin hai.#khalibros #webseries #bollywood",
+    "rejectedAt": "2026-11-05T09:52:02.805Z",
+    "rejectionType": "automatic"
   }
 ]
