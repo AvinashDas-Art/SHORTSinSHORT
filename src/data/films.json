@@ -17358,5 +17358,36 @@
       "privacyStatus": "public",
       "madeForKids": false
     }
+  },
+  {
+    "id": "yt-ftiiofficial-PxB06V28DIs",
+    "title": "Gearless (2016)",
+    "titleHi": "Gearless (2016)",
+    "director": "Debanjan Paul",
+    "genre": [
+      "Documentary",
+      "Student Film"
+    ],
+    "language": "Hindi",
+    "duration": "12 min",
+    "durationSeconds": 690,
+    "year": "2016",
+    "youtubeVideoId": "PxB06V28DIs",
+    "thumbnail": "https://i.ytimg.com/vi/PxB06V28DIs/maxresdefault.jpg",
+    "description": "Movie Title: Gearless\nYear of Production: 2016\nLanguage: Hindi\nScreenplay & Direction: Debanjan Paul\nCinematography: Riyas Arun\nEditing: Ashish Bhagat\nSound: Harish Chawaria\n\n\nGearless is a documentary highlighting the importance of wearing helmets while riding two-wheelers. Thro",
+    "descriptionHi": "Movie Title: Gearless\nYear of Production: 2016\nLanguage: Hindi\nScreenplay & Direction: Debanjan Paul\nCinematography: Riyas Arun\nEditing: Ashish Bhagat\nSound: Harish Chawaria\n\n\nGearless is a documentary highlighting the importance of wearing helmets while riding two-wheelers. Thro",
+    "country": "India",
+    "collections": [
+      "FTII Students Shorts"
+    ],
+    "availability": "available",
+    "youtubeHealth": {
+      "available": true,
+      "reason": null,
+      "checkedAt": "2026-11-06T19:17:25.091Z",
+      "embeddable": true,
+      "privacyStatus": "public",
+      "madeForKids": false
+    }
   }
 ]
