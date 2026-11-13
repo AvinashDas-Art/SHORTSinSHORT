@@ -17295,5 +17295,19 @@
     "title": "Dating in your 20’s vs your 30’s 😅😭😂 #shorts #funny #comedy #dating #relationships #rich #",
     "rejectedAt": "2026-11-12T10:21:09.973Z",
     "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "FUQhNGEu2KA",
+    "reason": "weak_short_film_signal",
+    "title": "Lights Out - Who's There Film Challenge (2013)",
+    "rejectedAt": "2026-11-13T10:01:33.060Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "cv5T6e896Tc",
+    "reason": "runtime_under_90_seconds",
+    "title": "Releasing Tomorrow",
+    "rejectedAt": "2026-11-13T10:01:36.814Z",
+    "rejectionType": "automatic"
   }
 ]
