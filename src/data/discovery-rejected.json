@@ -17309,5 +17309,26 @@
     "title": "Releasing Tomorrow",
     "rejectedAt": "2026-11-13T10:01:36.814Z",
     "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "WdF5oECD-AM",
+    "reason": "runtime_over_30_minutes",
+    "title": "MOSHLA KAWTHA FULL MOVIE",
+    "rejectedAt": "2026-11-14T09:26:53.639Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "Z-2kJl3ieCA",
+    "reason": "weak_short_film_signal",
+    "title": "MALLIKA VILASAM I മല്ലികാവിലാസംI FULL VIDEO #jismavimal  #malayalam #fiction #palakkad #malayalam",
+    "rejectedAt": "2026-11-14T09:26:53.639Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "o_FS5rnVtZc",
+    "reason": "runtime_under_1_minute",
+    "title": "Some bonds don’t need words.  ❤️ | Nannardham | Telugu Short Film#shorts",
+    "rejectedAt": "2026-11-14T09:26:53.639Z",
+    "rejectionType": "automatic"
   }
 ]
