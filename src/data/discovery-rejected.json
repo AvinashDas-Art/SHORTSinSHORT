@@ -18884,5 +18884,19 @@
     "title": "He's my mate - gay romance",
     "rejectedAt": "2026-11-21T10:15:04.245Z",
     "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "xkVcpzQxtxU",
+    "reason": "runtime_under_1_minute",
+    "title": "Le festival du court-métrage de Clermont-Ferrand #cinema #festival #courtsmétrages #clermontferrand",
+    "rejectedAt": "2026-11-22T10:20:33.683Z",
+    "rejectionType": "automatic"
+  },
+  {
+    "youtubeVideoId": "dXNaP8g86bU",
+    "reason": "non_film_title",
+    "title": "Teaser OST Challenge 2027",
+    "rejectedAt": "2026-11-22T10:20:33.683Z",
+    "rejectionType": "automatic"
   }
 ]
